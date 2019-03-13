@@ -1,0 +1,39 @@
+{
+    "name": "netcommons/school_informations",
+    "description": "School Information for NetCommons Plugin",
+    "homepage": "http://www.netcommons.org/",
+    "type": "cakephp-plugin",
+    "extra": {
+        "installer-paths": {
+            "app/Plugin/{$name}": [
+                "type:cakephp-plugin"
+            ]
+        }
+    },
+    "require": {
+        "cakedc/migrations": "~2.2",
+        "netcommons/blocks": "@dev",
+        "netcommons/mails": "@dev",
+        "netcommons/net-commons": "@dev",
+        "netcommons/pages": "@dev",
+        "netcommons/plugin-manager": "@dev",
+        "netcommons/topics": "@dev",
+        "netcommons/workflow": "@dev",
+        "netcommons/wysiwyg": "@dev"
+    },
+    "license": "LicenseRef-NetCommons",
+    "license-ref-net-commons": "https://raw.githubusercontent.com/NetCommons3/NetCommons3/master/license.txt",
+    "authors": [
+        {
+            "name": "NetCommons Community",
+            "homepage": "http://www.netcommons.org"
+        }
+    ],
+    "keywords": [
+        "cakephp",
+        "school_informations"
+    ],
+    "config": {
+        "vendor-dir": "vendors"
+    }
+}
