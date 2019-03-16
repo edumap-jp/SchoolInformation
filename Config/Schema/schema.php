@@ -13,7 +13,7 @@ class SchoolInformationsSchema extends CakeSchema {
 	public $school_information_frame_settings = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID'),
 		'frame_key' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'index', 'collate' => 'utf8_general_ci', 'comment' => 'フレームKey', 'charset' => 'utf8'),
-		'displa_type' => array('type' => 'string', 'null' => false, 'default' => '10', 'length' => 30, 'collate' => 'utf8_general_ci', 'comment' => '表示タイプ side, footer, main', 'charset' => 'utf8'),
+		'display_type' => array('type' => 'string', 'null' => false, 'default' => '10', 'length' => 30, 'collate' => 'utf8_general_ci', 'comment' => '表示タイプ side, footer, main', 'charset' => 'utf8'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '作成者'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => '作成日時'),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '更新者'),
