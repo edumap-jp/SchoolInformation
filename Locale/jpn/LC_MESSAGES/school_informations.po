@@ -22,7 +22,7 @@ msgstr "学校名"
 #: View/Elements/SchoolInformation/main.ctp:17
 #: View/Elements/SchoolInformation/side.ctp:14
 #: View/SchoolInformations/edit.ctp:64
-msgid "'Telephone Number'"
+msgid "Telephone Number"
 msgstr "電話番号"
 
 msgid "Tel"
