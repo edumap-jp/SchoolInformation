@@ -4,8 +4,7 @@
 	<h1>
 		<?php echo $this->NetCommonsHtml->image(
 			'/school_informations/school_informations/school_badge?size=main'
-		)?>
-		<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
+		)?>&nbsp;<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 	</h1>
 	<table class="table school_information_main_table">
 		<tbody>
