@@ -20,7 +20,5 @@
 	<span><?php echo h($schoolInformation['SchoolInformation']['fax']); ?></span>
 </div>
 <div>
-	<span><?php echo __d('school_informations', 'Email') ?></span>
-	:
 	<span><?php echo h($schoolInformation['SchoolInformation']['email']); ?></span>
 </div>
