@@ -1,0 +1,74 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Model/SchoolInformation.php:68
+#: View/SchoolInformations/edit.ctp:44
+msgid "School Name"
+msgstr ""
+
+#: View/Elements/SchoolInformation/footer.ctp:13
+#: View/Elements/SchoolInformation/main.ctp:17
+#: View/Elements/SchoolInformation/side.ctp:14
+#: View/SchoolInformations/edit.ctp:64
+msgid "Tel"
+msgstr ""
+
+#: View/Elements/SchoolInformation/footer.ctp:17
+#: View/Elements/SchoolInformation/main.ctp:21
+#: View/Elements/SchoolInformation/side.ctp:19
+#: View/SchoolInformations/edit.ctp:70
+msgid "Fax Number"
+msgstr ""
+
+#: View/Elements/SchoolInformation/footer.ctp:22
+#: View/Elements/SchoolInformation/main.ctp:25
+#: View/Elements/SchoolInformation/side.ctp:23
+msgid "Email"
+msgstr ""
+
+#: View/Elements/SchoolInformation/main.ctp:13
+msgid "Address"
+msgstr ""
+
+#: View/Elements/SchoolInformation/main.ctp:29
+#: View/SchoolInformations/edit.ctp:93
+msgid "Number Of Students"
+msgstr ""
+
+#: View/Elements/SchoolInformation/main.ctp:30;38
+msgid "%d persons"
+msgstr ""
+
+#: View/Elements/SchoolInformation/main.ctp:37
+#: View/SchoolInformations/edit.ctp:99
+msgid "Number Of Faculty Members"
+msgstr ""
+
+#: View/Elements/SchoolInformationFrameSettings/edit_form.ctp:23
+msgid "表示形式"
+msgstr ""
+
+#: View/SchoolInformations/edit.ctp:51
+msgid "School Badge"
+msgstr ""
+
+#: View/SchoolInformations/edit.ctp:58
+msgid "Adress"
+msgstr ""
+
+#: View/SchoolInformations/edit.ctp:77
+msgid "email"
+msgstr ""
+

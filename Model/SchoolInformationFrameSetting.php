@@ -93,6 +93,8 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 			$SchoolInformationFrameSetting = $this->create(array(
 				'frame_key' => Current::read('Frame.key'),
 			));
+			// デフォルトはmainにしておく
+			$SchoolInformationFrameSetting['SchoolInformationFrameSetting']['display_type'] = 'main';
 		}
 
 		return $SchoolInformationFrameSetting;

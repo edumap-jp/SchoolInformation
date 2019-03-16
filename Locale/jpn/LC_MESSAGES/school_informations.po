@@ -1,0 +1,83 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Model/SchoolInformation.php:68
+#: View/SchoolInformations/edit.ctp:44
+msgid "School Name"
+msgstr "学校名"
+
+#: View/Elements/SchoolInformation/footer.ctp:13
+#: View/Elements/SchoolInformation/main.ctp:17
+#: View/Elements/SchoolInformation/side.ctp:14
+#: View/SchoolInformations/edit.ctp:64
+msgid "'Telephone Number'"
+msgstr "電話番号"
+
+msgid "Tel"
+msgstr "Tel"
+
+#: View/Elements/SchoolInformation/footer.ctp:17
+#: View/Elements/SchoolInformation/main.ctp:21
+#: View/Elements/SchoolInformation/side.ctp:19
+#: View/SchoolInformations/edit.ctp:70
+msgid "Fax Number"
+msgstr "Fax番号"
+
+msgid "Fax"
+msgstr "Fax"
+
+#: View/Elements/SchoolInformation/footer.ctp:22
+#: View/Elements/SchoolInformation/main.ctp:25
+#: View/Elements/SchoolInformation/side.ctp:23
+msgid "Email"
+msgstr "メールアドレス"
+
+#: View/Elements/SchoolInformation/main.ctp:13
+msgid "Address"
+msgstr "所在地"
+
+#: View/Elements/SchoolInformation/main.ctp:29
+#: View/SchoolInformations/edit.ctp:93
+msgid "Number Of Students"
+msgstr "生徒数"
+
+#: View/Elements/SchoolInformation/main.ctp:30;38
+msgid "%d persons"
+msgstr "%d 人"
+
+#: View/Elements/SchoolInformation/main.ctp:37
+#: View/SchoolInformations/edit.ctp:99
+msgid "Number Of Faculty Members"
+msgstr "教員数"
+
+#: View/Elements/SchoolInformationFrameSettings/edit_form.ctp:23
+msgid "Display Type"
+msgstr "表示形式"
+
+msgid "For Side Column"
+msgstr "左右カラム用"
+
+msgid "For Footer"
+msgstr "フッタ用"
+
+msgid "For Main Column"
+msgstr "メインカラム用"
+
+#: View/SchoolInformations/edit.ctp:51
+msgid "School Badge"
+msgstr "校章"
+
+
+

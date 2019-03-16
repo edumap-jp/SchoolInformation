@@ -1,42 +1,121 @@
-<div class="schoolInformations form">
-<?php echo $this->Form->create('SchoolInformation'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit School Information'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('key');
-		echo $this->Form->input('school_name');
-		echo $this->Form->input('address');
-		echo $this->Form->input('tel');
-		echo $this->Form->input('fax');
-		echo $this->Form->input('email');
-		echo $this->Form->input('contact_information');
-		echo $this->Form->input('number_of_students');
-		echo $this->Form->input('number_of_faculty_members');
-		echo $this->Form->input('status');
-		echo $this->Form->input('is_active');
-		echo $this->Form->input('is_latest');
-		echo $this->Form->input('language_id');
-		echo $this->Form->input('is_origin');
-		echo $this->Form->input('is_translation');
-		echo $this->Form->input('is_original_copy');
-		echo $this->Form->input('filename');
-		echo $this->Form->input('description');
-		echo $this->Form->input('created_user');
-		echo $this->Form->input('modified_user');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+/**
+ * school_information 編集
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('SchoolInformation.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('SchoolInformation.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List School Informations'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Languages'), array('controller' => 'languages', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Language'), array('controller' => 'languages', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Trackable Creator'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+//echo $this->NetCommonsHtml->script(array(
+//	'/school_informations/js/school_informations.js'
+//));
+
+//$school_information = NetCommonsAppController::camelizeKeyRecursive(array('school_information' => $this->data['SchoolInformation']));
+?>
+<?php echo $this->NetCommonsHtml->script(
+	[
+		'/school_informations/js/school_information_edit.js',
+	]
+); ?>
+
+
+<article class="block-setting-body" ng-controller="SchoolInformationEdit">
+
+	<div class="panel panel-default">
+		<?php echo $this->NetCommonsForm->create('SchoolInformation', ['type' => 'file']); ?>
+		<div class="panel-body">
+
+			<?php //echo $this->element('Blocks.form_hidden'); ?>
+
+			<?php echo $this->NetCommonsForm->hidden('SchoolInformation.id'); ?>
+			<?php echo $this->NetCommonsForm->hidden('SchoolInformation.key'); ?>
+			<?php //echo $this->NetCommonsForm->hidden('SchoolInformation.block_id'); ?>
+			<?php echo $this->NetCommonsForm->hidden('SchoolInformation.language_id'); ?>
+			<?php //echo $this->NetCommonsForm->hidden('SchoolInformation.status'); ?>
+			<!---->
+			<?php //echo $this->NetCommonsForm->hidden('SchoolInformationSetting.use_workflow'); ?>
+
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.school_name',
+				[
+					'label' => __d('school_informations', 'School Name'),
+					'required' => true,
+
+				]
+			) ?>
+			<?php echo $this->NetCommonsForm->uploadFile(
+				'SchoolInformation.school_badge',
+				['label' => __d('school_informations', 'School Badge'), 'remove' => false]
+			)
+			?>
+
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.address',
+				[
+					'label' => __d('school_informations', 'Address'),
+				]
+			) ?>
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.tel',
+				[
+					'label' => __d('school_informations', 'Telephone Number'),
+				]
+			) ?>
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.fax',
+				[
+					'label' => __d('school_informations', 'Fax Number'),
+				]
+			) ?>
+
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.email',
+				[
+					'label' => __d('school_informations', 'Email'),
+				]
+			) ?>
+
+			<?php //echo $this->NetCommonsForm->wysiwyg(
+			//	'SchoolInformation.contact_information',
+			//	array(
+			//		'label' => __d('school_informations', 'Contact Information'),
+			//		'required' => true,
+			//		'rows' => 12
+			//	)
+			//); ?>
+
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.number_of_students',
+				[
+					'label' => __d('school_informations', 'Number Of Students'),
+				]
+			) ?>
+			<?php echo $this->NetCommonsForm->input(
+				'SchoolInformation.number_of_faculty_members',
+				[
+					'label' => __d('school_informations', 'Number Of Faculty Members'),
+				]
+			) ?>
+
+
+			<?php //echo $this->Workflow->inputComment('SchoolInformation.status'); ?>
+		</div>
+
+		<?php //echo $this->Workflow->buttons('SchoolInformation.status', NetCommonsUrl::backToPageUrl()); ?>
+		<div class="panel-footer">
+			<?php echo $this->Button->cancelAndSave(
+				__d('net_commons', 'Cancel'),
+				__d('net_commons', 'OK')
+			); ?>
+
+		</div>
+		<?php echo $this->NetCommonsForm->end(); ?>
+
+	</div>
+
+	<?php //echo $this->Workflow->comments(); ?>
+
+</article>

@@ -20,11 +20,11 @@
 <?php
 // TODO 言語ファイル化
 echo $this->NetCommonsForm->input('SchoolInformationFrameSetting.display_type', array(
-	'label' => __d('school_informations', '表示形式'),
+	'label' => __d('school_informations', 'Display Type'),
 	'type' => 'radio',
 	'options' => [
-		'side' => '左右カラム用',
-		'footer' => 'フッタ用',
-		'main' => 'メインカラム用'
+		'side' => __d('school_informations', 'For Side Column'),
+		'footer' => __d('school_informations', 'For Footer'),
+		'main' => __d('school_informations', 'For Main Collumn')
 	]
 ));

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 /**
  * SchoolInformation Model
  *
@@ -18,105 +18,123 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformation extends SchoolInformationsAppModel {
 
-/**
- * Use database config
- *
- * @var string
- */
-	public $useDbConfig = 'master';
-
-/**
- * Validation rules
- *
- * @var array
- */
-	public $validate = array(
-		'key' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+	/**
+	 * use behaviors
+	 *
+	 * @var array
+	 */
+	public $actsAs = array(
+		'NetCommons.OriginalKey',
+		//'Workflow.WorkflowComment',
+		//'Workflow.Workflow',
+		'Wysiwyg.Wysiwyg' => array(
+			'fields' => array('contact_information'),
 		),
-		'school_name' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'status' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'is_active' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'is_origin' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'is_translation' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'is_original_copy' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+		'M17n.M17n', //多言語
+		'Files.Attachment' => [
+			'school_badge' => [
+				'thumbnailSizes' => [
+					'main' => '60h',
+					'small' => '36h'
+				]
+			]
+		],
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
- * belongsTo associations
+ * バリデートメッセージ多言語化対応のためのラップ
  *
- * @var array
+ * @param array $options options
+ * @return bool
  */
-	public $belongsTo = array(
-		'Language' => array(
-			'className' => 'Language',
-			'foreignKey' => 'language_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+	public function beforeValidate($options = array()) {
+		$this->validate = array_merge(
+			$this->validate,
+			$this->__getValidateSpecification()
+		);
+		return parent::beforeValidate($options);
+	}
+
+	/**
+	 * バリデーションルールを返す
+	 *
+	 * @return array
+	 */
+	private function __getValidateSpecification() {
+		$validate = array(
+			'school_name' => array(
+				'notBlank' => [
+					'rule' => array('notBlank'),
+					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('school_informations', 'School Name')),
+					//'allowEmpty' => false,
+					'required' => true,
+				],
+			),
+
+			'status' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					//'message' => 'Your custom message here',
+					//'allowEmpty' => false,
+					//'required' => false,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'is_auto_translated' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					//'message' => 'Your custom message here',
+					//'allowEmpty' => false,
+					//'required' => false,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				),
+			),
+		);
+		return $validate;
+	}
+
+
+	/**
+	 * TODO getSchoolInformation
+	 *
+	 * @return array SchoolInformation data
+	 */
+	public function getSchoolInformation() {
+		// TODO 条件必用であれば追加
+		$options = [];
+		//$conditions = $this->getWorkflowConditions();
+		//$options['conditions'] = $conditions;
+		$data = $this->find('first', $options);
+		return $data;
+	}
+
+	public function saveSchoolInformation(array $data) {
+		//トランザクションBegin
+		$this->begin();
+
+		//バリデーション
+		$this->set($data);
+		if (! $this->validates()) {
+			return false;
+		}
+
+		try {
+			//お知らせの登録
+			$schoolInformation = $this->save(null, false);
+			if (! $schoolInformation) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return $schoolInformation;
+	}
 }
