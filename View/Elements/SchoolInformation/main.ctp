@@ -7,7 +7,7 @@
 		)?>
 		<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 	</h1>
-	<table class="table">
+	<table class="table school_information_main_table">
 		<tbody>
 		<tr>
 			<th><?php echo __d('school_informations', 'Address') ?></th>
