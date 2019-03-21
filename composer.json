@@ -1,5 +1,5 @@
 {
-    "name": "netcommons/school_informations",
+    "name": "netcommons/school-informations",
     "description": "School Information for NetCommons Plugin",
     "homepage": "http://www.netcommons.org/",
     "type": "cakephp-plugin",
