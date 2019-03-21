@@ -18,6 +18,51 @@ msgstr ""
 msgid "School Name"
 msgstr "学校名"
 
+msgid "School Name Kana"
+msgstr "学校名（カナ）"
+
+msgid "School Name Roma"
+msgstr "学校名（ローマ字）"
+
+msgid "Principal Name"
+msgstr "学校長名"
+
+msgid "Principal Name Roma"
+msgstr "学校長名（ローマ字）"
+
+msgid "School Type"
+msgstr "国公立種別"
+
+msgid "School Kind"
+msgstr "校種"
+
+msgid "Student Category"
+msgstr "学生種別"
+
+msgid "Establish Year Month"
+msgstr "開校年月"
+
+msgid "Close Year Month"
+msgstr "閉校年月"
+
+msgid "Postal Code"
+msgstr "郵便番号"
+
+msgid "Prefecture Code"
+msgstr "都道府県"
+
+msgid "City"
+msgstr "区市町村"
+
+msgid "Emergency Contact"
+msgstr "緊急連絡先"
+
+msgid "Contact"
+msgstr "問い合わせ先"
+
+msgid "Url"
+msgstr "URL"
+
 #: View/Elements/SchoolInformation/footer.ctp:13
 #: View/Elements/SchoolInformation/main.ctp:17
 #: View/Elements/SchoolInformation/side.ctp:14
@@ -46,12 +91,15 @@ msgstr "メールアドレス"
 
 #: View/Elements/SchoolInformation/main.ctp:13
 msgid "Address"
-msgstr "所在地"
+msgstr "番地"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
-msgid "Number Of Students"
-msgstr "生徒数"
+msgid "Number Of Male Students"
+msgstr "男子生徒数"
+
+msgid "Number Of Female Students"
+msgstr "女子生徒数"
 
 #: View/Elements/SchoolInformation/main.ctp:30;38
 msgid "%d persons"
@@ -79,5 +127,13 @@ msgstr "メインカラム用"
 msgid "School Badge"
 msgstr "校章"
 
+msgid "Private"
+msgstr "非公開"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Location"
+msgstr "所在地"
 
 

@@ -35,5 +35,10 @@
     ],
     "config": {
         "vendor-dir": "vendors"
+    },
+    "autoload": {
+        "psr-4": {
+            "NetCommons\\SchoolInformations\\": ""
+        }
     }
 }

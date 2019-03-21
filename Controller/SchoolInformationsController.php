@@ -15,12 +15,16 @@ App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
  * Class SchoolInformationsController
  *
  * @property SchoolInformation $SchoolInformation
+ * @property SchoolInformationFrameSetting $SchoolInformationFrameSetting
+ * @property DataTypeChoice $DataTypeChoice
  */
 class SchoolInformationsController extends SchoolInformationsAppController {
 
 	public $uses = [
 		'SchoolInformations.SchoolInformation',
 		'SchoolInformations.SchoolInformationFrameSetting',
+
+		'DataTypes.DataTypeChoice',
 	];
 
 	/**
@@ -62,6 +66,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$this->set('schoolInformation', $schoolInformation);
 			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting();
 			$this->set('frameSetting', $frameSetting);
+			//$presenter = new \NetCommons\SchoolInformations\View\Presenter\SchoolInformationViewMainPresenter();
 			return;
 		}
 		if (Current::permission('content_editable')) {
@@ -94,9 +99,11 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			if (! $this->request->data = $this->SchoolInformation->getSchoolInformation()) {
 				$this->request->data = $this->SchoolInformation->createAll();
 			}
+			//$this->request->data['SchoolInformation']['establish_year_month'] = '2000-01';
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
 
+		$this->set('prefectureOptions', $this->__getPrefectureOptions());
 		//$comments = $this->SchoolInformation->getCommentsByContentKey(
 		//	$this->request->data['SchoolInformation']['key']
 		//);
@@ -128,5 +135,24 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 				'size' => $size
 			]
 		);
+	}
+
+	private function __getPrefectureOptions() {
+		$options = [
+			'conditions' => [
+				'data_type_key' => 'prefecture',
+				'language_id' => Current::read('Language.id'),
+			],
+			'order' => 'DataTypeChoice.weight ASC',
+			'fields' => ['DataTypeChoice.code', 'DataTypeChoice.name']
+		];
+		$prefectures = $this->DataTypeChoice->find('all', $options);
+		$options = [];
+		foreach ($prefectures as $prefecture) {
+			$code = $prefecture['DataTypeChoice']['code'];
+			$name = $prefecture['DataTypeChoice']['name'];
+			$options[$code] = $name;
+		}
+		return $options;
 	}
 }

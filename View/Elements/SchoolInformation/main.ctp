@@ -1,4 +1,7 @@
 <?php echo $this->NetCommonsHtml->css('/school_informations/css/main.css', ['inline' => false]); ?>
+<?php
+
+?>
 <article>
 	<h1>
 		<?php
@@ -7,13 +10,20 @@
 				'/school_informations/school_informations/school_badge?size=main'
 			);
 		}
-		?>&nbsp<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
+		?>&nbsp
+		<ruby>
+			<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
+
+			<?php if ($schoolInformation['SchoolInformation']['is_public_school_name_kana']):?>
+			<rt><?= h($schoolInformation['SchoolInformation']['school_name_kana']);?></rt>
+			<?php endif ?>
+		</ruby>
 	</h1>
 	<table class="table school_information_main_table">
 		<tbody>
 		<?php if ($schoolInformation['SchoolInformation']['address']): ?>
 			<tr>
-				<th><?php echo __d('school_informations', 'Address') ?></th>
+				<th><?php echo __d('school_informations', 'Location') ?></th>
 				<td><?php echo h($schoolInformation['SchoolInformation']['address']); ?></td>
 			</tr>
 		<?php endif ?>
