@@ -70,6 +70,8 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$this->set('schoolInformation', $schoolInformation);
 			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting();
 			$this->set('frameSetting', $frameSetting);
+			$this->set('prefectureOptions', $this->__getPrefectureOptions());
+
 			return;
 		}
 		if (Current::permission('content_editable')) {

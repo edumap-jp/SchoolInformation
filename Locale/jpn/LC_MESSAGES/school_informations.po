@@ -137,3 +137,17 @@ msgid "Location"
 msgstr "所在地"
 
 
+msgid "PostalCode: %s"
+msgstr "〒 %s"
+
+msgid "Adress:%3$s City:%2$s Prefecture:%1$s"
+msgstr "%1$s %2$s %3$s"
+
+msgid "Male"
+msgstr "男性"
+
+msgid "Female"
+msgstr "女性"
+
+msgid "Number Of Students"
+msgstr "生徒数"

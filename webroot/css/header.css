@@ -1,0 +1,16 @@
+.school-information-header-title {
+    display:flex;
+    align-items: center;
+}
+.school-information-header-title .school-information-school-badge {
+    margin-right: 5px;
+}
+.school-information-header rt{
+    font-size: 12px;
+}
+.school-information-header .school-information-school-name-roma {
+    font-size:12px;
+}
+.school-information-header .school-information-school-name-roma:before{
+    display: block;
+}

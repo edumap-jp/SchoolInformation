@@ -20,6 +20,7 @@
 		</div>
 	<?php endif ?>
 
+
 	<?php if ($schoolInformation['SchoolInformation']['tel']): ?>
 		<div>
 			<span><?php echo __d('school_informations', 'Tel') ?></span>
