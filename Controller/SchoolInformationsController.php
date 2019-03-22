@@ -62,13 +62,13 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 
 	public function view() {
 		//
-		$layoutPosition = $this->__getLayoutPosition();
+		$layoutPosition = $this->_getLayoutPosition();
 		$this->set('layoutPosition', $layoutPosition);
 
 		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
 		if ($schoolInformation) {
 			$this->set('schoolInformation', $schoolInformation);
-			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting();
+			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting($this->_getLayoutPosition());
 			$this->set('frameSetting', $frameSetting);
 			$this->set('prefectureOptions', $this->__getPrefectureOptions());
 
@@ -161,15 +161,4 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		return $options;
 	}
 
-	private function __getLayoutPosition() {
-		$containerType = (int)Current::read('Box.container_type');
-		$layoutPositions = [
-			1 => 'header',
-			2 => 'major',
-			3 => 'main',
-			4 => 'minor',
-			5 => 'footer'
-		];
-		return $layoutPositions[$containerType];
-	}
 }

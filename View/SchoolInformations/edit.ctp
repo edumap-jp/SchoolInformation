@@ -148,8 +148,8 @@ $jsonSchoolInformation = json_encode(
 						'type' => 'radio',
 						'div' => ['class' => 'form-group form-inline col-xs-offset-1'],
 						'options' => [
+							1 => __d('school_informations', 'Public'),
 							0 => __d('school_informations', 'Private'),
-							1 => __d('school_informations', 'Public')
 						]
 					]
 				);

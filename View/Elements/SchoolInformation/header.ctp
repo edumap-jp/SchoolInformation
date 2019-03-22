@@ -21,4 +21,5 @@
 			<?php echo $this->SchoolInformation->display('school_name_roma', ['tag' => 'div']);?>
 		</h1>
 	</div>
+	<?php echo $this->element('SchoolInformations.SchoolInformation/table');?>
 </div>

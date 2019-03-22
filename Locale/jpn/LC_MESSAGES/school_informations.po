@@ -151,3 +151,12 @@ msgstr "女性"
 
 msgid "Number Of Students"
 msgstr "生徒数"
+
+msgid "Display"
+msgstr "表示"
+
+msgid "Hide"
+msgstr "非表示"
+
+msgid "Display Setting"
+msgstr "表示設定"

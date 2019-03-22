@@ -18,13 +18,28 @@
 
 
 <?php
-// TODO 言語ファイル化
-echo $this->NetCommonsForm->input('SchoolInformationFrameSetting.display_type', array(
-	'label' => __d('school_informations', 'Display Type'),
-	'type' => 'radio',
-	'options' => [
-		'side' => __d('school_informations', 'For Side Column'),
-		'footer' => __d('school_informations', 'For Footer'),
-		'main' => __d('school_informations', 'For Main Collumn')
-	]
-));
+$isDisplayFields = [];
+$fields = array_keys($this->request->data['SchoolInformationFrameSetting']);
+foreach ($fields as $field) {
+	if (substr($field, 0, 10) === 'is_display') {
+		$isDisplayFields[] = $field;
+	}
+}
+
+//echo $this->NetCommonsForm->label('is_display', __d('school_informations', 'Display Setting'));
+foreach ($isDisplayFields as $field) {
+	echo $this->NetCommonsForm->input(
+		'SchoolInformationFrameSetting.' . $field,
+		[
+			'type' => 'radio',
+			'label' => __d('school_informations', Inflector::humanize(substr($field, 11))),
+			'div' => ['class' => 'form-group form-inline'],
+
+			'options' => [
+				1 => __d('school_informations', 'Display'),
+				0 => __d('school_informations', 'Hide'),
+			]
+		]
+	);
+
+}

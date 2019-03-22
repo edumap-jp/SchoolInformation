@@ -52,6 +52,9 @@ class SchoolInformationHelper extends AppHelper {
 		if ($this->__isExists($field) === false) {
 			return false;
 		}
+		if ($this->__isDisplayByFrameSetting($field) === false) {
+			return false;
+		}
 		return true;
 	}
 
@@ -101,5 +104,9 @@ class SchoolInformationHelper extends AppHelper {
 			return $this->_View->viewVars['prefectureOptions'][$this->__schoolInformation['SchoolInformation']['prefecture_code']];
 		}
 		return '';
+	}
+
+	private function __isDisplayByFrameSetting($field) {
+		return (bool) $this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
 	}
 }

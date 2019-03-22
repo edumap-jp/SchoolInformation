@@ -81,7 +81,7 @@ class SchoolInformationFrameSettingsController extends SchoolInformationsAppCont
 			}
 
 		} else {
-			$this->request->data = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting();
+			$this->request->data = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting($this->_getLayoutPosition());
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
 	}

@@ -21,18 +21,18 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array();
 
-/**
- * belongsTo associations
- *
- * @var array
- */
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Frame' => array(
 			'className' => 'Frames.Frame',
@@ -43,88 +43,188 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 		),
 	);
 
-/**
- * Called during validation operations, before validation. Please note that custom
- * validation rules can be defined in $validate.
- *
- * @param array $options Options passed from Model::save().
- * @return bool True if validate operation should continue, false to abort
- * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforevalidate
- * @see Model::save()
- */
+	/**
+	 * Called during validation operations, before validation. Please note that custom
+	 * validation rules can be defined in $validate.
+	 *
+	 * @param array $options Options passed from Model::save().
+	 * @return bool True if validate operation should continue, false to abort
+	 * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforevalidate
+	 * @see Model::save()
+	 */
 	public function beforeValidate($options = array()) {
-		$this->validate = array_merge($this->validate, array(
-			'frame_key' => array(
-				'notBlank' => array(
-					'rule' => array('notBlank'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => true,
-				)
-			),
-			'display_type' => array(
-				'notBlank' => array(
-					'rule' => array('notBlank'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => true,
+		$this->validate = array_merge(
+			$this->validate,
+			array(
+				'frame_key' => array(
+					'notBlank' => array(
+						'rule' => array('notBlank'),
+						'message' => __d('net_commons', 'Invalid request.'),
+						'required' => true,
+					)
 				),
-				// TODO enum side, footer, main
-			),
-		));
+				'display_type' => array(
+					'notBlank' => array(
+						'rule' => array('notBlank'),
+						'message' => __d('net_commons', 'Invalid request.'),
+						'required' => true,
+					),
+					// TODO enum side, footer, main
+				),
+			)
+		);
 		return parent::beforeValidate($options);
 	}
 
-/**
- * Get SchoolInformationFrameSetting data
- *
- * @return array SchoolInformationFrameSetting data
- */
-	public function getSchoolInformationFrameSetting() {
+	/**
+	 * Get SchoolInformationFrameSetting data
+	 *
+	 * @return array SchoolInformationFrameSetting data
+	 */
+	public function getSchoolInformationFrameSetting($layoutPosition) {
 		$conditions = array(
 			'frame_key' => Current::read('Frame.key')
 		);
 
-		$SchoolInformationFrameSetting = $this->find('first', array(
+		$frameSetting = $this->find(
+			'first',
+			array(
 				'recursive' => -1,
 				'conditions' => $conditions,
 			)
 		);
 
-		if (! $SchoolInformationFrameSetting) {
-			$SchoolInformationFrameSetting = $this->create(array(
-				'frame_key' => Current::read('Frame.key'),
-			));
-			// デフォルトはmainにしておく
-			$SchoolInformationFrameSetting['SchoolInformationFrameSetting']['display_type'] = 'main';
+		if (!$frameSetting) {
+			// まだフレーム設定がないときのデフォルト
+			$default = $this->__defaultSettingByLayoutPosition($layoutPosition);
+			$default['frame_key'] = Current::read('Frame.key');
+			$frameSetting = $this->create($default);
 		}
 
-		return $SchoolInformationFrameSetting;
+		return $frameSetting;
 	}
 
-/**
- * Save SchoolInformationFrameSetting
- *
- * @param array $data received post data
- * @return mixed On success Model::$data if its not empty or true, false on failure
- * @throws InternalErrorException
- */
+	private function __defaultSettingByLayoutPosition($layoutPosition) {
+		// デフォルトで表示なのでここでは非表示にする項目をリストしてる
+		$hide = [];
+		switch ($layoutPosition) {
+			case 'header':
+				$hide = [
+					//'is_display_school_name_kana',
+					//'is_display_school_name_roma',
+					'is_display_principal_name',
+					'is_display_principal_name_roma',
+					'is_display_school_type',
+					'is_display_school_kind',
+					'is_display_student_category',
+					'is_display_establish_year_month',
+					'is_display_close_year_month',
+					'is_display_postal_code',
+					'is_display_prefecture_code',
+					'is_display_city',
+					'is_display_address',
+					'is_display_tel',
+					'is_display_fax',
+					'is_display_email',
+					'is_display_emergency_contact',
+					'is_display_contact',
+					'is_display_url',
+					'is_display_number_of_male_students',
+					'is_display_number_of_female_students',
+					'is_display_number_of_faculty_members',
+				];
+				break;
+			case 'major':
+			case 'minor':
+				$hide = [
+					'is_display_school_name_kana',
+					'is_display_school_name_roma',
+					'is_display_principal_name',
+					'is_display_principal_name_roma',
+					'is_display_school_type',
+					'is_display_school_kind',
+					'is_display_student_category',
+					'is_display_establish_year_month',
+					'is_display_close_year_month',
+					'is_display_postal_code',
+					'is_display_prefecture_code',
+					'is_display_city',
+					'is_display_address',
+					//'is_display_tel',
+					//'is_display_fax',
+					//'is_display_email',
+					'is_display_emergency_contact',
+					'is_display_contact',
+					'is_display_url',
+					'is_display_number_of_male_students',
+					'is_display_number_of_female_students',
+					'is_display_number_of_faculty_members',
+				];
+				break;
+			case 'main':
+				break;
+			case 'footer':
+				$hide = [
+					'is_display_school_name_kana',
+					'is_display_school_name_roma',
+					'is_display_principal_name',
+					'is_display_principal_name_roma',
+					'is_display_school_type',
+					'is_display_school_kind',
+					'is_display_student_category',
+					'is_display_establish_year_month',
+					'is_display_close_year_month',
+					//'is_display_postal_code',
+					//'is_display_prefecture_code',
+					//'is_display_city',
+					//'is_display_address',
+					//'is_display_tel',
+					//'is_display_fax',
+					//'is_display_email',
+					'is_display_emergency_contact',
+					'is_display_contact',
+					'is_display_url',
+					'is_display_number_of_male_students',
+					'is_display_number_of_female_students',
+					'is_display_number_of_faculty_members',
+				];
+				break;
+		}
+		$default = [];
+		foreach ($hide as $hideField) {
+			$default[$hideField] = false;
+		}
+
+		return $default;
+	}
+
+	/**
+	 * Save SchoolInformationFrameSetting
+	 *
+	 * @param array $data received post data
+	 * @return mixed On success Model::$data if its not empty or true, false on failure
+	 * @throws InternalErrorException
+	 */
 	public function saveSchoolInformationFrameSetting($data) {
-		$this->loadModels([
-			'SchoolInformationFrameSetting' => 'SchoolInformations.SchoolInformationFrameSetting',
-		]);
+		$this->loadModels(
+			[
+				'SchoolInformationFrameSetting' => 'SchoolInformations.SchoolInformationFrameSetting',
+			]
+		);
 
 		//トランザクションBegin
 		$this->begin();
 
 		//バリデーション
 		$this->set($data);
-		if (! $this->validates()) {
+		if (!$this->validates()) {
 			$this->rollback();
 			return false;
 		}
 
 		try {
 			//登録処理
-			if (! $this->save(null, false)) {
+			if (!$this->save(null, false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 			//トランザクションCommit
