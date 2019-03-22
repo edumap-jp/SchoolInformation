@@ -17,6 +17,25 @@
 	</div>
 <?php endif ?>
 <?php
-$displayType = $frameSetting['SchoolInformationFrameSetting']['display_type'];
+switch ($layoutPosition) {
+	case 'header':
+		$displayType = 'header';
+		break;
+	case 'major':
+	case 'minor':
+		$displayType = 'side';
+		break;
+	case 'main':
+		$displayType = 'main';
+		break;
+	case 'footer';
+		$displayType = 'footer';
+
+		break;
+}
+?>
+<?php
+//$displayType = $frameSetting['SchoolInformationFrameSetting']['display_type'];
+$this->SchoolInformation->set($schoolInformation);
 echo $this->element('SchoolInformations.SchoolInformation/' . $displayType);
 ?>

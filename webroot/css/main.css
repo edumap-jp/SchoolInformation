@@ -1,3 +1,19 @@
 .school_information_main_table th{
     width:160px;
 }
+
+.school-information-center-title {
+    display:flex;
+}
+.school-information-center-title .school-information-school-badge {
+    margin-right: 5px;
+}
+.school-information-center rt{
+    font-size: 12px;
+}
+.school-information-center .school-information-school-name-roma {
+    font-size:12px;
+}
+.school-information-center .school-information-school-name-roma:before{
+    display: block;
+}
