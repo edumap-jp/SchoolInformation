@@ -4,16 +4,7 @@
 ); ?>
 <div class="school-information-header">
 	<div class="school-information-header-school-badge">
-		<?php
-		if (isset($schoolInformation['UploadFile']['school_badge']['id'])):?>
-
-			<?php
-			echo $this->NetCommonsHtml->image(
-				'/school_informations/school_informations/school_badge?size=middle',
-				['class' => '']
-			);
-			?>
-		<?php endif; ?>
+		<?php echo $this->SchoolInformation->schoolBadge('middle');?>
 	</div>
 	<div class="school-information-header-text">
 		<h1 class="school-information-header-title">

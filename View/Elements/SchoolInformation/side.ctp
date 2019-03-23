@@ -1,45 +1,51 @@
 <?php echo $this->NetCommonsHtml->css('/school_informations/css/side.css', ['inline' => false]); ?>
 <article class="school_information_side">
 	<div class="school_information_side_image">
-		<?php
-		if (isset($schoolInformation['UploadFile']['school_badge']['id'])) {
-			echo $this->NetCommonsHtml->image(
-				'/school_informations/school_informations/school_badge?size=main'
-			);
-		}
-		?>
+		<?php echo $this->SchoolInformation->schoolBadge('small');?>
 	</div>
 
 	<div class="school_information_side_school_name">
 		<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 	</div>
 
-	<?php if ($schoolInformation['SchoolInformation']['address']): ?>
-		<div>
-			<?php echo h($schoolInformation['SchoolInformation']['address']); ?>
-		</div>
-	<?php endif ?>
+	<?= $this->SchoolInformation->displayLocation(); ?>
+	<?= $this->SchoolInformation->display('tel'); ?>
+	<?= $this->SchoolInformation->display('fax'); ?>
+	<?= $this->SchoolInformation->display('email'); ?>
 
 
-	<?php if ($schoolInformation['SchoolInformation']['tel']): ?>
-		<div>
-			<span><?php echo __d('school_informations', 'Tel') ?></span>
-			<span><?php echo h($schoolInformation['SchoolInformation']['tel']); ?></span>
-			&nbsp;
-		</div>
-	<?php endif ?>
 
-	<?php if ($schoolInformation['SchoolInformation']['fax']): ?>
-		<div>
-			<span><?php echo __d('school_informations', 'Fax') ?></span>
-			<span><?php echo h($schoolInformation['SchoolInformation']['fax']); ?></span>
-		</div>
-	<?php endif ?>
+	<div style="margin-top: 10px">
+		<?php
+		$fields = [
+			'principal',
+			'school_type',
+			'school_kind',
+			'student_category',
+			'establish_year_month',
+			'close_year_month',
+			//'tel' => [
+			//	'label' => __d('school_informations', 'Telephone Number')
+			//],
+			//'fax' => [
+			//	'label' => __d('school_informations', 'Fax Number')
+			//],
+			//'email',
+			'emergency_contact',
+			'contact',
+			'url',
 
-	<?php if ($schoolInformation['SchoolInformation']['email']): ?>
-		<div>
-			<span><?php echo h($schoolInformation['SchoolInformation']['email']); ?></span>
-		</div>
-	<?php endif ?>
+			'number_of_students',
+			'number_of_faculty_members' => [
+				'format' => __d('school_informations', '%d persons')
+			]
+
+		];
+		echo $this->element(
+			'SchoolInformations.SchoolInformation/table',
+			['fields' => $fields]
+		); ?>
+	</div>
+
 
 </article>

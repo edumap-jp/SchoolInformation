@@ -23,6 +23,26 @@ class SchoolInformationHelper extends AppHelper {
 		$this->__schoolInformation = $schoolInformation;
 	}
 
+	public function schoolBadge($size) {
+		if (isset($this->__schoolInformation['UploadFile']['school_badge']['id'])) {
+			return $this->NetCommonsHtml->image(
+				'/school_informations/school_informations/school_badge?size=' . $size
+			);
+		}
+		// デフォルトロゴ
+		// HACK: SchoolInformationモデルから参照するほうが良い
+		$height = [
+			'small' => 60,
+			'middle' => 120,
+			'large' => 200
+		];
+		return $this->NetCommonsHtml->image(
+			'/school_informations/img/no_badge.png',
+			['style' => 'height:' . $height[$size] . 'px']
+		);
+	}
+
+
 	public function isDisplayPrincipal() {
 		return ($this->isDisplay('principal_name') || $this->isDisplay('principal_name_roma'));
 	}
@@ -77,7 +97,7 @@ class SchoolInformationHelper extends AppHelper {
 		$ret = '';
 		$ret .= $this->display(
 			'postal_code',
-			['format' => __d('school_informations', 'PostalCode: %s')]
+			['format' => __d('school_informations', 'PostalCode: %s'), 'tag' => 'span']
 		);
 		$ret .= __d(
 			'school_informations',
@@ -90,7 +110,7 @@ class SchoolInformationHelper extends AppHelper {
 			$this->display('city', ['tag' => 'span']),
 			$this->display('address', ['tag' => 'span'])
 		);
-		return $ret;
+		return $this->NetCommonsHtml->tag('div', $ret);
 	}
 
 	public function display($field, array $options = []) {

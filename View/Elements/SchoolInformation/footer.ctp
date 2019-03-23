@@ -5,13 +5,7 @@
 <div class="school-information-footer-wrap">
 	<article class="school-information-footer">
 		<div class="school-information-footer-school-badge">
-			<?php
-			if (isset($schoolInformation['UploadFile']['school_badge']['id'])) {
-				echo $this->NetCommonsHtml->image(
-					'/school_informations/school_informations/school_badge/?size=small'
-				);
-			}
-			?>
+			<?php echo $this->SchoolInformation->schoolBadge('small');?>
 		</div>
 		<div class="school-information-footer-text">
 			<div class="school-information-footer-school-name">

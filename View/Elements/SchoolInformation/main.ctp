@@ -8,17 +8,7 @@
 ?>
 <article class="school-information-center">
 	<div class="school-information-center-title">
-		<?php
-		if (isset($schoolInformation['UploadFile']['school_badge']['id'])):?>
-			<div class="school-information-school-badge">
-				<?php
-				echo $this->NetCommonsHtml->image(
-					'/school_informations/school_informations/school_badge?size=main',
-					['class' => '']
-				);
-				?>
-			</div>
-		<?php endif; ?>
+		<?php echo $this->SchoolInformation->schoolBadge('small');?>
 		<h1>
 			<ruby>
 				<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
