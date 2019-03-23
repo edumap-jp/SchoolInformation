@@ -203,7 +203,7 @@ $jsonSchoolInformation = json_encode(
 
 		</div>
 
-		<div class="panel-footer">
+		<div class="panel-footer text-center">
 			<?php echo $this->Button->cancelAndSave(
 				__d('net_commons', 'Cancel'),
 				__d('net_commons', 'OK')
