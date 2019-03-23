@@ -63,14 +63,6 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 						'required' => true,
 					)
 				),
-				'display_type' => array(
-					'notBlank' => array(
-						'rule' => array('notBlank'),
-						'message' => __d('net_commons', 'Invalid request.'),
-						'required' => true,
-					),
-					// TODO enum side, footer, main
-				),
 			)
 		);
 		return parent::beforeValidate($options);
@@ -119,10 +111,7 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 					'is_display_student_category',
 					'is_display_establish_year_month',
 					'is_display_close_year_month',
-					'is_display_postal_code',
-					'is_display_prefecture_code',
-					'is_display_city',
-					'is_display_address',
+					//'is_display_location',
 					'is_display_tel',
 					'is_display_fax',
 					'is_display_email',
@@ -146,10 +135,7 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 					'is_display_student_category',
 					'is_display_establish_year_month',
 					'is_display_close_year_month',
-					'is_display_postal_code',
-					'is_display_prefecture_code',
-					'is_display_city',
-					'is_display_address',
+					//'is_display_location',
 					//'is_display_tel',
 					//'is_display_fax',
 					//'is_display_email',
@@ -174,10 +160,7 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 					'is_display_student_category',
 					'is_display_establish_year_month',
 					'is_display_close_year_month',
-					//'is_display_postal_code',
-					//'is_display_prefecture_code',
-					//'is_display_city',
-					//'is_display_address',
+					//'is_display_location',
 					//'is_display_tel',
 					//'is_display_fax',
 					//'is_display_email',

@@ -16,7 +16,12 @@ class SchoolInformationHelper extends AppHelper {
 	public $helpers = [
 		'NetCommons.NetCommonsHtml'
 	];
-
+	private $locationFields = [
+		'postal_code',
+		'prefecture_code',
+		'city',
+		'address'
+	];
 	private $__schoolInformation;
 
 	public function set(array $schoolInformation) {
@@ -25,24 +30,6 @@ class SchoolInformationHelper extends AppHelper {
 
 	public function isDisplayPrincipal() {
 		return ($this->isDisplay('principal_name') || $this->isDisplay('principal_name_roma'));
-	}
-
-	public function isDisplayLocation() {
-		return ($this->isDisplay('postal_code') ||
-			$this->isDisplay('prefecture_code') ||
-			$this->isDisplay('city') ||
-			$this->isDisplay('address'));
-	}
-
-	public function displayLocation() {
-		$ret = '';
-		$ret .= $this->display('postal_code', ['format' => __d('school_informations', 'PostalCode: %s')]);
-		$ret .= __d('school_informations', 'Adress:%3$s City:%2$s Prefecture:%1$s',
-			$this->NetCommonsHtml->tag('span', $this->__prefecture(),['class' => 'school-information-prefecture']),
-			$this->display('city', ['tag' => 'span']),
-			$this->display('address', ['tag' => 'span'])
-		);
-		return $ret;
 	}
 
 	public function isDisplay($field) {
@@ -59,6 +46,9 @@ class SchoolInformationHelper extends AppHelper {
 	}
 
 	private function __isPublic($field) {
+		if (in_array($field, $this->locationFields, true)) {
+			$field = 'location';
+		}
 		return (bool)$this->__schoolInformation['SchoolInformation']['is_public_' . $field];
 	}
 
@@ -66,6 +56,47 @@ class SchoolInformationHelper extends AppHelper {
 		return (bool)$this->__schoolInformation['SchoolInformation'][$field];
 	}
 
+	private function __isDisplayByFrameSetting($field) {
+		if (in_array($field, $this->locationFields, true)) {
+			$field = 'location';
+		}
+		return (bool)$this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
+	}
+
+	public function isDisplayLocation() {
+		if ($this->__isPublic('location') === false) {
+			return false;
+		}
+		if ($this->__isDisplayByFrameSetting('location') === false) {
+			return false;
+		}
+		foreach ($this->locationFields as $field) {
+			// 公開で表示ならいずれかの所在地フィールドが入力ずみなら表示
+			if ($this->__isExists($field)) {
+				return true;
+			}
+		}
+	}
+
+	public function displayLocation() {
+		$ret = '';
+		$ret .= $this->display(
+			'postal_code',
+			['format' => __d('school_informations', 'PostalCode: %s')]
+		);
+		$ret .= __d(
+			'school_informations',
+			'Adress:%3$s City:%2$s Prefecture:%1$s',
+			$this->NetCommonsHtml->tag(
+				'span',
+				$this->__prefecture(),
+				['class' => 'school-information-prefecture']
+			),
+			$this->display('city', ['tag' => 'span']),
+			$this->display('address', ['tag' => 'span'])
+		);
+		return $ret;
+	}
 
 	public function display($field, array $options = []) {
 		assert($this->__schoolInformation);
@@ -104,9 +135,5 @@ class SchoolInformationHelper extends AppHelper {
 			return $this->_View->viewVars['prefectureOptions'][$this->__schoolInformation['SchoolInformation']['prefecture_code']];
 		}
 		return '';
-	}
-
-	private function __isDisplayByFrameSetting($field) {
-		return (bool) $this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
 	}
 }

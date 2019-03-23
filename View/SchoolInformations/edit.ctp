@@ -58,9 +58,70 @@ $jsonSchoolInformation = json_encode(
 			?>
 
 			<?php
-			$fields = [
+			$fieldFormElement = function ($key, $field) {
+				$locationFields = [
+					'postal_code',
+					'prefecture_code',
+					'city',
+					'address'
+				];
+				$extraOptions = [];
+				if (is_array($field)) {
+					// keyがフィールド名で $fieldがオプション
+					$extraOptions = $field;
+					$field = $key;
+				}
+				$defaultOptions = [
+					'label' => __d('school_informations', Inflector::humanize($field)),
+				];
+				$options = array_merge($defaultOptions, $extraOptions);
+				echo $this->NetCommonsForm->input(
+					'SchoolInformation.' . $field,
+					$options
+				);
+				if (in_array($field, $locationFields, true) === false) {
+					echo $this->NetCommonsForm->input(
+						'SchoolInformation.is_public_' . $field,
+						[
+							'type' => 'radio',
+							'div' => ['class' => 'form-group form-inline col-xs-offset-1'],
+							'options' => [
+								1 => __d('school_informations', 'Public'),
+								0 => __d('school_informations', 'Private'),
+							]
+						]
+					);
+				}
+			};
+
+			$firstFields = [
 				'school_name_kana',
 				'school_name_roma',
+			];
+			$locationFields = [
+				'postal_code',
+				'prefecture_code' => [
+					'type' => 'select',
+					'options' => $prefectureOptions
+				],
+				'city',
+				'address',
+
+			];
+			$mainFields = [
+				'tel' => [
+					'label' => __d('school_informations', 'Telephone Number')
+				],
+				'fax' => [
+					'label' => __d('school_informations', 'Fax Number')
+				],
+				'email',
+				'emergency_contact',
+				'contact',
+				'url',
+
+			];
+			$otherFields = [
 				'principal_name',
 				'principal_name_roma',
 				'school_type' => [
@@ -106,53 +167,40 @@ $jsonSchoolInformation = json_encode(
 					'ng-model' => 'schoolInformation.closeYearMonth',
 					//'mg-init' => 'establish_year_month="2019-03"'
 				],
-				'postal_code',
-				'prefecture_code' => [
-					'type' => 'select',
-					'options' => $prefectureOptions
-				],
-				'city',
-				'address',
-				'tel' => [
-					'label' => __d('school_informations', 'Telephone Number')
-				],
-				'fax' => [
-					'label' => __d('school_informations', 'Fax Number')
-				],
-				'email',
-				'emergency_contact',
-				'contact',
-				'url',
 				'number_of_male_students',
 				'number_of_female_students',
 				'number_of_faculty_members'
+
 			];
-			foreach ($fields as $key => $field) {
-				$extraOptions = [];
-				if (is_array($field)) {
-					// keyがフィールド名で $fieldがオプション
-					$extraOptions = $field;
-					$field = $key;
-				}
-				$defaultOptions = [
-					'label' => __d('school_informations', Inflector::humanize($field)),
-				];
-				$options = array_merge($defaultOptions, $extraOptions);
-				echo $this->NetCommonsForm->input(
-					'SchoolInformation.' . $field,
-					$options
-				);
-				echo $this->NetCommonsForm->input(
-					'SchoolInformation.is_public_' . $field,
-					[
-						'type' => 'radio',
-						'div' => ['class' => 'form-group form-inline col-xs-offset-1'],
-						'options' => [
-							1 => __d('school_informations', 'Public'),
-							0 => __d('school_informations', 'Private'),
-						]
+
+			foreach ($firstFields as $key => $field) {
+				$fieldFormElement($key, $field);
+			}
+
+			echo $this->NetCommonsForm->label('location', __d('school_informations', 'Location'));
+			echo '<div class="col-xs-offset-1">';
+			echo $this->NetCommonsForm->input(
+				'SchoolInformation.is_public_location',
+				[
+					'type' => 'radio',
+					'div' => ['class' => 'form-group form-inline'],
+					'options' => [
+						1 => __d('school_informations', 'Public'),
+						0 => __d('school_informations', 'Private'),
 					]
-				);
+				]
+			);
+
+			foreach ($locationFields as $key => $field) {
+				$fieldFormElement($key, $field);
+			}
+			echo '</div>';
+
+			foreach ($mainFields as $key => $field) {
+				$fieldFormElement($key, $field);
+			}
+			foreach ($otherFields as $key => $field) {
+				$fieldFormElement($key, $field);
 			}
 			?>
 
