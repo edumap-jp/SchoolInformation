@@ -1,7 +1,23 @@
+.school-information-footer-wrap {
+    display: flex;
+    justify-content: center;;
+}
 
-.school_information_footer{
-    text-align: center;
+.school-information-footer {
+    display: flex;
 }
-.school_information_footer_school_name{
-    font-size: 2em;
+
+.school-information-footer-school-badge {
+    margin-right: 10px;
 }
+
+
+.school-information-footer-school-name{
+    font-size: 1.2em;
+}
+
+.school-information-footer-sub-items {
+    font-size: small;
+}
+
+
