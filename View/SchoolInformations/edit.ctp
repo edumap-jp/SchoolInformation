@@ -193,6 +193,9 @@ $jsonSchoolInformation = json_encode(
 			foreach ($mainFields as $key => $field) {
 				$fieldFormElement($key, $field);
 			}
+
+			echo '<hr>';
+
 			foreach ($otherFields as $key => $field) {
 				$fieldFormElement($key, $field);
 			}
