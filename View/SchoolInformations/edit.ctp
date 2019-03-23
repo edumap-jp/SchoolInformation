@@ -59,12 +59,6 @@ $jsonSchoolInformation = json_encode(
 
 			<?php
 			$fieldFormElement = function ($key, $field) {
-				$locationFields = [
-					'postal_code',
-					'prefecture_code',
-					'city',
-					'address'
-				];
 				$extraOptions = [];
 				if (is_array($field)) {
 					// keyがフィールド名で $fieldがオプション
@@ -79,7 +73,7 @@ $jsonSchoolInformation = json_encode(
 					'SchoolInformation.' . $field,
 					$options
 				);
-				if (in_array($field, $locationFields, true) === false) {
+				if (in_array($field, SchoolInformation::locationFields(), true) === false) {
 					echo $this->NetCommonsForm->input(
 						'SchoolInformation.is_public_' . $field,
 						[

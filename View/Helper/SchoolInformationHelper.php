@@ -16,12 +16,7 @@ class SchoolInformationHelper extends AppHelper {
 	public $helpers = [
 		'NetCommons.NetCommonsHtml'
 	];
-	private $locationFields = [
-		'postal_code',
-		'prefecture_code',
-		'city',
-		'address'
-	];
+
 	private $__schoolInformation;
 
 	public function set(array $schoolInformation) {
@@ -46,7 +41,7 @@ class SchoolInformationHelper extends AppHelper {
 	}
 
 	private function __isPublic($field) {
-		if (in_array($field, $this->locationFields, true)) {
+		if (in_array($field, SchoolInformation::locationFields(), true)) {
 			$field = 'location';
 		}
 		return (bool)$this->__schoolInformation['SchoolInformation']['is_public_' . $field];
@@ -57,7 +52,7 @@ class SchoolInformationHelper extends AppHelper {
 	}
 
 	private function __isDisplayByFrameSetting($field) {
-		if (in_array($field, $this->locationFields, true)) {
+		if (in_array($field, SchoolInformation::locationFields(), true)) {
 			$field = 'location';
 		}
 		return (bool)$this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
@@ -70,7 +65,7 @@ class SchoolInformationHelper extends AppHelper {
 		if ($this->__isDisplayByFrameSetting('location') === false) {
 			return false;
 		}
-		foreach ($this->locationFields as $field) {
+		foreach (SchoolInformation::locationFields() as $field) {
 			// 公開で表示ならいずれかの所在地フィールドが入力ずみなら表示
 			if ($this->__isExists($field)) {
 				return true;

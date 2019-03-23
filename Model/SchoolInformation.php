@@ -41,6 +41,16 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		],
 	);
 
+	private static $locationFields = [
+		'postal_code',
+		'prefecture_code',
+		'city',
+		'address'
+	];
+
+	public static function locationFields() {
+		return self::$locationFields;
+	}
 /**
  * バリデートメッセージ多言語化対応のためのラップ
  *
