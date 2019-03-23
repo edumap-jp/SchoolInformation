@@ -34,8 +34,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		'Files.Attachment' => [
 			'school_badge' => [
 				'thumbnailSizes' => [
-					'main' => '60h',
-					'small' => '36h'
+					'large' => '200h',
+					'middle' => '120h',
+					'small' => '60h',
+					//'main' => '60h',
+					//'small' => '36h'
 				]
 			]
 		],
