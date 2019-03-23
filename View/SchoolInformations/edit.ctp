@@ -74,17 +74,21 @@ $jsonSchoolInformation = json_encode(
 					$options
 				);
 				if (in_array($field, SchoolInformation::locationFields(), true) === false) {
+
+					echo '<div class="col-xs-offset-1 form-group form-inline">';
 					echo $this->NetCommonsForm->input(
 						'SchoolInformation.is_public_' . $field,
 						[
 							'type' => 'radio',
-							'div' => ['class' => 'form-group form-inline col-xs-offset-1'],
+							//'div' => ['class' => 'form-group form-inline col-xs-offset-1'],
+							'div' => ['class' => 'form-radio-outer'],
 							'options' => [
 								1 => __d('school_informations', 'Public'),
 								0 => __d('school_informations', 'Private'),
 							]
 						]
 					);
+					echo '</div>';
 				}
 			};
 
