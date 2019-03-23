@@ -24,7 +24,7 @@
 					); ?>
 					<?= $this->SchoolInformation->display(
 						'email',
-						['tag' => 'span', 'displayLabel' => true]
+						['tag' => 'span']
 					); ?>
 				</div>
 			</div>

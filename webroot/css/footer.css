@@ -21,3 +21,6 @@
 }
 
 
+.school-information-label:after {
+    content: ":";
+}

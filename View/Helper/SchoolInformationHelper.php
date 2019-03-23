@@ -97,7 +97,7 @@ class SchoolInformationHelper extends AppHelper {
 		$ret = '';
 		$ret .= $this->display(
 			'postal_code',
-			['format' => __d('school_informations', 'PostalCode: %s'), 'tag' => 'span']
+			['format' => __d('school_informations', 'PostalCode:%s'), 'tag' => 'span']
 		);
 		$ret .= __d(
 			'school_informations',
@@ -125,15 +125,20 @@ class SchoolInformationHelper extends AppHelper {
 		$format = isset($options['format']) ? $options['format'] : '%s';
 
 		$tagOptions = [
-			'escape' => true,
 			'class' => 'school-information-' . $this->__toKebab($field),
 		];
 
 		$formattedText = $this->__formatValue($field, $format);
 
+		$label = '';
+		if (isset($options['displayLabel']) && $options['displayLabel']) {
+			$labelClassName = 'school-information-label school-information-' .$this->__toKebab($field) . '-label';
+			$label = $this->NetCommonsHtml->tag('span', __d('school_informations', Inflector::humanize($field)), ['class' => $labelClassName]);
+		}
+
 		return $this->NetCommonsHtml->tag(
 			$tag,
-			$formattedText,
+			$label . $formattedText,
 			$tagOptions
 		);
 	}
@@ -148,13 +153,6 @@ class SchoolInformationHelper extends AppHelper {
 		return str_replace('_', '-', $field);
 	}
 
-	private function __prefecture() {
-		if ($this->isDisplay('prefecture_code')) {
-			return $this->_View->viewVars['prefectureOptions'][$this->__schoolInformation['SchoolInformation']['prefecture_code']];
-		}
-		return '';
-	}
-
 	/**
 	 * __formatValue
 	 *
@@ -166,6 +164,9 @@ class SchoolInformationHelper extends AppHelper {
 		if (strpos($field, 'year_month') !== false) {
 			$formattedText = $this->__formatYearMont($field);
 			return $formattedText;
+		}
+		if (strpos($field, 'url') !== false) {
+			return $this->__formatUrl($field);
 		}
 		$formattedText = $this->__formatDefault($field, $format);
 		return $formattedText;
@@ -183,7 +184,17 @@ class SchoolInformationHelper extends AppHelper {
 			$this->__schoolInformation['SchoolInformation'][$field]
 		);
 		$formattedText = __d('school_informations', '%2$d/%1$d', $year, $month);
-		return $formattedText;
+		return h($formattedText);
+	}
+
+	private function __formatUrl($field) {
+		return $this->NetCommonsHtml->link(
+			$this->__schoolInformation['SchoolInformation'][$field],
+			$this->__schoolInformation['SchoolInformation'][$field],
+			[
+				'target' => '_blank'
+			]
+		);
 	}
 
 	/**
@@ -198,6 +209,13 @@ class SchoolInformationHelper extends AppHelper {
 			$format,
 			$this->__schoolInformation['SchoolInformation'][$field]
 		);
-		return $formattedText;
+		return h($formattedText);
+	}
+
+	private function __prefecture() {
+		if ($this->isDisplay('prefecture_code')) {
+			return $this->_View->viewVars['prefectureOptions'][$this->__schoolInformation['SchoolInformation']['prefecture_code']];
+		}
+		return '';
 	}
 }
