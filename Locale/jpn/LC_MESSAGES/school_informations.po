@@ -160,3 +160,6 @@ msgstr "非表示"
 
 msgid "Display Setting"
 msgstr "表示設定"
+
+msgid "%2$d/%1$d"
+msgstr "%1$d年%2$d月"
