@@ -1,10 +1,12 @@
-.school_information_footer_school_name{
-    font-size: 2em;
-}
-.school_information_side_image {
+
+.school-information-side-image {
     text-align: center;
     margin-bottom: 10px;
 }
-.school_information_side_school_name {
+.school-information-side-school-name {
     font-size: large;
+}
+
+.school-information-side .school-information-label:after {
+    content: ":";
 }

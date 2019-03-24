@@ -42,6 +42,18 @@ class SchoolInformationHelper extends AppHelper {
 		);
 	}
 
+	public function displayPrincipal() {
+		if ($this->isDisplayPrincipal() === false) {
+			return '';
+		}
+		return $this->NetCommonsHtml->tag(
+			'ruby',
+			$this->display('principal_name') . $this->display(
+				'principal_name_roma',
+				['tag' => 'rt']
+			)
+		);
+	}
 
 	public function isDisplayPrincipal() {
 		return ($this->isDisplay('principal_name') || $this->isDisplay('principal_name_roma'));
@@ -78,46 +90,11 @@ class SchoolInformationHelper extends AppHelper {
 		return (bool)$this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
 	}
 
-	public function isDisplayLocation() {
-		if ($this->__isPublic('location') === false) {
-			return false;
-		}
-		if ($this->__isDisplayByFrameSetting('location') === false) {
-			return false;
-		}
-		foreach (SchoolInformation::locationFields() as $field) {
-			// 公開で表示ならいずれかの所在地フィールドが入力ずみなら表示
-			if ($this->__isExists($field)) {
-				return true;
-			}
-		}
-	}
-
-	public function displayLocation() {
-		$ret = '';
-		$ret .= $this->display(
-			'postal_code',
-			['format' => __d('school_informations', 'PostalCode:%s'), 'tag' => 'span']
-		);
-		$ret .= __d(
-			'school_informations',
-			'Adress:%3$s City:%2$s Prefecture:%1$s',
-			$this->NetCommonsHtml->tag(
-				'span',
-				$this->__prefecture(),
-				['class' => 'school-information-prefecture']
-			),
-			$this->display('city', ['tag' => 'span']),
-			$this->display('address', ['tag' => 'span'])
-		);
-		return $this->NetCommonsHtml->tag('div', $ret);
-	}
-
 	public function display($field, array $options = []) {
 		assert($this->__schoolInformation);
 
 		if ($this->isDisplay($field) === false) {
-			return;
+			return '';
 		}
 
 		$tag = isset($options['tag']) ? $options['tag'] : 'div';
@@ -125,15 +102,15 @@ class SchoolInformationHelper extends AppHelper {
 		$format = isset($options['format']) ? $options['format'] : '%s';
 
 		$tagOptions = [
-			'class' => 'school-information-' . $this->__toKebab($field),
+			'class' => 'school-information-record-item school-information-' . $this->__toKebab($field),
 		];
 
 		$formattedText = $this->__formatValue($field, $format);
 
 		$label = '';
 		if (isset($options['displayLabel']) && $options['displayLabel']) {
-			$labelClassName = 'school-information-label school-information-' .$this->__toKebab($field) . '-label';
-			$label = $this->NetCommonsHtml->tag('span', __d('school_informations', Inflector::humanize($field)), ['class' => $labelClassName]);
+			$labelText = __d('school_informations', Inflector::humanize($field));
+			$label = $this->label($field, $labelText);
 		}
 
 		return $this->NetCommonsHtml->tag(
@@ -210,6 +187,56 @@ class SchoolInformationHelper extends AppHelper {
 			$this->__schoolInformation['SchoolInformation'][$field]
 		);
 		return h($formattedText);
+	}
+
+	/**
+	 * label
+	 *
+	 * @param $field
+	 * @param $labelText
+	 * @return mixed
+	 */
+	public function label($field, $labelText) {
+		$labelClassName = 'school-information-label school-information-' . $this->__toKebab(
+				$field
+			) . '-label';
+		$label = $this->NetCommonsHtml->tag('span', $labelText, ['class' => $labelClassName]);
+		return $label;
+	}
+
+	public function isDisplayLocation() {
+		if ($this->__isPublic('location') === false) {
+			return false;
+		}
+		if ($this->__isDisplayByFrameSetting('location') === false) {
+			return false;
+		}
+		foreach (SchoolInformation::locationFields() as $field) {
+			// 公開で表示ならいずれかの所在地フィールドが入力ずみなら表示
+			if ($this->__isExists($field)) {
+				return true;
+			}
+		}
+	}
+
+	public function displayLocation() {
+		$ret = '';
+		$ret .= $this->display(
+			'postal_code',
+			['format' => __d('school_informations', 'PostalCode:%s'), 'tag' => 'span']
+		);
+		$ret .= __d(
+			'school_informations',
+			'Adress:%3$s City:%2$s Prefecture:%1$s',
+			$this->NetCommonsHtml->tag(
+				'span',
+				$this->__prefecture(),
+				['class' => 'school-information-prefecture']
+			),
+			$this->display('city', ['tag' => 'span']),
+			$this->display('address', ['tag' => 'span'])
+		);
+		return $this->NetCommonsHtml->tag('div', $ret, ['class' => 'school-information-location']);
 	}
 
 	private function __prefecture() {

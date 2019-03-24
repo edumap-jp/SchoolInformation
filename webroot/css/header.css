@@ -10,9 +10,13 @@ h1.school-information-header-title {
     margin: 0;
 }
 
-.school-information-header-title rt{
+.school-information-header-title .school-information-school-name-kana{
     font-size: 12px;
 }
 .school-information-header-title .school-information-school-name-roma {
     font-size:12px;
+}
+
+.school-information-header .school-information-location {
+    display: inline;
 }
