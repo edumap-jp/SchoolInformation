@@ -124,27 +124,13 @@ $jsonSchoolInformation = json_encode(
 				'principal_name_roma',
 				'school_type' => [
 					'type' => 'select',
-					'options' => [
-						'国立',
-						'公立',
-						'私立'
-					]
+					'options' => $schoolTypeOptions
 				],
 				'school_kind' => [
 					'type' => 'select',
-					'options' => [
-						'小学校',
-						'中学校',
-						'高等学校',
-						'中等教育学校',
-						'小中一貫校'
-					]
+					'options' => $schoolKindOptions
 				],
-				'student_category' => [
-					'男子校',
-					'女子校',
-					'共学'
-				],
+				'student_category' => $studenTypeOptions,
 				'establish_year_month' => [
 					'type' => 'datetime',
 					'datetimepicker-options' => json_encode(

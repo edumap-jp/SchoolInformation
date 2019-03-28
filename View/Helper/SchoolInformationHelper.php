@@ -138,6 +138,12 @@ class SchoolInformationHelper extends AppHelper {
 	 * @return string
 	 */
 	private function __formatValue($field, $format) {
+		$formatMethod = '__format' . ucfirst(Inflector::camelize($field));
+		if (method_exists($this, $formatMethod)) {
+			return call_user_func([$this, $formatMethod]);
+		}
+
+
 		if (strpos($field, 'year_month') !== false) {
 			$formattedText = $this->__formatYearMont($field);
 			return $formattedText;
@@ -147,6 +153,19 @@ class SchoolInformationHelper extends AppHelper {
 		}
 		$formattedText = $this->__formatDefault($field, $format);
 		return $formattedText;
+	}
+
+	public function __formatSchoolType() {
+		$value = $this->__schoolInformation['SchoolInformation']['school_type'];
+		return $this->_View->viewVars['schoolTypeOptions'][$value];
+	}
+	public function __formatSchoolKind() {
+		$value = $this->__schoolInformation['SchoolInformation']['school_kind'];
+		return $this->_View->viewVars['schoolKindOptions'][$value];
+	}
+	public function __formatStudentCategory() {
+		$value = $this->__schoolInformation['SchoolInformation']['student_category'];
+		return $this->_View->viewVars['studentCategoryOptions'][$value];
 	}
 
 	/**

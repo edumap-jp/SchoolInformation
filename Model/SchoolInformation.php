@@ -4,11 +4,11 @@
  *
  * @property Language $Language
  *
-* @author Noriko Arai <arai@nii.ac.jp>
-* @author Your Name <yourname@domain.com>
-* @link http://www.netcommons.org NetCommons Project
-* @license http://www.netcommons.org/license.txt NetCommons License
-* @copyright Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Your Name <yourname@domain.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
@@ -18,6 +18,12 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformation extends SchoolInformationsAppModel {
 
+	private static $locationFields = [
+		'postal_code',
+		'prefecture_code',
+		'city',
+		'address'
+	];
 	/**
 	 * use behaviors
 	 *
@@ -44,22 +50,16 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		],
 	);
 
-	private static $locationFields = [
-		'postal_code',
-		'prefecture_code',
-		'city',
-		'address'
-	];
-
 	public static function locationFields() {
 		return self::$locationFields;
 	}
-/**
- * バリデートメッセージ多言語化対応のためのラップ
- *
- * @param array $options options
- * @return bool
- */
+
+	/**
+	 * バリデートメッセージ多言語化対応のためのラップ
+	 *
+	 * @param array $options options
+	 * @return bool
+	 */
 	public function beforeValidate($options = array()) {
 		$this->validate = array_merge(
 			$this->validate,
@@ -78,7 +78,10 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			'school_name' => array(
 				'notBlank' => [
 					'rule' => array('notBlank'),
-					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('school_informations', 'School Name')),
+					'message' => sprintf(
+						__d('net_commons', 'Please input %s.'),
+						__d('school_informations', 'School Name')
+					),
 					//'allowEmpty' => false,
 					'required' => true,
 				],
@@ -129,14 +132,14 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		//バリデーション
 		$this->set($data);
-		if (! $this->validates()) {
+		if (!$this->validates()) {
 			return false;
 		}
 
 		try {
 			//お知らせの登録
 			$schoolInformation = $this->save(null, false);
-			if (! $schoolInformation) {
+			if (!$schoolInformation) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
@@ -149,5 +152,29 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		return $schoolInformation;
+	}
+
+	public function schoolTypes() {
+		return [
+			'国立' => __d('school_informations', '国立'),
+			'公立' => __d('school_informations', '公立'),
+			'私立' => __d('school_informations', '私立')
+		];
+	}
+	public function schoolKinds() {
+		return [
+			'小学校' => __d('school_informations', '小学校'),
+			'中学校' => __d('school_informations', '中学校'),
+			'高等学校' => __d('school_informations', '高等学校'),
+			'中等教育学校' => __d('school_informations', '中等教育学校'),
+			'小中一貫校' => __d('school_informations', '小中一貫校')
+		];
+	}
+	public function studentCategories() {
+		return [
+			'男子校' => __d('school_informations', '男子校'),
+			'女子校' => __d('school_informations', '女子校'),
+			'共学' => __d('school_informations', '共学')
+		];
 	}
 }

@@ -55,6 +55,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		// ゲストアクセスOKのアクションを設定
 		$this->Auth->allow('view', 'school_badge');
 		//$this->Categories->initCategories();
+		$this->set('schoolTypeOptions', $this->SchoolInformation->schoolTypes());
+		$this->set('schoolKindOptions', $this->SchoolInformation->schoolKinds());
+		$this->set('studentCategoryOptions', $this->SchoolInformation->studentCategories());
 		parent::beforeFilter();
 	}
 

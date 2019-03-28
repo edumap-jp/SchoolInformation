@@ -163,3 +163,37 @@ msgstr "表示設定"
 
 msgid "%2$d/%1$d"
 msgstr "%1$d年%2$d月"
+
+msgid "国立"
+msgstr "国立"
+
+msgid "公立"
+msgstr "公立"
+
+msgid "私立"
+msgstr "私立"
+
+msgid "小学校"
+msgstr "小学校"
+
+msgid "中学校"
+msgstr "中学校"
+
+msgid "高等学校"
+msgstr "高等学校"
+
+msgid "中等教育学校"
+msgstr "中等教育学校"
+
+msgid "小中一貫校"
+msgstr "小中一貫校"
+
+msgid "男子校"
+msgstr "男子校"
+
+msgid "女子校"
+msgstr "女子校"
+
+msgid "共学"
+msgstr "共学"
+
