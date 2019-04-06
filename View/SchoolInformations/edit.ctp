@@ -130,7 +130,10 @@ $jsonSchoolInformation = json_encode(
 					'type' => 'select',
 					'options' => $schoolKindOptions
 				],
-				'student_category' => $studenTypeOptions,
+				'student_category' => [
+					'type' => 'select',
+					'options' => $studentCategoryOptions
+				],
 				'establish_year_month' => [
 					'type' => 'datetime',
 					'datetimepicker-options' => json_encode(
