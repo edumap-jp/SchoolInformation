@@ -1,6 +1,7 @@
 .school-information-footer-wrap {
     display: flex;
-    justify-content: center;;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .school-information-footer {
