@@ -15,6 +15,9 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
 
 /**
  * Summary for SchoolInformation Model
+ *
+ * @property SiteSetting $SiteSetting
+ * @property Language $Language
  */
 class SchoolInformation extends SchoolInformationsAppModel {
 
@@ -111,7 +114,6 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		return $validate;
 	}
 
-
 	/**
 	 * TODO getSchoolInformation
 	 *
@@ -127,6 +129,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	}
 
 	public function saveSchoolInformation(array $data) {
+		$this->loadModels([
+			'SiteSetting' => 'SiteManager.SiteSetting',
+			'Language' => 'M17n.Language',
+		]);
+
 		//トランザクションBegin
 		$this->begin();
 
@@ -137,11 +144,46 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		try {
-			//お知らせの登録
+			//学校情報の登録
 			$schoolInformation = $this->save(null, false);
 			if (!$schoolInformation) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
+
+			//サイト名も更新する
+			$languages = $this->Language->find('all', [
+				'recursive' => -1,
+				'fields' => ['id', 'code'],
+			]);
+			$langIds = [];
+			foreach ($languages as $lang) {
+				$langIds[$lang['Language']['code']] = $lang['Language']['id'];
+			}
+
+			$siteSettings = $this->SiteSetting->getSiteSettingForEdit([
+				'SiteSetting.key' => [
+					//サイト名
+					'App.site_name',
+				]
+			]);
+
+			$schoolName = $schoolInformation[$this->alias]['school_name'];
+			$siteSettings['App.site_name'][$langIds['ja']]['value'] = $schoolName;
+			if (!empty($schoolInformation[$this->alias]['school_name_roma'])) {
+				$siteSettings['App.site_name'][$langIds['en']]['value'] =
+								$schoolInformation[$this->alias]['school_name_roma'];
+			} else {
+				$siteSettings['App.site_name'][$langIds['en']]['value'] = $schoolName;
+			}
+
+			foreach ($siteSettings['App.site_name'] as $saveData) {
+				$this->SiteSetting->create();
+				if (! $this->SiteSetting->save($saveData, ['callbacks' => false])) {
+					CakeLog::error(var_export($this->SiteSetting->validationErrors, true));
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+			}
+			$this->SiteSetting->cacheClear();
 
 			//トランザクションCommit
 			$this->commit();
