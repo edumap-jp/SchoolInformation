@@ -111,7 +111,7 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 					'is_display_student_category',
 					'is_display_establish_year_month',
 					'is_display_close_year_month',
-					//'is_display_location',
+					'is_display_location',
 					'is_display_tel',
 					'is_display_fax',
 					'is_display_email',

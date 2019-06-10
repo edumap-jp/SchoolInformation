@@ -48,14 +48,8 @@ $jsonSchoolInformation = json_encode(
 				[
 					'label' => __d('school_informations', 'School Name'),
 					'required' => true,
-
 				]
 			) ?>
-			<?php echo $this->NetCommonsForm->uploadFile(
-				'SchoolInformation.school_badge',
-				['label' => __d('school_informations', 'School Badge'), 'remove' => false]
-			)
-			?>
 
 			<?php
 			$fieldFormElement = function ($key, $field) {
@@ -104,7 +98,6 @@ $jsonSchoolInformation = json_encode(
 				],
 				'city',
 				'address',
-
 			];
 			$mainFields = [
 				'tel' => [
@@ -117,7 +110,6 @@ $jsonSchoolInformation = json_encode(
 				'emergency_contact',
 				'contact',
 				'url',
-
 			];
 			$otherFields = [
 				'principal_name',
@@ -154,16 +146,29 @@ $jsonSchoolInformation = json_encode(
 					'ng-model' => 'schoolInformation.closeYearMonth',
 					//'mg-init' => 'establish_year_month="2019-03"'
 				],
+				'number_of_faculty_members',
+				'number_of_total_students',
 				'number_of_male_students',
 				'number_of_female_students',
-				'number_of_faculty_members'
-
 			];
 
 			foreach ($firstFields as $key => $field) {
 				$fieldFormElement($key, $field);
 			}
 
+			//校章
+			echo $this->NetCommonsForm->uploadFile(
+				'SchoolInformation.school_badge',
+				['label' => __d('school_informations', 'School Badge'), 'remove' => false]
+			);
+
+			//カバー写真
+			echo $this->NetCommonsForm->uploadFile(
+				'SchoolInformation.cover_picture',
+				['label' => __d('school_informations', 'Cover Picture'), 'remove' => true]
+			);
+
+			//所在地
 			echo $this->NetCommonsForm->label('location', __d('school_informations', 'Location'));
 			echo '<div class="col-xs-offset-1">';
 			echo $this->NetCommonsForm->input(

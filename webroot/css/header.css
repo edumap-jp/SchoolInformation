@@ -1,6 +1,13 @@
 .school-information-header {
     display:flex;
     align-items: center;
+	height: 180px;
+/*	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;*/
+	padding-left: 16px;
+	background: linear-gradient(rgba(0,0,0, .50), rgba(0,0,0,0) 50%);
 }
 
 .school-information-header .school-information-header-school-badge {
@@ -10,13 +17,16 @@ h1.school-information-header-title {
     margin: 0;
 }
 
-.school-information-header-title .school-information-school-name-kana{
-    font-size: 12px;
+.school-information-header-title .school-information-school-name-kana {
+    font-size: 14px;
+	line-height: 28px;
 }
 .school-information-header-title .school-information-school-name-roma {
-    font-size:12px;
+    font-size: 12px;
+	line-height: 24px;
+	margin-bottom: 8px;
 }
-
+/*
 .school-information-header .school-information-location {
     display: inline;
-}
+}*/

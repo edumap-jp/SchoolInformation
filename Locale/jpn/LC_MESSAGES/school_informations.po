@@ -95,6 +95,11 @@ msgstr "番地"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
+msgid "Number Of Total Students"
+msgstr "全生徒数"
+
+#: View/Elements/SchoolInformation/main.ctp:29
+#: View/SchoolInformations/edit.ctp:93
 msgid "Number Of Male Students"
 msgstr "男子生徒数"
 
@@ -127,6 +132,9 @@ msgstr "メインカラム用"
 msgid "School Badge"
 msgstr "校章"
 
+msgid "Cover Picture"
+msgstr "カバー写真"
+
 msgid "Private"
 msgstr "非公開"
 
@@ -151,6 +159,9 @@ msgstr "女性"
 
 msgid "Number Of Students"
 msgstr "生徒数"
+
+msgid "Number Of Total Students"
+msgstr "全生徒数"
 
 msgid "Display"
 msgstr "表示"

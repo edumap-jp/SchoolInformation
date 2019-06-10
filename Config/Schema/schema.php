@@ -1,4 +1,4 @@
-<?php 
+<?php
 class SchoolInformationsSchema extends CakeSchema {
 
 	public $connection = 'master';
@@ -65,8 +65,10 @@ class SchoolInformationsSchema extends CakeSchema {
 		'emergency_contact' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '緊急連絡先', 'charset' => 'utf8mb4'),
 		'contact' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '問い合わせ先', 'charset' => 'utf8mb4'),
 		'url' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'URL', 'charset' => 'utf8mb4'),
+		'map_url' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 2000, 'collate' => 'utf8mb4_general_ci', 'comment' => '地図URL', 'charset' => 'utf8mb4'),
 		'number_of_male_students' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '男子生徒数'),
 		'number_of_female_students' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '女子生徒数'),
+		'number_of_total_students' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '全生徒数'),
 		'number_of_faculty_members' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '教員数'),
 		'is_public_school_name_kana' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校名(かな)'),
 		'is_public_school_name_roma' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校名(ローマ字)'),
@@ -86,6 +88,7 @@ class SchoolInformationsSchema extends CakeSchema {
 		'is_public_url' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) URL'),
 		'is_public_number_of_male_students' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 男子生徒数'),
 		'is_public_number_of_female_students' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 女子生徒数'),
+		'is_public_number_of_total_students' => array('type' => 'boolean', 'null' => true, 'default' => '1'),
 		'is_public_number_of_faculty_members' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 教員数'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => '0', 'unsigned' => false, 'comment' => '作成者'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => '作成日時'),
