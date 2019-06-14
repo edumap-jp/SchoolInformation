@@ -22,27 +22,27 @@
 			</h1>
 			<div>
 				<?php echo $this->SchoolInformation->displayLocation(); ?>
-				<?= $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformation->display(
 					'tel',
 					['tag' => 'span', 'displayLabel' => true]
 				); ?>
-				<?= $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformation->display(
 					'fax',
 					['tag' => 'span', 'displayLabel' => true]
 				); ?>
-				<?= $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformation->display(
 					'contact',
 					['tag' => 'span']
 				); ?>
-				<?= $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformation->display(
 					'email',
 					['tag' => 'span']
 				); ?>
-				<?= $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformation->display(
 					'emergency_contact',
 					['tag' => 'span']
 				); ?>
-				<?= $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformation->display(
 					'url',
 					['tag' => 'span']
 				); ?>

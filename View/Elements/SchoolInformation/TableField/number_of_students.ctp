@@ -3,11 +3,11 @@
 	) || $this->SchoolInformation->isDisplay('number_of_female_students')): ?>
 	<tr>
 		<th>
-			<?= __d('school_informations', 'Number Of Students') ?>
+			<?php echo __d('school_informations', 'Number Of Students') ?>
 		</th>
 		<td>
 			<div>
-				<span><?= __d('school_informations', 'Male'); ?> : </span>
+				<span><?php echo __d('school_informations', 'Male'); ?> : </span>
 				<?php echo $this->SchoolInformation->display(
 					'number_of_male_students',
 					[
@@ -21,7 +21,7 @@
 
 			</div>
 			<div>
-				<span><?= __d('school_informations', 'Female'); ?> : </span>
+				<span><?php echo __d('school_informations', 'Female'); ?> : </span>
 				<?php echo $this->SchoolInformation->display(
 					'number_of_female_students',
 					[

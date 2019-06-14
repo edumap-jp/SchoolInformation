@@ -1,8 +1,8 @@
 <?php if ($this->SchoolInformation->isDisplayLocation()): ?>
 	<tr>
-		<th><?= __d('school_informations', 'Location') ?></th>
+		<th><?php echo __d('school_informations', 'Location') ?></th>
 		<td>
-			<?= $this->SchoolInformation->displayLocation(); ?>
+			<?php echo $this->SchoolInformation->displayLocation(); ?>
 		</td>
 	</tr>
 <?php endif; ?>

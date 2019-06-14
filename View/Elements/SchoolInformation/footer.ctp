@@ -12,29 +12,29 @@
 				<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 			</div>
 			<div class="school-information-footer-sub-items">
-				<?= $this->SchoolInformation->displayLocation(); ?>
+				<?php echo $this->SchoolInformation->displayLocation(); ?>
 				<div>
-					<?= $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformation->display(
 						'tel',
 						['tag' => 'span', 'displayLabel' => true]
 					); ?>
-					<?= $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformation->display(
 						'fax',
 						['tag' => 'span', 'displayLabel' => true]
 					); ?>
-					<?= $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformation->display(
 						'contact',
 						['tag' => 'span']
 					); ?>
-					<?= $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformation->display(
 						'email',
 						['tag' => 'span']
 					); ?>
-					<?= $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformation->display(
 						'emergency_contact',
 						['tag' => 'span']
 					); ?>
-					<?= $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformation->display(
 						'url',
 						['tag' => 'span']
 					); ?>

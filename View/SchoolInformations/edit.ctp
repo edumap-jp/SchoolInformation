@@ -29,7 +29,7 @@ $jsonSchoolInformation = json_encode(
 
 
 <article class="block-setting-body" ng-controller="SchoolInformationEdit"
-		ng-init="init(<?= h($jsonSchoolInformation); ?>)">
+		ng-init="init(<?php echo h($jsonSchoolInformation); ?>)">
 
 	<div class="panel panel-default">
 		<?php echo $this->NetCommonsForm->create('SchoolInformation', ['type' => 'file']); ?>

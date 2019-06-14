@@ -8,10 +8,10 @@
 		<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 	</div>
 
-	<?= $this->SchoolInformation->displayLocation(); ?>
-	<?= $this->SchoolInformation->display('tel', ['displayLabel' => true]); ?>
-	<?= $this->SchoolInformation->display('fax', ['displayLabel' => true]); ?>
-	<?= $this->SchoolInformation->display('email'); ?>
+	<?php echo $this->SchoolInformation->displayLocation(); ?>
+	<?php echo $this->SchoolInformation->display('tel', ['displayLabel' => true]); ?>
+	<?php echo $this->SchoolInformation->display('fax', ['displayLabel' => true]); ?>
+	<?php echo $this->SchoolInformation->display('email'); ?>
 
 
 
