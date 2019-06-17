@@ -52,7 +52,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			],
 			'cover_picture' => [
 				'thumbnailSizes' => [
-					'large' => '200h',
+					'large' => '1200w',
 					//'main' => '60h',
 					//'small' => '36h'
 				]

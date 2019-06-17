@@ -36,3 +36,16 @@ NetCommonsApp.controller('SchoolInformationEdit',
       }
     ]
 );
+
+
+/**
+ * Load  Event and Resize Event
+ *
+ * @param {string} Controller name
+ * @param {function()} Controller
+ */
+$(window).on('load resize', function() {
+  var photo = $('.school-cover-picture'), header = $('#container-header');
+  photo.width(header.innerWidth());
+  photo.height(header.innerHeight());
+});

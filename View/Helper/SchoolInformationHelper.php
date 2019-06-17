@@ -33,12 +33,32 @@ class SchoolInformationHelper extends AppHelper {
 		// HACK: SchoolInformationモデルから参照するほうが良い
 		$height = [
 			'small' => 60,
-			'middle' => 120,
+			//'middle' => 120,
 			'large' => 200
 		];
+		if (isset($height[$size])) {
+			return $this->NetCommonsHtml->image(
+				'/school_informations/img/no_badge.png',
+				['style' => 'height:' . $height[$size] . 'px']
+			);
+		} else {
+			return $this->NetCommonsHtml->image(
+				'/school_informations/img/no_badge.png'
+			);
+		}
+	}
+
+	public function getCoverPictureSize() {
+	}
+
+	public function coverPicture() {
+		if (isset($this->__schoolInformation['UploadFile']['cover_picture']['id'])) {
+			return $this->NetCommonsHtml->image(
+				'/school_informations/school_informations/cover_picture'
+			);
+		}
 		return $this->NetCommonsHtml->image(
-			'/school_informations/img/no_badge.png',
-			['style' => 'height:' . $height[$size] . 'px']
+			'/school_informations/img/cover_sample.jpg'
 		);
 	}
 

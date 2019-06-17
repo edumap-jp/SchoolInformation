@@ -20,18 +20,22 @@ App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
  */
 class SchoolInformationsController extends SchoolInformationsAppController {
 
+/**
+ * use models
+ *
+ * @var array
+ */
 	public $uses = [
 		'SchoolInformations.SchoolInformation',
 		'SchoolInformations.SchoolInformationFrameSetting',
-
 		'DataTypes.DataTypeChoice',
 	];
 
-	/**
-	 * use components
-	 *
-	 * @var array
-	 */
+/**
+ * use components
+ *
+ * @var array
+ */
 	public $components = array(
 		'NetCommons.Permission' => array(
 			//アクセスの権限
@@ -46,14 +50,14 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 	//	'Workflow.Workflow'
 	//];
 
-	/**
-	 * beforeFilter
-	 *
-	 * @return void
-	 */
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
 	public function beforeFilter() {
 		// ゲストアクセスOKのアクションを設定
-		$this->Auth->allow('view', 'school_badge');
+		$this->Auth->allow('view', 'school_badge', 'cover_picture');
 		//$this->Categories->initCategories();
 		$this->set('schoolTypeOptions', $this->SchoolInformation->schoolTypes());
 		$this->set('schoolKindOptions', $this->SchoolInformation->schoolKinds());
@@ -61,8 +65,11 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		parent::beforeFilter();
 	}
 
-
-
+/**
+ * view
+ *
+ * @return void
+ */
 	public function view() {
 		//
 		$layoutPosition = $this->_getLayoutPosition();
@@ -74,9 +81,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting($this->_getLayoutPosition());
 			$this->set('frameSetting', $frameSetting);
 			$this->set('prefectureOptions', $this->__getPrefectureOptions());
-
 			return;
 		}
+
 		if (Current::permission('content_editable')) {
 			// データない&編集権限ありなら編集ボタン表示
 			$this->view = 'SchoolInformations/empty_for_editable';
@@ -85,11 +92,11 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		}
 	}
 
-	/**
-	 * TODO edit
-	 *
-	 * @return CakeResponse|null
-	 */
+/**
+ * TODO edit
+ *
+ * @return CakeResponse|null
+ */
 	public function edit() {
 		//$this->emptyRender();
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -141,6 +148,28 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			[
 				'field' => 'school_badge',
 				'size' => $size
+			]
+		);
+	}
+
+	/**
+	 * ファイルダウンロード
+	 *
+	 * @throws NotFoundException
+	 * @return mixed
+	 */
+	public function cover_picture() {
+		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
+
+		if (!$schoolInformation) {
+			throw new NotFoundException();
+		}
+		// ダウンロード実行
+		return $this->Download->doDownload(
+			$schoolInformation['SchoolInformation']['id'],
+			[
+				'field' => 'cover_picture',
+				'size' => 'large'
 			]
 		);
 	}

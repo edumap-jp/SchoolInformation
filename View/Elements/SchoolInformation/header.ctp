@@ -2,10 +2,14 @@
 	'/school_informations/css/header.css',
 	['inline' => false]
 ); ?>
-<div class="bg-primary">
+<div class="school-information-header-outer bg-primary">
+	<div class="school-cover-picture">
+		<?php echo $this->SchoolInformation->coverPicture(); ?>
+		<!--<div class="school-cover-picture-back"></div>-->
+	</div>
 	<div class="school-information-header">
 		<div class="school-information-header-school-badge">
-			<?php echo $this->SchoolInformation->schoolBadge('middle');?>
+			<?php echo $this->SchoolInformation->schoolBadge('middle'); ?>
 		</div>
 		<div class="school-information-header-text">
 			<h1 class="school-information-header-title">

@@ -3,6 +3,11 @@
  * @var array $frameSetting SchoolInformationFrameSetting data
  */
 ?>
+<?php echo $this->NetCommonsHtml->script(
+	[
+		'/school_informations/js/school_information_edit.js',
+	]
+); ?>
 
 <?php if (Current::permission('content_editable')): ?>
 	<div align="right">
