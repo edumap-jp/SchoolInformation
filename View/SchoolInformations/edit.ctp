@@ -161,7 +161,6 @@ $jsonSchoolInformation = json_encode(
 				[
 					'label' => __d('school_informations', 'Cover Picture'),
 					'remove' => true,
-					'help' => __d('school_informations', 'Specify the URL of the Google Maps iframe widget.'),
 				]
 			);
 

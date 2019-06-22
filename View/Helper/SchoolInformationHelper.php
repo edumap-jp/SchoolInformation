@@ -59,9 +59,10 @@ class SchoolInformationHelper extends AppHelper {
 				'/school_informations/school_informations/cover_picture'
 			);
 		}
-		return $this->NetCommonsHtml->image(
-			'/school_informations/img/cover_sample.jpg'
-		);
+		//return $this->NetCommonsHtml->image(
+		//	'/school_informations/img/cover_sample.jpg'
+		//);
+		return '';
 	}
 
 	public function displayPrincipal() {

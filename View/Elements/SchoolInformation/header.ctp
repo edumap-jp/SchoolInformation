@@ -1,8 +1,10 @@
-<?php echo $this->NetCommonsHtml->css(
+<?php
+echo $this->NetCommonsHtml->css(
 	'/school_informations/css/header.css',
 	['inline' => false]
-); ?>
-<div class="school-information-header-outer bg-primary">
+);
+?>
+<div class="school-information-header-outer <?php echo h($this->theme); ?> navbar-inverse">
 	<div class="school-cover-picture">
 		<?php echo $this->SchoolInformation->coverPicture(); ?>
 		<!--<div class="school-cover-picture-back"></div>-->
