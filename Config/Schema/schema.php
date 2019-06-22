@@ -58,6 +58,7 @@ class SchoolInformationsSchema extends CakeSchema {
 		'close_year_month' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 7, 'collate' => 'utf8mb4_general_ci', 'comment' => '閉校年月', 'charset' => 'utf8mb4'),
 		'postal_code' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 8, 'collate' => 'utf8mb4_general_ci', 'comment' => '郵便番号', 'charset' => 'utf8mb4'),
 		'prefecture_code' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 2, 'collate' => 'utf8mb4_general_ci', 'comment' => '都道府県', 'charset' => 'utf8mb4'),
+		'city_code' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 8, 'collate' => 'utf8mb4_general_ci', 'comment' => '区市町村コード', 'charset' => 'utf8mb4'),
 		'city' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '区市町村', 'charset' => 'utf8mb4'),
 		'address' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '番地', 'charset' => 'utf8mb4'),
 		'tel' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 50, 'collate' => 'utf8mb4_general_ci', 'comment' => '電話番号', 'charset' => 'utf8mb4'),

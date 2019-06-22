@@ -24,6 +24,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	private static $locationFields = [
 		'postal_code',
 		'prefecture_code',
+		'city_code',
 		'city',
 		'address'
 	];

@@ -51,6 +51,9 @@ msgstr "郵便番号"
 msgid "Prefecture Code"
 msgstr "都道府県"
 
+msgid "City Code"
+msgstr "区市町村コード"
+
 msgid "City"
 msgstr "区市町村"
 
@@ -62,6 +65,12 @@ msgstr "問い合わせ先"
 
 msgid "Url"
 msgstr "URL"
+
+msgid "Map Url"
+msgstr "地図URL"
+
+msgid "Specify the URL of the Google Maps iframe widget."
+msgstr "Google MapsのiframeウィジェットのURLを指定してください。"
 
 #: View/Elements/SchoolInformation/footer.ctp:13
 #: View/Elements/SchoolInformation/main.ctp:17

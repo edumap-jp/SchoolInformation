@@ -8,16 +8,17 @@
 ?>
 <article class="school-information-center">
 	<div class="school-information-center-title">
-		<?php echo $this->SchoolInformation->schoolBadge('small');?>
+		<div class="school-information-school-badge">
+			<?php echo $this->SchoolInformation->schoolBadge('small');?>
+		</div>
 		<h1>
-			<ruby>
+			<?php echo $this->SchoolInformation->display(
+				'school_name_kana',
+				['tag' => 'div']
+			); ?>
+			<div>
 				<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
-
-				<?php echo $this->SchoolInformation->display(
-					'school_name_kana',
-					['tag' => 'rt']
-				); ?>
-			</ruby>
+			</div>
 			<?php echo $this->SchoolInformation->display('school_name_roma', ['tag' => 'div']); ?>
 		</h1>
 	</div>

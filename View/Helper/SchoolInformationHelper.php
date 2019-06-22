@@ -26,7 +26,8 @@ class SchoolInformationHelper extends AppHelper {
 	public function schoolBadge($size) {
 		if (isset($this->__schoolInformation['UploadFile']['school_badge']['id'])) {
 			return $this->NetCommonsHtml->image(
-				'/school_informations/school_informations/school_badge?size=' . $size
+				'/school_informations/school_informations/school_badge?size=' . $size,
+				['class' => 'img-responsive']
 			);
 		}
 		// デフォルトロゴ
@@ -43,7 +44,8 @@ class SchoolInformationHelper extends AppHelper {
 			);
 		} else {
 			return $this->NetCommonsHtml->image(
-				'/school_informations/img/no_badge.png'
+				'/school_informations/img/no_badge.png',
+				['class' => 'img-responsive']
 			);
 		}
 	}

@@ -5,8 +5,13 @@
 .school-information-center-title {
     display:flex;
 }
+.school-information-center-title .school-information-school-name-kana {
+    font-size: 14px;
+	/*line-height: 28px;*/
+}
+
 .school-information-center-title .school-information-school-badge {
-    margin-right: 5px;
+    margin-right: 8px;
 }
 .school-information-center rt{
     font-size: 12px;

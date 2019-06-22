@@ -11,10 +11,6 @@
  * @var array $prefectureOptions [都道府県コード => 都道府県名, ...]
  */
 
-//echo $this->NetCommonsHtml->script(array(
-//	'/school_informations/js/school_informations.js'
-//));
-
 $jsonSchoolInformation = json_encode(
 	NetCommonsAppController::camelizeKeyRecursive(
 		($this->request->data['SchoolInformation'])
@@ -27,21 +23,16 @@ $jsonSchoolInformation = json_encode(
 	]
 ); ?>
 
-
 <article class="block-setting-body" ng-controller="SchoolInformationEdit"
 		ng-init="init(<?php echo h($jsonSchoolInformation); ?>)">
 
 	<div class="panel panel-default">
 		<?php echo $this->NetCommonsForm->create('SchoolInformation', ['type' => 'file']); ?>
 		<div class="panel-body">
-
-			<?php //echo $this->element('Blocks.form_hidden'); ?>
-
 			<?php echo $this->NetCommonsForm->hidden('SchoolInformation.id'); ?>
 			<?php echo $this->NetCommonsForm->hidden('SchoolInformation.key'); ?>
 			<?php //echo $this->NetCommonsForm->hidden('SchoolInformation.block_id'); ?>
 			<?php echo $this->NetCommonsForm->hidden('SchoolInformation.language_id'); ?>
-
 
 			<?php echo $this->NetCommonsForm->input(
 				'SchoolInformation.school_name',
@@ -67,8 +58,8 @@ $jsonSchoolInformation = json_encode(
 					'SchoolInformation.' . $field,
 					$options
 				);
-				if (in_array($field, SchoolInformation::locationFields(), true) === false) {
 
+				if (in_array($field, SchoolInformation::locationFields(), true) === false) {
 					echo '<div class="col-xs-offset-1 form-group form-inline">';
 					echo $this->NetCommonsForm->input(
 						'SchoolInformation.is_public_' . $field,
@@ -96,6 +87,7 @@ $jsonSchoolInformation = json_encode(
 					'type' => 'select',
 					'options' => $prefectureOptions
 				],
+				'city_code',
 				'city',
 				'address',
 			];
@@ -150,6 +142,7 @@ $jsonSchoolInformation = json_encode(
 				'number_of_total_students',
 				'number_of_male_students',
 				'number_of_female_students',
+				//'map_url',
 			];
 
 			foreach ($firstFields as $key => $field) {
@@ -165,7 +158,11 @@ $jsonSchoolInformation = json_encode(
 			//カバー写真
 			echo $this->NetCommonsForm->uploadFile(
 				'SchoolInformation.cover_picture',
-				['label' => __d('school_informations', 'Cover Picture'), 'remove' => true]
+				[
+					'label' => __d('school_informations', 'Cover Picture'),
+					'remove' => true,
+					'help' => __d('school_informations', 'Specify the URL of the Google Maps iframe widget.'),
+				]
 			);
 
 			//所在地
@@ -197,8 +194,23 @@ $jsonSchoolInformation = json_encode(
 			foreach ($otherFields as $key => $field) {
 				$fieldFormElement($key, $field);
 			}
-			?>
 
+			echo '<hr>';
+
+			//地図URL
+			echo '<div class="form-group">';
+			echo $this->NetCommonsForm->input(
+				'SchoolInformation.map_url',
+				[
+					'label' => __d('school_informations', 'Map Url'),
+					'div' => false,
+				]
+			);
+			echo '<div class="help-block">' .
+					__d('school_informations', 'Specify the URL of the Google Maps iframe widget.') .
+				'</div>';
+			echo '</div>';
+		?>
 		</div>
 
 		<div class="panel-footer text-center">
@@ -206,7 +218,6 @@ $jsonSchoolInformation = json_encode(
 				__d('net_commons', 'Cancel'),
 				__d('net_commons', 'OK')
 			); ?>
-
 		</div>
 		<?php echo $this->NetCommonsForm->end(); ?>
 
