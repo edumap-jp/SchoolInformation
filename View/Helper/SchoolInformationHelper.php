@@ -23,12 +23,30 @@ class SchoolInformationHelper extends AppHelper {
 		$this->__schoolInformation = $schoolInformation;
 	}
 
+/**
+ * getInlineImage
+ *
+ * @param array $uploadFile アップロードファイル
+ * @param string $size サイズ
+ * @return string
+ */
+	private function __getInlineImage($uploadFile, $size) {
+		$filepath = UPLOADS_ROOT . $uploadFile['path'] . DS . $uploadFile['id'] .DS . $size . $uploadFile['real_file_name'];
+		$mimeType = $uploadFile['mimetype'];
+		$encodeData = base64_encode(file_get_contents($filepath));
+		return sprintf('data:%s;base64,%s', $mimeType, $encodeData);
+	}
+
 	public function schoolBadge($size) {
 		if (isset($this->__schoolInformation['UploadFile']['school_badge']['id'])) {
-			return $this->NetCommonsHtml->image(
-				'/school_informations/school_informations/school_badge?size=' . $size,
-				['class' => 'img-responsive']
+			//return $this->NetCommonsHtml->image(
+			//	'/school_informations/school_informations/school_badge?size=' . $size,
+			//	['class' => 'img-responsive']
+			//);
+			$imgSrc = $this->__getInlineImage(
+				$this->__schoolInformation['UploadFile']['school_badge'], $size . '_'
 			);
+			return '<img src="' . $imgSrc . '" class="img-responsive" alt="" />';
 		}
 		// デフォルトロゴ
 		// HACK: SchoolInformationモデルから参照するほうが良い
@@ -50,14 +68,15 @@ class SchoolInformationHelper extends AppHelper {
 		}
 	}
 
-	public function getCoverPictureSize() {
-	}
-
 	public function coverPicture() {
 		if (isset($this->__schoolInformation['UploadFile']['cover_picture']['id'])) {
-			return $this->NetCommonsHtml->image(
-				'/school_informations/school_informations/cover_picture'
+			//return $this->NetCommonsHtml->image(
+			//	'/school_informations/school_informations/cover_picture'
+			//);
+			$imgSrc = $this->__getInlineImage(
+				$this->__schoolInformation['UploadFile']['cover_picture'], 'large_'
 			);
+			return '<img src="' . $imgSrc . '" alt="" />';
 		}
 		//return $this->NetCommonsHtml->image(
 		//	'/school_informations/img/cover_sample.jpg'
