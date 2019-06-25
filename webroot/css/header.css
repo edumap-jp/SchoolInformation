@@ -17,6 +17,7 @@
 	left: 0;
 	padding: 16px;
 	/*background: linear-gradient(rgba(0,0,0, .5), rgba(0,0,0,0) 50%);*/
+	background: linear-gradient(rgba(0,0,0, .1), rgba(0,0,0,0) 30%);
 	/*background-color: transparent;*/
 	text-shadow: 0px 0px 1px #000, 1px 1px 1px rgba(0,0,0,0.5);
 }
@@ -52,14 +53,16 @@
 }
 
 .school-information-header .school-information-header-school-badge {
-	margin-left: 28px;
-	margin-right: 28px;
+	margin-left: 20px;
+	margin-right: 26px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 	padding: 4px;
 	background-color: #fff;
 	border-radius: 2px;
 	border: 2px solid #e2e2e2;
-	max-height: 156px;
-	max-width: 156px;
+	max-height: 180px;
+	max-width: 180px;
 	/*position: relative;*/
     display: flex;
 	align-items: center;
