@@ -61,8 +61,8 @@
 	background-color: #fff;
 	border-radius: 2px;
 	border: 2px solid #e2e2e2;
-	max-height: 180px;
-	max-width: 180px;
+	/*max-height: 180px;*/
+	/*max-width: 180px;*/
 	/*position: relative;*/
     display: flex;
 	align-items: center;
