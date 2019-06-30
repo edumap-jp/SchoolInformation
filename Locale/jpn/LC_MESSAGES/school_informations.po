@@ -96,7 +96,7 @@ msgstr "Fax"
 #: View/Elements/SchoolInformation/main.ctp:25
 #: View/Elements/SchoolInformation/side.ctp:23
 msgid "Email"
-msgstr "メールアドレス"
+msgstr "学校メールアドレス"
 
 #: View/Elements/SchoolInformation/main.ctp:13
 msgid "Address"
