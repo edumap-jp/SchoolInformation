@@ -103,7 +103,7 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 			case 'header':
 				$hide = [
 					//'is_display_school_name_kana',
-					//'is_display_school_name_roma',
+					'is_display_school_name_roma',
 					'is_display_principal_name',
 					'is_display_principal_name_roma',
 					'is_display_school_type',
