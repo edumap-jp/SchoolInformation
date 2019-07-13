@@ -74,6 +74,11 @@
 		'city',
 		'address',
 	];
+	$studentsFields = [
+		'number_of_total_students',
+		'number_of_male_students',
+		'number_of_female_students',
+	];
 	$mainFields = [
 		'tel' => [
 			'label' => __d('school_informations', 'Telephone Number')
@@ -121,11 +126,6 @@
 			'ng-model' => 'schoolInformation.closeYearMonth',
 			//'mg-init' => 'establish_year_month="2019-03"'
 		],
-		'number_of_faculty_members',
-		'number_of_total_students',
-		'number_of_male_students',
-		'number_of_female_students',
-		//'map_url',
 	];
 
 	foreach ($firstFields as $key => $field) {
@@ -161,7 +161,6 @@
 			]
 		]
 	);
-
 	foreach ($locationFields as $key => $field) {
 		$fieldFormElement($key, $field);
 	}
@@ -176,6 +175,17 @@
 	foreach ($otherFields as $key => $field) {
 		$fieldFormElement($key, $field);
 	}
+
+	//教員数
+	$fieldFormElement(0, 'number_of_faculty_members');
+
+	//生徒数
+	echo $this->NetCommonsForm->label('location', __d('school_informations', 'Number Of Students'));
+	echo '<div class="col-xs-offset-1">';
+	foreach ($studentsFields as $key => $field) {
+		$fieldFormElement($key, $field);
+	}
+	echo '</div>';
 
 	echo '<hr>';
 
