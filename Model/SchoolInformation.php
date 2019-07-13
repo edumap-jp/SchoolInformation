@@ -21,13 +21,14 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformation extends SchoolInformationsAppModel {
 
-	private static $locationFields = [
+	const LOCATION_FIELDS = [
 		'postal_code',
 		'prefecture_code',
 		'city_code',
 		'city',
 		'address'
 	];
+
 	/**
 	 * use behaviors
 	 *
@@ -62,7 +63,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	);
 
 	public static function locationFields() {
-		return self::$locationFields;
+		return self::LOCATION_FIELDS;
 	}
 
 	/**
