@@ -29,6 +29,16 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		'address'
 	];
 
+/**
+ * 空値の場合、nullに変換するカラムリスト
+ *
+ * @var array
+ */
+	const CONV_NULL_IF_EMPTY_FIELDS = [
+		'seismic_work',
+		'designation_of_shelter',
+	];
+
 	/**
 	 * use behaviors
 	 *
@@ -145,6 +155,13 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		//トランザクションBegin
 		$this->begin();
+
+		foreach (self::CONV_NULL_IF_EMPTY_FIELDS as $key) {
+			if (array_key_exists($key, $data[$this->alias]) &&
+					$data[$this->alias][$key] === '') {
+				$data[$this->alias][$key] = null;
+			}
+		}
 
 		//バリデーション
 		$this->set($data);

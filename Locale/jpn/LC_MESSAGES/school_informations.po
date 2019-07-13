@@ -225,3 +225,14 @@ msgstr "女子校"
 msgid "共学"
 msgstr "共学"
 
+msgid "Seismic Work"
+msgstr "耐震工事の有無"
+
+msgid "Designation Of Shelter"
+msgstr "避難所指定の有無"
+
+msgid "Yes"
+msgstr "あり"
+
+msgid "No"
+msgstr "なし"

@@ -126,6 +126,22 @@
 			'ng-model' => 'schoolInformation.closeYearMonth',
 			//'mg-init' => 'establish_year_month="2019-03"'
 		],
+		'seismic_work' => [
+			'type' => 'radio',
+			'div' => ['class' => 'form-radio-outer'],
+			'options' => [
+				1 => __d('school_informations', 'Yes'),
+				0 => __d('school_informations', 'No'),
+			],
+		],
+		'designation_of_shelter' => [
+			'type' => 'radio',
+			'div' => ['class' => 'form-radio-outer'],
+			'options' => [
+				1 => __d('school_informations', 'Yes'),
+				0 => __d('school_informations', 'No'),
+			]
+		],
 	];
 
 	foreach ($firstFields as $key => $field) {
