@@ -1,11 +1,25 @@
-<?php if ($this->SchoolInformation->isDisplay(
-		'number_of_male_students'
-	) || $this->SchoolInformation->isDisplay('number_of_female_students')): ?>
+<?php if ($this->SchoolInformation->isDisplay('number_of_male_students'	) ||
+		$this->SchoolInformation->isDisplay('number_of_female_students') ||
+		$this->SchoolInformation->isDisplay('number_of_total_students')): ?>
 	<tr>
 		<th>
 			<?php echo __d('school_informations', 'Number Of Students') ?>
 		</th>
 		<td>
+			<div>
+				<span><?php echo __d('school_informations', 'Total students'); ?> : </span>
+				<?php echo $this->SchoolInformation->display(
+					'number_of_total_students',
+					[
+						'tag' => 'span',
+						'format' => __d(
+							'school_informations',
+							'%d persons'
+						)
+					]
+				); ?>
+			</div>
+
 			<div>
 				<span><?php echo __d('school_informations', 'Male'); ?> : </span>
 				<?php echo $this->SchoolInformation->display(
@@ -18,8 +32,8 @@
 						)
 					]
 				); ?>
-
 			</div>
+
 			<div>
 				<span><?php echo __d('school_informations', 'Female'); ?> : </span>
 				<?php echo $this->SchoolInformation->display(
