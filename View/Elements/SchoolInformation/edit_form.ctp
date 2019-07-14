@@ -196,7 +196,10 @@
 	$fieldFormElement(0, 'number_of_faculty_members');
 
 	//生徒数
-	echo $this->NetCommonsForm->label('location', __d('school_informations', 'Number Of Students'));
+	echo $this->NetCommonsForm->label(
+		'SchoolInformation.number_of_total_students',
+		__d('school_informations', 'Number Of Students')
+	);
 	echo '<div class="col-xs-offset-1">';
 	foreach ($studentsFields as $key => $field) {
 		$fieldFormElement($key, $field);
