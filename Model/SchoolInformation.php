@@ -258,7 +258,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * @param array $data 登録データ
  * @return array
  */
-	private function __cleansingSaveSchoolInformation($data) {
+	public function cleansingSaveSchoolInformation($data) {
 		foreach (self::CONV_NULL_IF_EMPTY_FIELDS as $key) {
 			if (array_key_exists($key, $data[$this->alias]) &&
 					$data[$this->alias][$key] === '') {
