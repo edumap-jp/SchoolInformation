@@ -190,20 +190,10 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		//トランザクションBegin
 		$this->begin();
-
-		foreach (self::CONV_NULL_IF_EMPTY_FIELDS as $key) {
-			if (array_key_exists($key, $data[$this->alias]) &&
-					$data[$this->alias][$key] === '') {
-				$data[$this->alias][$key] = null;
-			}
-		}
-		if (!empty($data[$this->alias]['map_url'])) {
-			$data[$this->alias]['map_url'] =
-					$this->cleansingMapUrl($data[$this->alias]['map_url']);
-		}
+		$this->create();
 
 		//バリデーション
-		$this->create();
+		$data = $this->__cleansingSaveSchoolInformation($data);
 		$this->set($data);
 		if (!$this->validates()) {
 			return false;
@@ -260,6 +250,31 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		return $schoolInformation;
+	}
+
+/**
+ * 登録データをクレンジング
+ *
+ * @param array $data 登録データ
+ * @return array
+ */
+	private function __cleansingSaveSchoolInformation($data) {
+		foreach (self::CONV_NULL_IF_EMPTY_FIELDS as $key) {
+			if (array_key_exists($key, $data[$this->alias]) &&
+					$data[$this->alias][$key] === '') {
+				$data[$this->alias][$key] = null;
+			}
+		}
+		if (!empty($data[$this->alias]['map_url'])) {
+			$data[$this->alias]['map_url'] =
+					$this->cleansingMapUrl($data[$this->alias]['map_url']);
+		}
+
+		if (!empty($data[$this->alias]['school_name_kana'])) {
+			$data[$this->alias]['school_name_kana'] = mb_convert_kana($data[$this->alias]['school_name_kana'], 'KVAs');
+		}
+
+		return $data;
 	}
 
 /**
