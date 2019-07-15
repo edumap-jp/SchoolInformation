@@ -105,6 +105,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			//unset($data['SchoolInformation']['id']);
 
 			if ($this->SchoolInformation->saveSchoolInformation($data)) {
+				$this->NetCommons->setFlashNotification(
+					__d('net_commons', 'Successfully saved.'), array('class' => 'success')
+				);
 				return $this->redirect(NetCommonsUrl::backToPageUrl());
 			}
 			$this->NetCommons->handleValidationError($this->SchoolInformation->validationErrors);
