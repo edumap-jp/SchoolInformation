@@ -6,9 +6,8 @@
 			<?php echo __d('school_informations', 'Number Of Students') ?>
 		</th>
 		<td>
-			<div>
-				<span><?php echo __d('school_informations', 'Total students'); ?> : </span>
-				<?php echo $this->SchoolInformation->display(
+			<?php
+				$totalNum = $this->SchoolInformation->display(
 					'number_of_total_students',
 					[
 						'tag' => 'span',
@@ -17,12 +16,17 @@
 							'%d persons'
 						)
 					]
-				); ?>
-			</div>
+				);
+			?>
+			<?php if ($totalNum) : ?>
+				<div>
+					<span><?php echo __d('school_informations', 'Total students'); ?> : </span>
+					<?php echo $totalNum; ?>
+				</div>
+			<?php endif; ?>
 
-			<div>
-				<span><?php echo __d('school_informations', 'Male'); ?> : </span>
-				<?php echo $this->SchoolInformation->display(
+			<?php
+				$maleNum = $this->SchoolInformation->display(
 					'number_of_male_students',
 					[
 						'tag' => 'span',
@@ -31,12 +35,17 @@
 							'%d persons'
 						)
 					]
-				); ?>
-			</div>
+				);
+			?>
+			<?php if ($maleNum) : ?>
+				<div>
+					<span><?php echo __d('school_informations', 'Male'); ?> : </span>
+					<?php echo $maleNum; ?>
+				</div>
+			<?php endif; ?>
 
-			<div>
-				<span><?php echo __d('school_informations', 'Female'); ?> : </span>
-				<?php echo $this->SchoolInformation->display(
+			<?php
+				$femaleNum = $this->SchoolInformation->display(
 					'number_of_female_students',
 					[
 						'tag' => 'span',
@@ -45,8 +54,14 @@
 							'%d persons'
 						)
 					]
-				); ?>
-			</div>
+				);
+			?>
+			<?php if ($femaleNum) : ?>
+				<div>
+					<span><?php echo __d('school_informations', 'Female'); ?> : </span>
+					<?php echo $femaleNum; ?>
+				</div>
+			<?php endif; ?>
 		</td>
 	</tr>
 <?php endif; ?>
