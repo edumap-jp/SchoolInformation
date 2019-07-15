@@ -271,7 +271,8 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		if (!empty($data[$this->alias]['school_name_kana'])) {
-			$data[$this->alias]['school_name_kana'] = mb_convert_kana($data[$this->alias]['school_name_kana'], 'KVAs');
+			$data[$this->alias]['school_name_kana'] =
+					mb_convert_kana($data[$this->alias]['school_name_kana'], 'KVAs');
 		}
 
 		return $data;
