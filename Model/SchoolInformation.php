@@ -45,6 +45,13 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	];
 
 /**
+ * 地図URL
+ *
+ * @var string
+ */
+	const MAP_URL = 'https://www.google.com/maps/embed';
+
+/**
  * use behaviors
  *
  * @var array
@@ -139,6 +146,18 @@ class SchoolInformation extends SchoolInformationsAppModel {
 					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				),
 			),
+			'map_url' => array(
+				'google_map' => array(
+					'rule' => array('validateMapUrl'),
+					'message' => __d(
+						'net_commons',
+						'Unauthorized pattern for %s.',
+						__d('school_informations', 'Map Url')
+					),
+					'allowEmpty' => true,
+					'required' => false,
+				),
+			),
 		);
 		return $validate;
 	}
@@ -178,8 +197,13 @@ class SchoolInformation extends SchoolInformationsAppModel {
 				$data[$this->alias][$key] = null;
 			}
 		}
+		if (!empty($data[$this->alias]['map_url'])) {
+			$data[$this->alias]['map_url'] =
+					$this->cleansingMapUrl($data[$this->alias]['map_url']);
+		}
 
 		//バリデーション
+		$this->create();
 		$this->set($data);
 		if (!$this->validates()) {
 			return false;
@@ -236,6 +260,36 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		return $schoolInformation;
+	}
+
+/**
+ * 地図URLをクレンジング(iframeタグ等を取り除く)
+ *
+ * @param string $mapUrl 地図URL
+ * @return string
+ */
+	public function cleansingMapUrl($mapUrl) {
+		$match = [];
+		if (is_string($mapUrl) &&
+				preg_match('/src="(.+)?"/', $mapUrl, $match)) {
+			$mapUrl = $match[1];
+		}
+		return $mapUrl;
+	}
+
+/**
+ * 地図URLのバリデーション
+ *
+ * @param array $check チェック値
+ * @return bool
+ */
+	public function validateMapUrl($check) {
+		$value = array_shift($check);
+		if (is_string($value)) {
+			return (bool)preg_match('/^' . preg_quote(self::MAP_URL, '/') . '/', $value);
+		} else {
+			return false;
+		}
 	}
 
 /**
