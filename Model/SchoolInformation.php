@@ -21,6 +21,11 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformation extends SchoolInformationsAppModel {
 
+/**
+ * 所在地のカラムリスト
+ *
+ * @var array
+ */
 	const LOCATION_FIELDS = [
 		'postal_code',
 		'prefecture_code',
@@ -39,11 +44,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		'designation_of_shelter',
 	];
 
-	/**
-	 * use behaviors
-	 *
-	 * @var array
-	 */
+/**
+ * use behaviors
+ *
+ * @var array
+ */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
 		//'Workflow.WorkflowComment',
@@ -72,16 +77,21 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		],
 	);
 
+/**
+ * 所在地のカラムリストを返す
+ *
+ * @return array
+ */
 	public static function locationFields() {
 		return self::LOCATION_FIELDS;
 	}
 
-	/**
-	 * バリデートメッセージ多言語化対応のためのラップ
-	 *
-	 * @param array $options options
-	 * @return bool
-	 */
+/**
+ * バリデートメッセージ多言語化対応のためのラップ
+ *
+ * @param array $options options
+ * @return bool
+ */
 	public function beforeValidate($options = array()) {
 		$this->validate = array_merge(
 			$this->validate,
@@ -90,11 +100,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		return parent::beforeValidate($options);
 	}
 
-	/**
-	 * バリデーションルールを返す
-	 *
-	 * @return array
-	 */
+/**
+ * バリデーションルールを返す
+ *
+ * @return array
+ */
 	private function __getValidateSpecification() {
 		$validate = array(
 			'school_name' => array(
@@ -133,11 +143,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		return $validate;
 	}
 
-	/**
-	 * TODO getSchoolInformation
-	 *
-	 * @return array SchoolInformation data
-	 */
+/**
+ * 学校情報取得
+ *
+ * @return array SchoolInformation data
+ */
 	public function getSchoolInformation() {
 		// TODO 条件必用であれば追加
 		$options = [];
@@ -147,6 +157,12 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		return $data;
 	}
 
+/**
+ * 学校情報登録
+ *
+ * @param array $data 登録データ
+ * @return array SchoolInformation data
+ */
 	public function saveSchoolInformation(array $data) {
 		$this->loadModels([
 			'SiteSetting' => 'SiteManager.SiteSetting',
@@ -222,6 +238,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		return $schoolInformation;
 	}
 
+/**
+ * 国公立種別のリストを返す
+ *
+ * @return array
+ */
 	public function schoolTypes() {
 		return [
 			'国立' => __d('school_informations', '国立'),
@@ -229,6 +250,12 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			'私立' => __d('school_informations', '私立')
 		];
 	}
+
+/**
+ * 校種のリストを返す
+ *
+ * @return array
+ */
 	public function schoolKinds() {
 		return [
 			'小学校' => __d('school_informations', '小学校'),
@@ -238,6 +265,12 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			'小中一貫校' => __d('school_informations', '小中一貫校')
 		];
 	}
+
+/**
+ * 学生種別のリストを返す
+ *
+ * @return array
+ */
 	public function studentCategories() {
 		return [
 			'男子校' => __d('school_informations', '男子校'),
