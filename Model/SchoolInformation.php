@@ -193,7 +193,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$this->create();
 
 		//バリデーション
-		$data = $this->__cleansingSaveSchoolInformation($data);
+		$data = $this->cleansingSaveSchoolInformation($data);
 		$this->set($data);
 		if (!$this->validates()) {
 			return false;
