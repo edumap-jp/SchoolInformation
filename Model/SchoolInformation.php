@@ -328,6 +328,8 @@ class SchoolInformation extends SchoolInformationsAppModel {
  */
 	public function schoolKinds() {
 		return [
+			'幼稚園' => __d('school_informations', '幼稚園'),
+			'保育園' => __d('school_informations', '保育園'),
 			'小学校' => __d('school_informations', '小学校'),
 			'中学校' => __d('school_informations', '中学校'),
 			'高等学校' => __d('school_informations', '高等学校'),
