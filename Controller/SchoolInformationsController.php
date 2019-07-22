@@ -1,5 +1,4 @@
 <?php
-App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
 /**
  * SchoolInformations Controller
  *
@@ -10,6 +9,9 @@ App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
 * @license http://www.netcommons.org/license.txt NetCommons License
 * @copyright Copyright 2014, NetCommons Project
  */
+
+App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
+App::uses('NetCommonsTime', 'NetCommons.Utility');
 
 /**
  * Class SchoolInformationsController
@@ -93,6 +95,30 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 	}
 
 /**
+ * 登録データをクレンジング
+ *
+ * @param array $data 登録データ
+ * @return array
+ */
+	private function __cleansingSaveSchoolInformation($data) {
+		$NetCommonsTime = new NetCommonsTime();
+
+		if (!empty($data[$this->SchoolInformation->alias]['establish_year_month'])) {
+			$datetime = $data[$this->SchoolInformation->alias]['establish_year_month'];
+			$data[$this->SchoolInformation->alias]['establish_year_month'] =
+					$NetCommonsTime->dateFormat($datetime, 'Y-m');
+		}
+
+		if (!empty($data[$this->SchoolInformation->alias]['close_year_month'])) {
+			$datetime = $data[$this->SchoolInformation->alias]['close_year_month'];
+			$data[$this->SchoolInformation->alias]['close_year_month'] =
+					$NetCommonsTime->toUserDatetime($datetime, 'Y-m');
+		}
+
+		return $data;
+	}
+
+/**
  * TODO edit
  *
  * @return CakeResponse|null
@@ -100,7 +126,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 	public function edit() {
 		//$this->emptyRender();
 		if ($this->request->is('post') || $this->request->is('put')) {
-			$data = $this->data;
+			$data = $this->__cleansingSaveSchoolInformation($this->data);
 			//$data['SchoolInformation']['status'] = $this->Workflow->parseStatus();
 			//unset($data['SchoolInformation']['id']);
 
