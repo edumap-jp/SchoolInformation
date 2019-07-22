@@ -180,12 +180,6 @@ class SchoolInformationHelper extends AppHelper {
 	 * @return string
 	 */
 	private function __formatValue($field, $format) {
-		$formatMethod = '__format' . ucfirst(Inflector::camelize($field));
-		if (method_exists($this, $formatMethod)) {
-			return call_user_func([$this, $formatMethod]);
-		}
-
-
 		if (strpos($field, 'year_month') !== false) {
 			$formattedText = $this->__formatYearMont($field);
 			return $formattedText;
@@ -193,6 +187,12 @@ class SchoolInformationHelper extends AppHelper {
 		if (strpos($field, 'url') !== false) {
 			return $this->__formatUrl($field);
 		}
+
+		$formatMethod = '__format' . ucfirst(Inflector::camelize($field));
+		if (method_exists($this, $formatMethod)) {
+			return call_user_func([$this, $formatMethod]);
+		}
+
 		$formattedText = $this->__formatDefault($field, $format);
 		return $formattedText;
 	}
