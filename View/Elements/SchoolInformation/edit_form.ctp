@@ -151,7 +151,11 @@
 	//校章
 	echo $this->NetCommonsForm->uploadFile(
 		'SchoolInformation.school_badge',
-		['label' => __d('school_informations', 'School Badge'), 'remove' => false]
+		[
+			'label' => __d('school_informations', 'School Badge'),
+			'remove' => true,
+			'accept' => 'image/gif,image/jpeg,image/png',
+		]
 	);
 
 	//カバー写真
@@ -160,6 +164,7 @@
 		[
 			'label' => __d('school_informations', 'Cover Picture'),
 			'remove' => true,
+			'accept' => 'image/gif,image/jpeg,image/png',
 		]
 	);
 
