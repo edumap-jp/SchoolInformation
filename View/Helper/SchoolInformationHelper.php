@@ -314,6 +314,18 @@ class SchoolInformationHelper extends AppHelper {
 	}
 
 /**
+ * Emailの整形処理
+ *
+ * @return string
+ */
+	private function __formatEmail() {
+		$value = $this->__schoolInformation['SchoolInformation']['email'];
+		list($local, $domain) = explode('@', $value);
+		return
+			h($local) . $this->NetCommonsHtml->image('/school_informations/img/mailmark.gif') . h($domain);
+	}
+
+/**
  * デフォルトの整形処理
  *
  * @param $field 項目名
