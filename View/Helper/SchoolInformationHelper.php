@@ -37,6 +37,12 @@ class SchoolInformationHelper extends AppHelper {
 		return sprintf('data:%s;base64,%s', $mimeType, $encodeData);
 	}
 
+/**
+ * 校章の表示
+ *
+ * @param string $size サイズ
+ * @return string
+ */
 	public function schoolBadge($size) {
 		if (isset($this->__schoolInformation['UploadFile']['school_badge']['id'])) {
 			//return $this->NetCommonsHtml->image(
@@ -68,6 +74,11 @@ class SchoolInformationHelper extends AppHelper {
 		}
 	}
 
+/**
+ * カバー写真の表示
+ *
+ * @return string
+ */
 	public function coverPicture() {
 		if (isset($this->__schoolInformation['UploadFile']['cover_picture']['id'])) {
 			//return $this->NetCommonsHtml->image(
@@ -84,6 +95,11 @@ class SchoolInformationHelper extends AppHelper {
 		return '';
 	}
 
+/**
+ * 校長の表示
+ *
+ * @return string
+ */
 	public function displayPrincipal() {
 		if ($this->isDisplayPrincipal() === false) {
 			return '';
@@ -97,10 +113,21 @@ class SchoolInformationHelper extends AppHelper {
 		);
 	}
 
+/**
+ * 校長の表示できるか否か
+ *
+ * @return bool
+ */
 	public function isDisplayPrincipal() {
 		return ($this->isDisplay('principal_name') || $this->isDisplay('principal_name_roma'));
 	}
 
+/**
+ * 各項目を表示できるか否か
+ *
+ * @param string $field 項目名
+ * @return bool
+ */
 	public function isDisplay($field) {
 		if ($this->__isPublic($field) === false) {
 			return false;
@@ -114,6 +141,12 @@ class SchoolInformationHelper extends AppHelper {
 		return true;
 	}
 
+/**
+ * 各項目が公開に設定されているか否か
+ *
+ * @param string $field 項目名
+ * @return bool
+ */
 	private function __isPublic($field) {
 		if (in_array($field, SchoolInformation::locationFields(), true)) {
 			$field = 'location';
@@ -121,10 +154,22 @@ class SchoolInformationHelper extends AppHelper {
 		return (bool)$this->__schoolInformation['SchoolInformation']['is_public_' . $field];
 	}
 
+/**
+ * 各項目が入力されているか否か
+ *
+ * @param string $field 項目名
+ * @return bool
+ */
 	private function __isExists($field) {
 		return (bool)$this->__schoolInformation['SchoolInformation'][$field];
 	}
 
+/**
+ * フレーム設定で各項目が公開に設定されているか否か
+ *
+ * @param string $field 項目名
+ * @return bool
+ */
 	private function __isDisplayByFrameSetting($field) {
 		if (in_array($field, SchoolInformation::locationFields(), true)) {
 			$field = 'location';
@@ -132,6 +177,13 @@ class SchoolInformationHelper extends AppHelper {
 		return (bool)$this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
 	}
 
+/**
+ * 表示処理
+ *
+ * @param string $field 項目名
+ * @param array $options オプション
+ * @return bool
+ */
 	public function display($field, array $options = []) {
 		assert($this->__schoolInformation);
 
@@ -162,23 +214,23 @@ class SchoolInformationHelper extends AppHelper {
 		);
 	}
 
-	/**
-	 * __toKebab
-	 *
-	 * @param string $field snake_case
-	 * @return string kebab-style
-	 */
+/**
+ * _を-に変換
+ *
+ * @param string $field snake_case
+ * @return string kebab-style
+ */
 	private function __toKebab($field) {
 		return str_replace('_', '-', $field);
 	}
 
-	/**
-	 * __formatValue
-	 *
-	 * @param $field
-	 * @param $format
-	 * @return string
-	 */
+/**
+ * 各項目の整形処理
+ *
+ * @param $field 項目名
+ * @param $format フォーマット
+ * @return string
+ */
 	private function __formatValue($field, $format) {
 		if (strpos($field, 'year_month') !== false) {
 			$formattedText = $this->__formatYearMont($field);
@@ -197,25 +249,45 @@ class SchoolInformationHelper extends AppHelper {
 		return $formattedText;
 	}
 
+/**
+ * 国公立種別の整形処理
+ *
+ * @param $field 項目名
+ * @return string
+ */
 	public function __formatSchoolType() {
 		$value = $this->__schoolInformation['SchoolInformation']['school_type'];
 		return $this->_View->viewVars['schoolTypeOptions'][$value];
 	}
+
+/**
+ * 校種の整形処理
+ *
+ * @param $field 項目名
+ * @return string
+ */
 	public function __formatSchoolKind() {
 		$value = $this->__schoolInformation['SchoolInformation']['school_kind'];
 		return $this->_View->viewVars['schoolKindOptions'][$value];
 	}
+
+/**
+ * 学生種別の整形処理
+ *
+ * @param $field 項目名
+ * @return string
+ */
 	public function __formatStudentCategory() {
 		$value = $this->__schoolInformation['SchoolInformation']['student_category'];
 		return $this->_View->viewVars['studentCategoryOptions'][$value];
 	}
 
-	/**
-	 * __formatYearMont
-	 *
-	 * @param $field
-	 * @return mixed
-	 */
+/**
+ * 年月の整形処理
+ *
+ * @param $field 項目名
+ * @return string
+ */
 	private function __formatYearMont($field) {
 		list($year, $month) = explode(
 			'-',
@@ -225,6 +297,12 @@ class SchoolInformationHelper extends AppHelper {
 		return h($formattedText);
 	}
 
+/**
+ * URLの整形処理
+ *
+ * @param $field 項目名
+ * @return string
+ */
 	private function __formatUrl($field) {
 		return $this->NetCommonsHtml->link(
 			$this->__schoolInformation['SchoolInformation'][$field],
@@ -235,13 +313,13 @@ class SchoolInformationHelper extends AppHelper {
 		);
 	}
 
-	/**
-	 * __formatDefault
-	 *
-	 * @param $field
-	 * @param $format
-	 * @return string
-	 */
+/**
+ * デフォルトの整形処理
+ *
+ * @param $field 項目名
+ * @param $format フォーマット
+ * @return string
+ */
 	private function __formatDefault($field, $format) {
 		$formattedText = sprintf(
 			$format,
@@ -250,13 +328,13 @@ class SchoolInformationHelper extends AppHelper {
 		return h($formattedText);
 	}
 
-	/**
-	 * label
-	 *
-	 * @param $field
-	 * @param $labelText
-	 * @return mixed
-	 */
+/**
+ * ラベルの表示
+ *
+ * @param $field 項目名
+ * @param $labelText ラベルテキスト
+ * @return string
+ */
 	public function label($field, $labelText) {
 		$labelClassName = 'school-information-label school-information-' . $this->__toKebab(
 				$field
@@ -265,6 +343,11 @@ class SchoolInformationHelper extends AppHelper {
 		return $label;
 	}
 
+/**
+ * 所在地の公開できるか否か
+ *
+ * @return bool
+ */
 	public function isDisplayLocation() {
 		if ($this->__isPublic('location') === false) {
 			return false;
@@ -280,6 +363,11 @@ class SchoolInformationHelper extends AppHelper {
 		}
 	}
 
+/**
+ * 所在地の表示
+ *
+ * @return string
+ */
 	public function displayLocation() {
 		$ret = '';
 		$ret .= $this->display(
@@ -300,9 +388,15 @@ class SchoolInformationHelper extends AppHelper {
 		return $this->NetCommonsHtml->tag('div', $ret, ['class' => 'school-information-location']);
 	}
 
+/**
+ * 都道府県の表示
+ *
+ * @return string
+ */
 	private function __prefecture() {
 		if ($this->isDisplay('prefecture_code')) {
-			return $this->_View->viewVars['prefectureOptions'][$this->__schoolInformation['SchoolInformation']['prefecture_code']];
+			$code = $this->__schoolInformation['SchoolInformation']['prefecture_code'];
+			return $this->_View->viewVars['prefectureOptions'][$code];
 		}
 		return '';
 	}
