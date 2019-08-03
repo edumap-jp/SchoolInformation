@@ -82,7 +82,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$this->set('schoolInformation', $schoolInformation);
 			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting($this->_getLayoutPosition());
 			$this->set('frameSetting', $frameSetting);
-			$this->set('prefectureOptions', $this->__getPrefectureOptions());
+			$this->set('prefectureOptions', $this->SchoolInformation->getPrefectureOptions());
 			return;
 		}
 
@@ -147,7 +147,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
 
-		$this->set('prefectureOptions', $this->__getPrefectureOptions());
+		$this->set('prefectureOptions', $this->SchoolInformation->getPrefectureOptions());
 		//$comments = $this->SchoolInformation->getCommentsByContentKey(
 		//	$this->request->data['SchoolInformation']['key']
 		//);
@@ -201,25 +201,6 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 				'size' => 'large'
 			]
 		);
-	}
-
-	private function __getPrefectureOptions() {
-		$options = [
-			'conditions' => [
-				'data_type_key' => 'prefecture',
-				'language_id' => Current::read('Language.id'),
-			],
-			'order' => 'DataTypeChoice.weight ASC',
-			'fields' => ['DataTypeChoice.code', 'DataTypeChoice.name']
-		];
-		$prefectures = $this->DataTypeChoice->find('all', $options);
-		$options = [];
-		foreach ($prefectures as $prefecture) {
-			$code = $prefecture['DataTypeChoice']['code'];
-			$name = $prefecture['DataTypeChoice']['name'];
-			$options[$code] = $name;
-		}
-		return $options;
 	}
 
 }

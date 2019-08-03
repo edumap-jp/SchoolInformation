@@ -207,38 +207,11 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			}
 
 			//サイト名も更新する
-			$languages = $this->Language->find('all', [
-				'recursive' => -1,
-				'fields' => ['id', 'code'],
-			]);
-			$langIds = [];
-			foreach ($languages as $lang) {
-				$langIds[$lang['Language']['code']] = $lang['Language']['id'];
-			}
+			$this->__updateSiteName($schoolInformation);
 
-			$siteSettings = $this->SiteSetting->getSiteSettingForEdit([
-				'SiteSetting.key' => [
-					//サイト名
-					'App.site_name',
-				]
-			]);
+			//Meta情報の更新
+			$this->updateMetas($schoolInformation);
 
-			$schoolName = $schoolInformation[$this->alias]['school_name'];
-			$siteSettings['App.site_name'][$langIds['ja']]['value'] = $schoolName;
-			if (!empty($schoolInformation[$this->alias]['school_name_roma'])) {
-				$siteSettings['App.site_name'][$langIds['en']]['value'] =
-								$schoolInformation[$this->alias]['school_name_roma'];
-			} else {
-				$siteSettings['App.site_name'][$langIds['en']]['value'] = $schoolName;
-			}
-
-			foreach ($siteSettings['App.site_name'] as $saveData) {
-				$this->SiteSetting->create();
-				if (! $this->SiteSetting->save($saveData, ['callbacks' => false])) {
-					CakeLog::error(var_export($this->SiteSetting->validationErrors, true));
-					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-				}
-			}
 			$this->SiteSetting->cacheClear();
 
 			//トランザクションCommit
@@ -250,6 +223,201 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		return $schoolInformation;
+	}
+
+/**
+ * サイト名を更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	public function __updateSiteName($schoolInformation) {
+		//サイト名も更新する
+		$languages = $this->Language->find('all', [
+			'recursive' => -1,
+			'fields' => ['id', 'code'],
+		]);
+		$langIds = [];
+		foreach ($languages as $lang) {
+			$langIds[$lang['Language']['code']] = $lang['Language']['id'];
+		}
+
+		$siteSettings = $this->SiteSetting->getSiteSettingForEdit([
+			'SiteSetting.key' => [
+				//サイト名
+				'App.site_name',
+			]
+		]);
+
+		$schoolName = $schoolInformation[$this->alias]['school_name'];
+		$siteSettings['App.site_name'][$langIds['ja']]['value'] = $schoolName;
+		if (!empty($schoolInformation[$this->alias]['school_name_roma'])) {
+			$siteSettings['App.site_name'][$langIds['en']]['value'] =
+							$schoolInformation[$this->alias]['school_name_roma'];
+		} else {
+			$siteSettings['App.site_name'][$langIds['en']]['value'] = $schoolName;
+		}
+
+		foreach ($siteSettings['App.site_name'] as $saveData) {
+			$this->SiteSetting->create();
+			if (! $this->SiteSetting->save($saveData, ['callbacks' => false])) {
+				CakeLog::error(var_export($this->SiteSetting->validationErrors, true));
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+		}
+	}
+
+/**
+ * Meta情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	public function updateMetas($schoolInformation) {
+		$this->loadModels([
+			'SiteSetting' => 'SiteManager.SiteSetting',
+		]);
+		$prefectures = $this->getPrefectureOptions();
+
+		//Meta.description情報の更新
+		$this->__updateMetaDescription($schoolInformation, $prefectures);
+
+		//Meta.keywords情報の更新
+		$this->__updateMetaKeywords($schoolInformation, $prefectures);
+
+		//Meta.author情報の更新
+		$this->__updateMetaAuthor($schoolInformation);
+	}
+
+/**
+ * Meta.description情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	private function __updateMetaDescription($schoolInformation, $prefectures) {
+		$description = $schoolInformation[$this->alias]['school_name'];
+
+		if ($schoolInformation[$this->alias]['is_public_school_name_kana'] &&
+				$schoolInformation[$this->alias]['school_name_kana']) {
+			$description .= ', ' . $schoolInformation[$this->alias]['school_name_kana'];
+		}
+
+		if ($schoolInformation[$this->alias]['is_public_location']) {
+			$location = '';
+			if ($schoolInformation[$this->alias]['postal_code']) {
+				$location .= __d(
+					'school_informations',
+					'PostalCode:%s',
+					$schoolInformation[$this->alias]['postal_code']
+				);
+			}
+
+			$location .= __d(
+				'school_informations',
+				'Adress:%3$s City:%2$s Prefecture:%1$s',
+				$prefectures[$schoolInformation[$this->alias]['prefecture_code']] ?? '',
+				$schoolInformation[$this->alias]['city'],
+				$schoolInformation[$this->alias]['address']
+			);
+
+			if (trim($location)) {
+				$description .= ', ' . $location;
+			}
+		}
+
+		$this->__updateSiteSetting('Meta.description', $description);
+	}
+
+/**
+ * Meta.keywords情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	private function __updateMetaKeywords($schoolInformation, $prefectures) {
+		$keywords = '';
+
+		if ($schoolInformation[$this->alias]['is_public_school_kind'] &&
+				$schoolInformation[$this->alias]['school_kind']) {
+			$keywords .= $schoolInformation[$this->alias]['school_kind'] . ',';
+		}
+
+		if ($schoolInformation[$this->alias]['is_public_school_type'] &&
+				$schoolInformation[$this->alias]['school_type']) {
+			$keywords .= $schoolInformation[$this->alias]['school_type'] . ',';
+		}
+
+		if ($schoolInformation[$this->alias]['is_public_location']) {
+			if ($schoolInformation[$this->alias]['city']) {
+				$keywords .= $schoolInformation[$this->alias]['city'] . ',';
+			}
+			if (!empty($prefectures[$schoolInformation[$this->alias]['prefecture_code']])) {
+				$keywords .= $prefectures[$schoolInformation[$this->alias]['prefecture_code']] . ',';
+			}
+		}
+
+		$keywords .= 'edumap,NetCommons';
+
+		$this->__updateSiteSetting('Meta.keywords', $keywords);
+	}
+
+/**
+ * Meta.author情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	private function __updateMetaAuthor($schoolInformation) {
+		//$author = $schoolInformation[$this->alias]['school_name'];
+		$this->__updateSiteSetting('Meta.author', 'edumap');
+	}
+
+/**
+ * SiteSettinのupdate
+ *
+ * @param string $key キー
+ * @param string $value 値
+ * @return void
+ */
+	private function __updateSiteSetting($key, $value) {
+		$db = $this->getDataSource();
+
+		$update = [
+			'SiteSetting.value' => $db->value($value, 'string')
+		];
+		$conditions = [
+			'SiteSetting.key' => $key
+		];
+
+		$this->SiteSetting->updateAll($update, $conditions);
+	}
+
+/**
+ * 都道府県データ取得
+ *
+ * @return array
+ */
+	public function getPrefectureOptions() {
+		$this->DataTypeChoice = ClassRegistry::init('DataTypes.DataTypeChoice');
+
+		$options = [
+			'conditions' => [
+				'data_type_key' => 'prefecture',
+				'language_id' => Current::read('Language.id', '2'),
+			],
+			'order' => 'DataTypeChoice.weight ASC',
+			'fields' => ['DataTypeChoice.code', 'DataTypeChoice.name']
+		];
+		$prefectures = $this->DataTypeChoice->find('all', $options);
+
+		$options = [];
+		foreach ($prefectures as $prefecture) {
+			$code = $prefecture['DataTypeChoice']['code'];
+			$name = $prefecture['DataTypeChoice']['name'];
+			$options[$code] = $name;
+		}
+		return $options;
 	}
 
 /**
