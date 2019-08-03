@@ -265,6 +265,33 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	}
 
 /**
+ * 都道府県データ取得
+ *
+ * @return array
+ */
+	public function getPrefectureOptions() {
+		$this->DataTypeChoice = ClassRegistry::init('DataTypes.DataTypeChoice');
+
+		$options = [
+			'conditions' => [
+				'data_type_key' => 'prefecture',
+				'language_id' => Current::read('Language.id', '2'),
+			],
+			'order' => 'DataTypeChoice.weight ASC',
+			'fields' => ['DataTypeChoice.code', 'DataTypeChoice.name']
+		];
+		$prefectures = $this->DataTypeChoice->find('all', $options);
+
+		$options = [];
+		foreach ($prefectures as $prefecture) {
+			$code = $prefecture['DataTypeChoice']['code'];
+			$name = $prefecture['DataTypeChoice']['name'];
+			$options[$code] = $name;
+		}
+		return $options;
+	}
+
+/**
  * 登録データをクレンジング
  *
  * @param array $data 登録データ
