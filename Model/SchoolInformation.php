@@ -209,6 +209,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			//サイト名も更新する
 			$this->__updateSiteName($schoolInformation);
 
+			//Meta情報の更新
+			$this->updateMetas($schoolInformation);
+
 			$this->SiteSetting->cacheClear();
 
 			//トランザクションCommit
@@ -262,6 +265,132 @@ class SchoolInformation extends SchoolInformationsAppModel {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 		}
+	}
+
+/**
+ * Meta情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	public function updateMetas($schoolInformation) {
+		$this->loadModels([
+			'SiteSetting' => 'SiteManager.SiteSetting',
+		]);
+		$prefectures = $this->getPrefectureOptions();
+
+		//Meta.description情報の更新
+		$this->__updateMetaDescription($schoolInformation, $prefectures);
+
+		//Meta.keywords情報の更新
+		$this->__updateMetaKeywords($schoolInformation, $prefectures);
+
+		//Meta.author情報の更新
+		$this->__updateMetaAuthor($schoolInformation);
+	}
+
+/**
+ * Meta.description情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	private function __updateMetaDescription($schoolInformation, $prefectures) {
+		$description = $schoolInformation[$this->alias]['school_name'];
+
+		if ($schoolInformation[$this->alias]['is_public_school_name_kana'] &&
+				$schoolInformation[$this->alias]['school_name_kana']) {
+			$description .= ', ' . $schoolInformation[$this->alias]['school_name_kana'];
+		}
+
+		if ($schoolInformation[$this->alias]['is_public_location']) {
+			$location = '';
+			if ($schoolInformation[$this->alias]['postal_code']) {
+				$location .= __d(
+					'school_informations',
+					'PostalCode:%s',
+					$schoolInformation[$this->alias]['postal_code']
+				);
+			}
+
+			$location .= __d(
+				'school_informations',
+				'Adress:%3$s City:%2$s Prefecture:%1$s',
+				$prefectures[$schoolInformation[$this->alias]['prefecture_code']] ?? '',
+				$schoolInformation[$this->alias]['city'],
+				$schoolInformation[$this->alias]['address']
+			);
+
+			if (trim($location)) {
+				$description .= ', ' . $location;
+			}
+		}
+
+		$this->__updateSiteSetting('Meta.description', $description);
+	}
+
+/**
+ * Meta.keywords情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	private function __updateMetaKeywords($schoolInformation, $prefectures) {
+		$keywords = '';
+
+		if ($schoolInformation[$this->alias]['is_public_school_kind'] &&
+				$schoolInformation[$this->alias]['school_kind']) {
+			$keywords .= $schoolInformation[$this->alias]['school_kind'] . ',';
+		}
+
+		if ($schoolInformation[$this->alias]['is_public_school_type'] &&
+				$schoolInformation[$this->alias]['school_type']) {
+			$keywords .= $schoolInformation[$this->alias]['school_type'] . ',';
+		}
+
+		if ($schoolInformation[$this->alias]['is_public_location']) {
+			if ($schoolInformation[$this->alias]['city']) {
+				$keywords .= $schoolInformation[$this->alias]['city'] . ',';
+			}
+			if (!empty($prefectures[$schoolInformation[$this->alias]['prefecture_code']])) {
+				$keywords .= $prefectures[$schoolInformation[$this->alias]['prefecture_code']] . ',';
+			}
+		}
+
+		$keywords .= 'edumap,NetCommons';
+
+		$this->__updateSiteSetting('Meta.keywords', $keywords);
+	}
+
+/**
+ * Meta.author情報の更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	private function __updateMetaAuthor($schoolInformation) {
+		//$author = $schoolInformation[$this->alias]['school_name'];
+		$this->__updateSiteSetting('Meta.author', 'edumap');
+	}
+
+/**
+ * SiteSettinのupdate
+ *
+ * @param string $key キー
+ * @param string $value 値
+ * @return void
+ */
+	private function __updateSiteSetting($key, $value) {
+		$db = $this->getDataSource();
+
+		$update = [
+			'SiteSetting.value' => $db->value($value, 'string')
+		];
+		$conditions = [
+			'SiteSetting.key' => $key
+		];
+
+		$this->SiteSetting->updateAll($update, $conditions);
 	}
 
 /**
