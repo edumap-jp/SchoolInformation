@@ -207,38 +207,8 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			}
 
 			//サイト名も更新する
-			$languages = $this->Language->find('all', [
-				'recursive' => -1,
-				'fields' => ['id', 'code'],
-			]);
-			$langIds = [];
-			foreach ($languages as $lang) {
-				$langIds[$lang['Language']['code']] = $lang['Language']['id'];
-			}
+			$this->__updateSiteName($schoolInformation);
 
-			$siteSettings = $this->SiteSetting->getSiteSettingForEdit([
-				'SiteSetting.key' => [
-					//サイト名
-					'App.site_name',
-				]
-			]);
-
-			$schoolName = $schoolInformation[$this->alias]['school_name'];
-			$siteSettings['App.site_name'][$langIds['ja']]['value'] = $schoolName;
-			if (!empty($schoolInformation[$this->alias]['school_name_roma'])) {
-				$siteSettings['App.site_name'][$langIds['en']]['value'] =
-								$schoolInformation[$this->alias]['school_name_roma'];
-			} else {
-				$siteSettings['App.site_name'][$langIds['en']]['value'] = $schoolName;
-			}
-
-			foreach ($siteSettings['App.site_name'] as $saveData) {
-				$this->SiteSetting->create();
-				if (! $this->SiteSetting->save($saveData, ['callbacks' => false])) {
-					CakeLog::error(var_export($this->SiteSetting->validationErrors, true));
-					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-				}
-			}
 			$this->SiteSetting->cacheClear();
 
 			//トランザクションCommit
@@ -250,6 +220,48 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		}
 
 		return $schoolInformation;
+	}
+
+/**
+ * サイト名を更新
+ *
+ * @param array $schoolInformation 学校情報
+ * @return void
+ */
+	public function __updateSiteName($schoolInformation) {
+		//サイト名も更新する
+		$languages = $this->Language->find('all', [
+			'recursive' => -1,
+			'fields' => ['id', 'code'],
+		]);
+		$langIds = [];
+		foreach ($languages as $lang) {
+			$langIds[$lang['Language']['code']] = $lang['Language']['id'];
+		}
+
+		$siteSettings = $this->SiteSetting->getSiteSettingForEdit([
+			'SiteSetting.key' => [
+				//サイト名
+				'App.site_name',
+			]
+		]);
+
+		$schoolName = $schoolInformation[$this->alias]['school_name'];
+		$siteSettings['App.site_name'][$langIds['ja']]['value'] = $schoolName;
+		if (!empty($schoolInformation[$this->alias]['school_name_roma'])) {
+			$siteSettings['App.site_name'][$langIds['en']]['value'] =
+							$schoolInformation[$this->alias]['school_name_roma'];
+		} else {
+			$siteSettings['App.site_name'][$langIds['en']]['value'] = $schoolName;
+		}
+
+		foreach ($siteSettings['App.site_name'] as $saveData) {
+			$this->SiteSetting->create();
+			if (! $this->SiteSetting->save($saveData, ['callbacks' => false])) {
+				CakeLog::error(var_export($this->SiteSetting->validationErrors, true));
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+		}
 	}
 
 /**
