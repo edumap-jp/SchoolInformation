@@ -105,20 +105,20 @@ msgstr "番地"
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
 msgid "Number Of Students"
-msgstr "生徒数"
+msgstr "児童数"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
 msgid "Number Of Total Students"
-msgstr "全生徒数"
+msgstr "全児童数"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
 msgid "Number Of Male Students"
-msgstr "男子生徒数"
+msgstr "男子児童数"
 
 msgid "Number Of Female Students"
-msgstr "女子生徒数"
+msgstr "女子児童数"
 
 #: View/Elements/SchoolInformation/main.ctp:30;38
 msgid "%d persons"
@@ -166,19 +166,19 @@ msgid "Adress:%3$s City:%2$s Prefecture:%1$s"
 msgstr "%1$s %2$s %3$s"
 
 msgid "Total students"
-msgstr "全生徒"
+msgstr "全児童"
 
 msgid "Male"
-msgstr "男性"
+msgstr "男子"
 
 msgid "Female"
-msgstr "女性"
+msgstr "女子"
 
 msgid "Number Of Students"
-msgstr "生徒数"
+msgstr "児童数"
 
 msgid "Number Of Total Students"
-msgstr "全生徒数"
+msgstr "全児童数"
 
 msgid "Display"
 msgstr "表示"
