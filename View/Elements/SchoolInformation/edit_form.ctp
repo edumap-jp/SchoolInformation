@@ -93,7 +93,7 @@
 	];
 	$otherFields = [
 		'principal_name',
-		'principal_name_roma',
+		'principal_name_kana',
 		'school_type' => [
 			'type' => 'select',
 			'options' => $schoolTypeOptions

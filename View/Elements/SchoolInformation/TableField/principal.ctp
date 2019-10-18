@@ -7,7 +7,7 @@
 					'principal_name'
 				); ?>
 				<?php echo $this->SchoolInformation->display(
-					'principal_name_roma',
+					'principal_name_kana',
 					['tag' => 'rt']
 				); ?>
 			</ruby>
