@@ -51,6 +51,7 @@ class SchoolInformationsSchema extends CakeSchema {
 		'school_name_kana' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校名(かな)', 'charset' => 'utf8mb4'),
 		'school_name_roma' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校名(ローマ字)', 'charset' => 'utf8mb4'),
 		'principal_name' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校長名', 'charset' => 'utf8mb4'),
+		'principal_name_kana' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校長名(カナ)', 'charset' => 'utf8mb4'),
 		'principal_name_roma' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校長名(ローマ字)', 'charset' => 'utf8mb4'),
 		'school_type' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 10, 'collate' => 'utf8mb4_general_ci', 'comment' => '国公立種別（国立・公立・私立）', 'charset' => 'utf8mb4'),
 		'school_kind' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 10, 'collate' => 'utf8mb4_general_ci', 'comment' => '校種（小学校・中学校・高等学校・中等教育学校・小中一貫校）', 'charset' => 'utf8mb4'),
