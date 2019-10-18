@@ -105,9 +105,18 @@ class SchoolInformationHelper extends AppHelper {
 			return '';
 		}
 
-		$principalName = $this->__schoolInformation['SchoolInformation']['principal_name'] ?? '';
-		$principalNameKana =
-				$this->__schoolInformation['SchoolInformation']['principal_name_kana'] ?? '';
+		if ($this->isDisplay('principal_name')) {
+			$principalName = $this->__schoolInformation['SchoolInformation']['principal_name'] ?? '';
+		} else {
+			$principalName = '';
+		}
+
+		if ($this->isDisplay('principal_name_kana')) {
+			$principalNameKana =
+					$this->__schoolInformation['SchoolInformation']['principal_name_kana'] ?? '';
+		} else {
+			$principalNameKana = '';
+		}
 
 		$splitName = preg_split('/[\s　]+/u', trim($principalName));
 		$splitNameCount = count($splitName);
