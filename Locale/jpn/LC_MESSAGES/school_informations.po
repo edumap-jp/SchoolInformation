@@ -104,7 +104,7 @@ msgstr "番地"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
-msgid "Number Of Kids"
+msgid "Number Of Students"
 msgstr "児童数"
 
 #: View/Elements/SchoolInformation/main.ctp:29
