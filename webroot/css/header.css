@@ -167,3 +167,7 @@ h1.school-information-header-title {
 		display: block;
 	}
 }
+
+.school-information-header .school-information-label:after {
+    content: ":";
+}

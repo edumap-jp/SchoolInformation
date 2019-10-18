@@ -104,13 +104,31 @@ class SchoolInformationHelper extends AppHelper {
 		if ($this->isDisplayPrincipal() === false) {
 			return '';
 		}
-		return $this->NetCommonsHtml->tag(
-			'ruby',
-			$this->display('principal_name') . $this->display(
-				'principal_name_roma',
-				['tag' => 'rt']
-			)
-		);
+
+		$principalName = $this->__schoolInformation['SchoolInformation']['principal_name'] ?? '';
+		$principalNameKana =
+				$this->__schoolInformation['SchoolInformation']['principal_name_kana'] ?? '';
+
+		$splitName = preg_split('/[\s　]+/u', trim($principalName));
+		$splitNameCount = count($splitName);
+		$splitNameKana = preg_split('/[\s　]+/u', trim($principalNameKana));
+
+		if ($splitNameCount === count($splitNameKana)) {
+			$tagText = '';
+			for ($i = 0; $i < $splitNameCount; $i++) {
+				$tagText .= $this->NetCommonsHtml->tag(
+					'ruby',
+					h($splitName[$i]) . $this->NetCommonsHtml->tag('rt', h($splitNameKana[$i]))
+				);
+				$tagText .= '　';
+			}
+		} else {
+			$tagText = $this->NetCommonsHtml->tag(
+				'ruby',
+				h($principalName) . $this->NetCommonsHtml->tag('rt', h($principalNameKana))
+			);
+		}
+		return $tagText;
 	}
 
 /**
@@ -119,7 +137,7 @@ class SchoolInformationHelper extends AppHelper {
  * @return bool
  */
 	public function isDisplayPrincipal() {
-		return ($this->isDisplay('principal_name') || $this->isDisplay('principal_name_roma'));
+		return ($this->isDisplay('principal_name') || $this->isDisplay('principal_name_kana'));
 	}
 
 /**
