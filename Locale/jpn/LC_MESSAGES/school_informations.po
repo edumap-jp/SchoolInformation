@@ -25,10 +25,10 @@ msgid "School Name Roma"
 msgstr "学校名（ローマ字）"
 
 msgid "Principal Name"
-msgstr "学校長名"
+msgstr "校長名"
 
 msgid "Principal Name Roma"
-msgstr "学校長名（ローマ字）"
+msgstr "校長名（ローマ字）"
 
 msgid "School Type"
 msgstr "国公立種別"
@@ -104,7 +104,7 @@ msgstr "番地"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
-msgid "Number Of Students"
+msgid "Number Of Kids"
 msgstr "児童数"
 
 #: View/Elements/SchoolInformation/main.ctp:29
