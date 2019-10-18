@@ -27,6 +27,9 @@ msgstr "学校名（ローマ字）"
 msgid "Principal Name"
 msgstr "校長名"
 
+msgid "Principal Name Kana"
+msgstr "校長名（カナ）"
+
 msgid "Principal Name Roma"
 msgstr "校長名（ローマ字）"
 
