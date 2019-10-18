@@ -80,6 +80,7 @@ class SchoolInformationsSchema extends CakeSchema {
 		'is_public_school_name_kana' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校名(かな)'),
 		'is_public_school_name_roma' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校名(ローマ字)'),
 		'is_public_principal_name' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校長名'),
+		'is_public_principal_name_kana' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校長名(カナ)'),
 		'is_public_principal_name_roma' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 学校長名(ローマ字)'),
 		'is_public_school_type' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 国公立種別（国立・公立・私立）'),
 		'is_public_school_kind' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '公開設定(1:公開 0:非公開) 校種（小学校・中学校・高等学校・中等教育学校・小中一貫校）'),
