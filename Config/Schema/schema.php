@@ -16,6 +16,7 @@ class SchoolInformationsSchema extends CakeSchema {
 		'is_display_school_name_kana' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 学校名(かな)'),
 		'is_display_school_name_roma' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 学校名(ローマ字)'),
 		'is_display_principal_name' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 学校長名'),
+		'is_display_principal_name_kana' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 学校長名(カナ)'),
 		'is_display_principal_name_roma' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 学校長名(ローマ字)'),
 		'is_display_school_type' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 国公立種別（国立・公立・私立）'),
 		'is_display_school_kind' => array('type' => 'boolean', 'null' => true, 'default' => '1', 'comment' => '表示設定(1:表示 0:非表示) 校種（小学校・中学校・高等学校・中等教育学校・小中一貫校）'),
