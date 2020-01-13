@@ -483,9 +483,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
  */
 	public function schoolTypes() {
 		return [
-			'国立' => __d('school_informations', '国立'),
 			'公立' => __d('school_informations', '公立'),
-			'私立' => __d('school_informations', '私立')
+			'国立' => __d('school_informations', '国立'),
+			'私立' => __d('school_informations', '私立'),
 		];
 	}
 
@@ -496,15 +496,16 @@ class SchoolInformation extends SchoolInformationsAppModel {
  */
 	public function schoolKinds() {
 		return [
+			'小学校' => __d('school_informations', '小学校'),
+			'中学校' => __d('school_informations', '中学校'),
+			'義務教育学校' => __d('school_informations', '義務教育学校'),
+			'高等学校' => __d('school_informations', '高等学校'),
+			'中等教育学校' => __d('school_informations', '中等教育学校'),
+			'特別支援学校' => __d('school_informations', '特別支援学校'),
+			'各種学校（インターナショナルスクール等）' => __d('school_informations', '各種学校（インターナショナルスクール等）'),
 			'幼稚園' => __d('school_informations', '幼稚園'),
 			'保育園' => __d('school_informations', '保育園'),
-			'小学校' => __d('school_informations', '小学校'),
-			'小中一貫校' => __d('school_informations', '小中一貫校'),
-			'中学校' => __d('school_informations', '中学校'),
-			'中等教育学校' => __d('school_informations', '中等教育学校'),
-			'中高一貫校' => __d('school_informations', '中高一貫校'),
-			'高等学校' => __d('school_informations', '高等学校'),
-			'特別支援学校' => __d('school_informations', '特別支援学校'),
+			'認定こども園' => __d('school_informations', '認定こども園'),
 		];
 	}
 
@@ -515,9 +516,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
  */
 	public function studentCategories() {
 		return [
+			'共学' => __d('school_informations', '共学'),
 			'男子校' => __d('school_informations', '男子校'),
 			'女子校' => __d('school_informations', '女子校'),
-			'共学' => __d('school_informations', '共学')
 		];
 	}
 }
