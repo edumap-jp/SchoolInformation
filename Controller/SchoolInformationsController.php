@@ -12,6 +12,7 @@
 
 App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
 App::uses('NetCommonsTime', 'NetCommons.Utility');
+App::uses('SiteBuildMngCommandExec', 'SiteBuildManager.Lib');
 
 /**
  * Class SchoolInformationsController
@@ -131,6 +132,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			//unset($data['SchoolInformation']['id']);
 
 			if ($this->SchoolInformation->saveSchoolInformation($data)) {
+				//Rundeckの学校情報更新JOBを実行
+				SiteBuildMngCommandExec::updateSchoolInfo();
+
 				$this->NetCommons->setFlashNotification(
 					__d('net_commons', 'Successfully saved.'), array('class' => 'success')
 				);
