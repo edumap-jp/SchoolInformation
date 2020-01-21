@@ -193,6 +193,13 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$this->create();
 
 		//バリデーション
+		$schoolInfo = $this->getSchoolInformation();
+		if ($schoolInfo) {
+			unset($schoolInfo[$this->alias]['modified_user']);
+			unset($schoolInfo[$this->alias]['modified']);
+			$this->set($schoolInfo);
+		}
+
 		$data = $this->cleansingSaveSchoolInformation($data);
 		$this->set($data);
 		if (!$this->validates()) {
@@ -201,8 +208,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		try {
 			//学校情報の登録
-			$fieldList = array_keys($data);
-			$schoolInformation = $this->save(null, false, $fieldList);
+			$schoolInformation = $this->save(null, false);
 			if (!$schoolInformation) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}

@@ -8,6 +8,7 @@
  */
 
 App::uses('AppShell', 'Console/Command');
+App::uses('SiteBuildMngCommandExec', 'SiteBuildManager.Lib');
 
 /**
  * 学校情報シェル
@@ -59,11 +60,16 @@ class UpdateSchoolInformationShell extends AppShell {
 			}
 
 			if ($schoolInfo[$schoolInfoAlias]['modified'] > $jsonContent['school_information']['modified']) {
-				//TODO: 公式サイトの更新JOBを実行する
+				//学校サイトの方が新しい場合は、公式サイトの方を更新する
+				SiteBuildMngCommandExec::updateSchoolInfo();
 				return true;
 			}
+			if (array_key_exists('modified', $jsonContent['school_information'])) {
+				unset($jsonContent['school_information']['modified']);
+			}
 
-			$saveData = array_merge($schoolInfo[$schoolInfoAlias], $jsonContent['school_information']);
+			$saveData = $jsonContent['school_information'];
+			$saveData['id'] = $schoolInfo[$schoolInfoAlias]['id'];
 
 			if (! $this->SchoolInformation->saveSchoolInformation([$schoolInfoAlias => $saveData])) {
 				$validationErrors = $this->SchoolInformation->validationErrors;
