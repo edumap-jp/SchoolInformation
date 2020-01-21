@@ -201,7 +201,8 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		try {
 			//学校情報の登録
-			$schoolInformation = $this->save(null, false);
+			$fieldList = array_keys($data);
+			$schoolInformation = $this->save(null, false, $fieldList);
 			if (!$schoolInformation) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
