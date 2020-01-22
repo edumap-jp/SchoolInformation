@@ -353,6 +353,20 @@ class SchoolInformationHelper extends AppHelper {
 	}
 
 /**
+ * 学生種別の整形処理
+ *
+ * @param $field 項目名
+ * @return string
+ */
+	public function __formatPostalCode() {
+		$value = $this->__schoolInformation['SchoolInformation']['postal_code'];
+		if (preg_match('/^[0-9]+$/', $value)) {
+			$value = substr($value, 0, 3) . '-' . substr($value, -4);
+		}
+		return h(__d('school_informations', 'PostalCode:%s', $value));
+	}
+
+/**
  * デフォルトの整形処理
  *
  * @param $field 項目名
