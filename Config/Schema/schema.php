@@ -55,7 +55,7 @@ class SchoolInformationsSchema extends CakeSchema {
 		'principal_name_kana' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校長名(カナ)', 'charset' => 'utf8mb4'),
 		'principal_name_roma' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '学校長名(ローマ字)', 'charset' => 'utf8mb4'),
 		'school_type' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 10, 'collate' => 'utf8mb4_general_ci', 'comment' => '国公立種別（国立・公立・私立）', 'charset' => 'utf8mb4'),
-		'school_kind' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 10, 'collate' => 'utf8mb4_general_ci', 'comment' => '校種（小学校・中学校・高等学校・中等教育学校・小中一貫校）', 'charset' => 'utf8mb4'),
+		'school_kind' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '校種（小学校・中学校・高等学校・中等教育学校・小中一貫校）', 'charset' => 'utf8mb4'),
 		'student_category' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 10, 'collate' => 'utf8mb4_general_ci', 'comment' => '学生種別（男子校・女子校・共学）', 'charset' => 'utf8mb4'),
 		'establish_year_month' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 7, 'collate' => 'utf8mb4_general_ci', 'comment' => '開校年月', 'charset' => 'utf8mb4'),
 		'close_year_month' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 7, 'collate' => 'utf8mb4_general_ci', 'comment' => '閉校年月', 'charset' => 'utf8mb4'),
