@@ -26,40 +26,6 @@
 	) ?>
 
 	<?php
-	$fieldFormElement = function ($key, $field) {
-		$extraOptions = [];
-		if (is_array($field)) {
-			// keyがフィールド名で $fieldがオプション
-			$extraOptions = $field;
-			$field = $key;
-		}
-		$defaultOptions = [
-			'label' => __d('school_informations', Inflector::humanize($field)),
-		];
-		$options = array_merge($defaultOptions, $extraOptions);
-		echo $this->NetCommonsForm->input(
-			'SchoolInformation.' . $field,
-			$options
-		);
-
-		if (in_array($field, SchoolInformation::locationFields(), true) === false) {
-			echo '<div class="col-xs-offset-1 form-group form-inline">';
-			echo $this->NetCommonsForm->input(
-				'SchoolInformation.is_public_' . $field,
-				[
-					'type' => 'radio',
-					//'div' => ['class' => 'form-group form-inline col-xs-offset-1'],
-					'div' => ['class' => 'form-radio-outer'],
-					'options' => [
-						1 => __d('school_informations', 'Public'),
-						0 => __d('school_informations', 'Private'),
-					]
-				]
-			);
-			echo '</div>';
-		}
-	};
-
 	$firstFields = [
 		'school_name_kana',
 		'school_name_roma',
@@ -75,9 +41,15 @@
 		'address',
 	];
 	$studentsFields = [
-		'number_of_total_students',
-		'number_of_male_students',
-		'number_of_female_students',
+		'number_of_total_students' => [
+			'label' => __d('school_informations', 'Number Of Total Children or Total Students'),
+		],
+		'number_of_male_students' => [
+			'label' => __d('school_informations', 'Number Of Male Children or Male Students'),
+		],
+		'number_of_female_students' => [
+			'label' => __d('school_informations', 'Number Of Female Children or Female Students'),
+		],
 	];
 	$mainFields = [
 		'tel' => [
@@ -145,7 +117,7 @@
 	];
 
 	foreach ($firstFields as $key => $field) {
-		$fieldFormElement($key, $field);
+		echo $this->SchoolInformationForm->input($key, $field);
 	}
 
 	//校章
@@ -183,31 +155,31 @@
 		]
 	);
 	foreach ($locationFields as $key => $field) {
-		$fieldFormElement($key, $field);
+		echo $this->SchoolInformationForm->input($key, $field);
 	}
 	echo '</div>';
 
 	foreach ($mainFields as $key => $field) {
-		$fieldFormElement($key, $field);
+		echo $this->SchoolInformationForm->input($key, $field);
 	}
 
 	echo '<hr>';
 
 	foreach ($otherFields as $key => $field) {
-		$fieldFormElement($key, $field);
+		echo $this->SchoolInformationForm->input($key, $field);
 	}
 
 	//教員数
-	$fieldFormElement(0, 'number_of_faculty_members');
+	echo $this->SchoolInformationForm->input(0, 'number_of_faculty_members');
 
 	//生徒数
 	echo $this->NetCommonsForm->label(
 		'SchoolInformation.number_of_total_students',
-		__d('school_informations', 'Number Of Students')
+		__d('school_informations', 'Number Of Children or Students')
 	);
 	echo '<div class="col-xs-offset-1">';
 	foreach ($studentsFields as $key => $field) {
-		$fieldFormElement($key, $field);
+		echo $this->SchoolInformationForm->input($key, $field);
 	}
 	echo '</div>';
 

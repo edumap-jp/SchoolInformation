@@ -48,9 +48,15 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		'Files.Download'
 	);
 
-	//public $helpers = [
-	//	'Workflow.Workflow'
-	//];
+/**
+ * use helpers
+ *
+ * @var array
+ */
+	public $helpers = [
+		'SchoolInformations.SchoolInformation',
+		'SchoolInformations.SchoolInformationForm',
+	];
 
 /**
  * beforeFilter
