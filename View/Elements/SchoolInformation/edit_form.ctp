@@ -41,9 +41,15 @@
 		'address',
 	];
 	$studentsFields = [
-		'number_of_total_students',
-		'number_of_male_students',
-		'number_of_female_students',
+		'number_of_total_students' => [
+			'label' => __d('school_informations', 'Number Of Total Children or Total Students'),
+		],
+		'number_of_male_students' => [
+			'label' => __d('school_informations', 'Number Of Male Children or Male Students'),
+		],
+		'number_of_female_students' => [
+			'label' => __d('school_informations', 'Number Of Female Children or Female Students'),
+		],
 	];
 	$mainFields = [
 		'tel' => [
@@ -169,7 +175,7 @@
 	//生徒数
 	echo $this->NetCommonsForm->label(
 		'SchoolInformation.number_of_total_students',
-		__d('school_informations', 'Number Of Students')
+		__d('school_informations', 'Number Of Children or Students')
 	);
 	echo '<div class="col-xs-offset-1">';
 	foreach ($studentsFields as $key => $field) {

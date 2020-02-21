@@ -3,7 +3,7 @@
 		$this->SchoolInformation->isDisplay('number_of_total_students')): ?>
 	<tr>
 		<th>
-			<?php echo __d('school_informations', 'Number Of Students') ?>
+			<?php echo $this->SchoolInformation->labelNumberOfStudents(); ?>
 		</th>
 		<td>
 			<?php
@@ -20,7 +20,6 @@
 			?>
 			<?php if ($totalNum) : ?>
 				<div>
-					<span><?php echo __d('school_informations', 'Total students'); ?> : </span>
 					<?php echo $totalNum; ?>
 				</div>
 			<?php endif; ?>
