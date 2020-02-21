@@ -453,4 +453,40 @@ class SchoolInformationHelper extends AppHelper {
 		}
 		return '';
 	}
+
+/**
+ * 生徒数ラベル
+ *
+ * @return string
+ */
+	public function labelNumberOfStudents() {
+		return __d('school_informations', 'Number Of ' . $this->__getLabelDefineNumberOfStudents());
+	}
+
+/**
+ * 全生徒数ラベル
+ *
+ * @return string
+ */
+	public function labelTotalNumberOfStudents() {
+		return __d('school_informations', 'Number Of Total ' . $this->__getLabelDefineNumberOfStudents());
+	}
+
+/**
+ * 生徒数ラベル
+ *
+ * @return string
+ */
+	private function __getLabelDefineNumberOfStudents() {
+		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
+		if (in_array($schoolKind, ['幼稚園', '保育園', '認定こども園'], true)) {
+			$label = 'Kindergarten pupil';
+		} elseif ($schoolKind === '小学校') {
+			$label = 'Children';
+		} else {
+			$label = 'Students';
+		}
+		return $label;
+	}
+
 }
