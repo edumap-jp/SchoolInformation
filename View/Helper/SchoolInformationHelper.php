@@ -31,10 +31,22 @@ class SchoolInformationHelper extends AppHelper {
  * @return string
  */
 	private function __getInlineImage($uploadFile, $size) {
-		$filepath = UPLOADS_ROOT . $uploadFile['path'] . DS . $uploadFile['id'] .DS . $size . $uploadFile['real_file_name'];
+		$filepath = $this->__getImagePath($uploadFile, $size);
 		$mimeType = $uploadFile['mimetype'];
 		$encodeData = base64_encode(file_get_contents($filepath));
 		return sprintf('data:%s;base64,%s', $mimeType, $encodeData);
+	}
+
+/**
+ * getImagePath
+ *
+ * @param array $uploadFile アップロードファイル
+ * @param string $size サイズ
+ * @return string
+ */
+	private function __getImagePath($uploadFile, $size) {
+		return $filepath = UPLOADS_ROOT . $uploadFile['path'] . DS .
+				$uploadFile['id'] .DS . $size . $uploadFile['real_file_name'];
 	}
 
 /**
@@ -87,7 +99,22 @@ class SchoolInformationHelper extends AppHelper {
 			$imgSrc = $this->__getInlineImage(
 				$this->__schoolInformation['UploadFile']['cover_picture'], 'large_'
 			);
-			return '<img src="' . $imgSrc . '" alt="" />';
+			$imagePath = $this->__getImagePath(
+				$this->__schoolInformation['UploadFile']['cover_picture'], 'large_'
+			);
+
+			list($width, $height) = @getimagesize($imagePath);
+			if ($height < 180 && $width < 1140) {
+				$imgClassName = ' class="school-cover-picture-fixed-width"';
+			} elseif ($height < 180) {
+				$imgClassName = ' class="school-cover-picture-fixed-height"';
+			} elseif ($width < 1140) {
+				$imgClassName = ' class="school-cover-picture-fixed-width"';
+			} else {
+				$imgClassName = '';
+			}
+
+			return '<img src="' . $imgSrc . '"' . $imgClassName . ' alt="" />';
 		}
 		//return $this->NetCommonsHtml->image(
 		//	'/school_informations/img/cover_sample.jpg'
