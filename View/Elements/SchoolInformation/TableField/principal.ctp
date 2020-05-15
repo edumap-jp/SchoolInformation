@@ -1,6 +1,6 @@
 <?php if ($this->SchoolInformation->isDisplayPrincipal()): ?>
 	<tr>
-		<th><?php echo __d('school_informations', 'Principal Name') ?></th>
+		<th><?php echo $this->SchoolInformation->labelPrincipal(); ?></th>
 		<td>
 			<?php echo $this->SchoolInformation->displayPrincipal(); ?>
 		</td>

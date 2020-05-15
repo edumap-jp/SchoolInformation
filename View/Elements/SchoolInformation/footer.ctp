@@ -73,12 +73,18 @@
 						case 'principal':
 							if ($this->SchoolInformation->isDisplayPrincipal()) {
 								echo '<span class="school-information-record-item">';
-								echo $this->SchoolInformation->label('principal_name', __d('school_informations', 'Principal Name'));
+								echo $this->SchoolInformation->label('principal_name',
+										$this->SchoolInformation->labelPrincipal());
 								echo $this->SchoolInformation->displayPrincipal();
 								echo '</span>';
 							}
 							break;
 						default:
+							$methodName = 'label' . ucfirst(Inflector::camelize($field));
+							if (! isset($extraOptions['label']) &&
+									method_exists($this->SchoolInformation, $methodName)) {
+								$extraOptions['label'] = $this->SchoolInformation->$methodName();
+							}
 							$extraOptions['displayLabel'] = true;
 							$extraOptions['tag'] = 'span';
 							echo $this->SchoolInformation->display($field, $extraOptions);

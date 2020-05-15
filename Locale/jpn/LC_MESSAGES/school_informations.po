@@ -25,28 +25,58 @@ msgid "School Name Roma"
 msgstr "学校名（ローマ字）"
 
 msgid "Principal Name"
-msgstr "校長名"
+msgstr "校長(園長)名"
 
 msgid "Principal Name Kana"
-msgstr "校長名（カナ）"
+msgstr "校長(園長)名（カナ）"
 
 msgid "Principal Name Roma"
-msgstr "校長名（ローマ字）"
+msgstr "校長(園長)名（ローマ字）"
+
+msgid "School Principal Name"
+msgstr "校長名"
+
+msgid "Kindergarten Principal Name"
+msgstr "園長名"
 
 msgid "School Type"
 msgstr "国公立種別"
 
-msgid "School Kind"
+msgid "Kindergarten School Kind"
+msgstr "園種"
+
+msgid "School School Kind"
 msgstr "校種"
 
-msgid "Student Category"
+msgid "School Kind"
+msgstr "校種(園種)"
+
+msgid "School Student Category"
 msgstr "学生種別"
 
-msgid "Establish Year Month"
+msgid "Kindergarten Student Category"
+msgstr "園児種別"
+
+msgid "Student Category"
+msgstr "学生(園児)種別"
+
+msgid "Kindergarten Establish Year Month"
+msgstr "開園年月"
+
+msgid "School Establish Year Month"
 msgstr "開校年月"
 
-msgid "Close Year Month"
+msgid "Establish Year Month"
+msgstr "開校(開園)年月"
+
+msgid "Kindergarten Close Year Month"
+msgstr "閉園年月"
+
+msgid "School Close Year Month"
 msgstr "閉校年月"
+
+msgid "Close Year Month"
+msgstr "閉校(閉園)年月"
 
 msgid "Postal Code"
 msgstr "郵便番号"
@@ -134,10 +164,10 @@ msgid "Number Of Female Students"
 msgstr "女子数"
 
 msgid "Number Of Children or Students"
-msgstr "児童・生徒数"
+msgstr "児童(園児)・生徒数"
 
 msgid "Number Of Total Children or Total Students"
-msgstr "全児童・生徒数"
+msgstr "全児童(園児)・生徒数"
 
 #: View/Elements/SchoolInformation/main.ctp:29
 #: View/SchoolInformations/edit.ctp:93
@@ -154,7 +184,13 @@ msgstr "%d 人"
 #: View/Elements/SchoolInformation/main.ctp:37
 #: View/SchoolInformations/edit.ctp:99
 msgid "Number Of Faculty Members"
+msgstr "教員(保育士)数"
+
+msgid "Number Of Teachers"
 msgstr "教員数"
+
+msgid "Number Of Childcare Workers"
+msgstr "保育士数"
 
 #: View/Elements/SchoolInformationFrameSettings/edit_form.ctp:23
 msgid "Display Type"

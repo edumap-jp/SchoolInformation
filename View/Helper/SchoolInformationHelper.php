@@ -257,7 +257,11 @@ class SchoolInformationHelper extends AppHelper {
 
 		$label = '';
 		if (isset($options['displayLabel']) && $options['displayLabel']) {
-			$labelText = __d('school_informations', Inflector::humanize($field));
+			if (isset($options['label'])) {
+				$labelText = $options['label'];
+			} else {
+				$labelText = __d('school_informations', Inflector::humanize($field));
+			}
 			$label = $this->label($field, $labelText);
 		}
 
@@ -506,7 +510,7 @@ class SchoolInformationHelper extends AppHelper {
  */
 	private function __getLabelDefineNumberOfStudents() {
 		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
-		if (in_array($schoolKind, ['幼稚園', '保育園', '認定こども園'], true)) {
+		if ($this->__isUnderElementarySchool()) {
 			$label = 'Kindergarten pupil';
 		} elseif ($schoolKind === '小学校') {
 			$label = 'Children';
@@ -514,6 +518,95 @@ class SchoolInformationHelper extends AppHelper {
 			$label = 'Students';
 		}
 		return $label;
+	}
+
+/**
+ * 校長名ラベル
+ *
+ * @return string
+ */
+	public function labelPrincipal() {
+		$prefx = $this->__getKindergartenLabelOfPrefix();
+		return __d('school_informations', $prefx . 'Principal Name');
+	}
+
+/**
+ * 校種ラベル
+ *
+ * @return string
+ */
+	public function labelSchoolKind() {
+		$prefx = $this->__getKindergartenLabelOfPrefix();
+		return __d('school_informations', $prefx . 'School Kind');
+	}
+
+/**
+ * 学生種別ラベル
+ *
+ * @return string
+ */
+	public function labelStudentCategory() {
+		$prefx = $this->__getKindergartenLabelOfPrefix();
+		return __d('school_informations', $prefx . 'Student Category');
+	}
+
+/**
+ * 開校ラベル
+ *
+ * @return string
+ */
+	public function labelEstablishYearMonth() {
+		$prefx = $this->__getKindergartenLabelOfPrefix();
+		return __d('school_informations', $prefx . 'Establish Year Month');
+	}
+
+/**
+ * 閉校ラベル
+ *
+ * @return string
+ */
+	public function labelCloseYearMonth() {
+		$prefx = $this->__getKindergartenLabelOfPrefix();
+		return __d('school_informations', $prefx . 'Close Year Month');
+	}
+
+/**
+ * 教員数ラベル
+ *
+ * @return string
+ */
+	public function labelNumberOfFacultyMembers() {
+		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
+		if (in_array($schoolKind, ['保育園'], true)) {
+			return __d('school_informations', 'Number Of Childcare Workers');
+		} else {
+			return __d('school_informations', 'Number Of Teachers');
+		}
+	}
+
+/**
+ * 小学生未満のラベルプレフィックス
+ *
+ * @return string
+ */
+	private function __getKindergartenLabelOfPrefix() {
+		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
+		if ($this->__isUnderElementarySchool()) {
+			$labelPrefix = 'Kindergarten ';
+		} else {
+			$labelPrefix = 'School ';
+		}
+		return $labelPrefix;
+	}
+
+/**
+ * 小学生未満かどうか
+ *
+ * @return string
+ */
+	private function __isUnderElementarySchool() {
+		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
+		return in_array($schoolKind, ['幼稚園', '保育園', '認定こども園'], true);
 	}
 
 }

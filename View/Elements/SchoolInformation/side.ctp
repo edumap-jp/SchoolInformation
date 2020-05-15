@@ -52,12 +52,17 @@
 					if ($this->SchoolInformation->isDisplayPrincipal()) {
 						echo $this->SchoolInformation->label(
 							'principal_name',
-							__d('school_informations', 'Principal Name')
+							$this->SchoolInformation->labelPrincipal()
 						);
 						echo $this->SchoolInformation->displayPrincipal();
 					}
 					break;
 				default:
+					$methodName = 'label' . ucfirst(Inflector::camelize($field));
+					if (! isset($extraOptions['label']) &&
+							method_exists($this->SchoolInformation, $methodName)) {
+						$extraOptions['label'] = $this->SchoolInformation->$methodName();
+					}
 					$extraOptions['displayLabel'] = true;
 					echo $this->SchoolInformation->display($field, $extraOptions);
 			}

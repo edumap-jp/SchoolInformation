@@ -2,8 +2,11 @@
 	<tr>
 		<th>
 			<?php
+			$methodName = 'label' . ucfirst(Inflector::camelize($field));
 			if (isset($extraOptions['label'])) {
 				echo $extraOptions['label'];
+			} elseif (method_exists($this->SchoolInformation, $methodName)) {
+				echo $this->SchoolInformation->$methodName();
 			} else {
 				echo __d('school_informations', Inflector::humanize($field));
 			}

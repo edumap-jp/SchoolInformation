@@ -177,3 +177,7 @@ h1.school-information-header-title {
 .school-information-header .school-information-label:after {
     content: ":";
 }
+
+.school-information-header-sub-items span.school-information-record-item {
+    margin-right: 5px;
+}
