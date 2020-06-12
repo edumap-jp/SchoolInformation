@@ -498,7 +498,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		return [
 			'小学校' => __d('school_informations', '小学校'),
 			'中学校' => __d('school_informations', '中学校'),
-			'義務教育学校' => __d('school_informations', '義務教育学校'),
+			'小中一貫校・義務教育学校' => __d('school_informations', '小中一貫校・義務教育学校'),
 			'高等学校' => __d('school_informations', '高等学校'),
 			'中等教育学校' => __d('school_informations', '中等教育学校'),
 			'特別支援学校' => __d('school_informations', '特別支援学校'),
