@@ -13,12 +13,28 @@ App::uses('AppHelper', 'View');
  */
 class SchoolInformationHelper extends AppHelper {
 
+/**
+ * 使用するヘルパー
+ *
+ * @var array
+ */
 	public $helpers = [
 		'NetCommons.NetCommonsHtml'
 	];
 
+/**
+ * 学校情報データ
+ *
+ * @var array
+ */
 	private $__schoolInformation;
 
+/**
+ * 学校情報データをヘルパーにセットする
+ *
+ * @param array $schoolInformation 学校情報データ
+ * @return void
+ */
 	public function set(array $schoolInformation) {
 		$this->__schoolInformation = $schoolInformation;
 	}
@@ -46,7 +62,7 @@ class SchoolInformationHelper extends AppHelper {
  */
 	private function __getImagePath($uploadFile, $size) {
 		return $filepath = UPLOADS_ROOT . $uploadFile['path'] . DS .
-				$uploadFile['id'] .DS . $size . $uploadFile['real_file_name'];
+				$uploadFile['id'] . DS . $size . $uploadFile['real_file_name'];
 	}
 
 /**
@@ -103,22 +119,24 @@ class SchoolInformationHelper extends AppHelper {
 				$this->__schoolInformation['UploadFile']['cover_picture'], 'large_'
 			);
 
-			list($width, $height) = @getimagesize($imagePath);
-			if ($height < 180 && $width < 1140) {
-				$imgClassName = ' class="school-cover-picture-fixed-width"';
-			} elseif ($height < 180) {
-				$imgClassName = ' class="school-cover-picture-fixed-height"';
-			} elseif ($width < 1140) {
-				$imgClassName = ' class="school-cover-picture-fixed-width"';
-			} else {
-				$imgClassName = '';
+			//@codingStandardsIgnoreStart
+			$info = @getimagesize($imagePath);
+			//@codingStandardsIgnoreEnd
+			if (is_array($info)) {
+				list($width, $height) = $info;
+				if ($height < 180 && $width < 1140) {
+					$imgClassName = ' class="school-cover-picture-fixed-width"';
+				} elseif ($height < 180) {
+					$imgClassName = ' class="school-cover-picture-fixed-height"';
+				} elseif ($width < 1140) {
+					$imgClassName = ' class="school-cover-picture-fixed-width"';
+				} else {
+					$imgClassName = '';
+				}
+				return '<img src="' . $imgSrc . '"' . $imgClassName . ' alt="" />';
 			}
-
-			return '<img src="' . $imgSrc . '"' . $imgClassName . ' alt="" />';
 		}
-		//return $this->NetCommonsHtml->image(
-		//	'/school_informations/img/cover_sample.jpg'
-		//);
+
 		return '';
 	}
 
@@ -228,7 +246,8 @@ class SchoolInformationHelper extends AppHelper {
 		if (in_array($field, SchoolInformation::locationFields(), true)) {
 			$field = 'location';
 		}
-		return (bool)$this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting']['is_display_' . $field];
+		$frameSetting = $this->_View->viewVars['frameSetting']['SchoolInformationFrameSetting'];
+		return (bool)$frameSetting['is_display_' . $field];
 	}
 
 /**
@@ -285,8 +304,8 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * 各項目の整形処理
  *
- * @param $field 項目名
- * @param $format フォーマット
+ * @param string $field 項目名
+ * @param string $format フォーマット
  * @return string
  */
 	private function __formatValue($field, $format) {
@@ -310,10 +329,9 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * 国公立種別の整形処理
  *
- * @param $field 項目名
  * @return string
  */
-	public function __formatSchoolType() {
+	private function __formatSchoolType() {
 		$value = $this->__schoolInformation['SchoolInformation']['school_type'];
 		return $this->_View->viewVars['schoolTypeOptions'][$value];
 	}
@@ -321,10 +339,9 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * 校種の整形処理
  *
- * @param $field 項目名
  * @return string
  */
-	public function __formatSchoolKind() {
+	private function __formatSchoolKind() {
 		$value = $this->__schoolInformation['SchoolInformation']['school_kind'];
 		return $this->_View->viewVars['schoolKindOptions'][$value];
 	}
@@ -332,10 +349,9 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * 学生種別の整形処理
  *
- * @param $field 項目名
  * @return string
  */
-	public function __formatStudentCategory() {
+	private function __formatStudentCategory() {
 		$value = $this->__schoolInformation['SchoolInformation']['student_category'];
 		return $this->_View->viewVars['studentCategoryOptions'][$value];
 	}
@@ -343,7 +359,7 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * 年月の整形処理
  *
- * @param $field 項目名
+ * @param string $field 項目名
  * @return string
  */
 	private function __formatYearMont($field) {
@@ -358,7 +374,7 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * URLの整形処理
  *
- * @param $field 項目名
+ * @param string $field 項目名
  * @return string
  */
 	private function __formatUrl($field) {
@@ -386,10 +402,9 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * 学生種別の整形処理
  *
- * @param $field 項目名
  * @return string
  */
-	public function __formatPostalCode() {
+	private function __formatPostalCode() {
 		$value = $this->__schoolInformation['SchoolInformation']['postal_code'];
 		if (preg_match('/^[0-9]+$/', $value)) {
 			$value = substr($value, 0, 3) . '-' . substr($value, -4);
@@ -400,8 +415,8 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * デフォルトの整形処理
  *
- * @param $field 項目名
- * @param $format フォーマット
+ * @param string $field 項目名
+ * @param string $format フォーマット
  * @return string
  */
 	private function __formatDefault($field, $format) {
@@ -415,8 +430,8 @@ class SchoolInformationHelper extends AppHelper {
 /**
  * ラベルの表示
  *
- * @param $field 項目名
- * @param $labelText ラベルテキスト
+ * @param string $field 項目名
+ * @param string $labelText ラベルテキスト
  * @return string
  */
 	public function label($field, $labelText) {

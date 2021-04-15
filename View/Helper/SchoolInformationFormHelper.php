@@ -27,8 +27,8 @@ class SchoolInformationFormHelper extends AppHelper {
 /**
  * 入力部品の出力
  *
- * @param $key キー項目
- * @param $field カラム名
+ * @param string $key キー項目
+ * @param string|array $field カラム名
  * @return string
  */
 	public function input($key, $field) {

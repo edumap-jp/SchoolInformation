@@ -2,8 +2,6 @@
 /**
  * SchoolInformationFrameSetting Model
  *
- * @property Block $Block
- *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @link http://www.netcommons.org NetCommons Project
@@ -21,18 +19,18 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 
-	/**
-	 * Validation rules
-	 *
-	 * @var array
-	 */
+/**
+ * Validation rules
+ *
+ * @var array
+ */
 	public $validate = array();
 
-	/**
-	 * belongsTo associations
-	 *
-	 * @var array
-	 */
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
 	public $belongsTo = array(
 		'Frame' => array(
 			'className' => 'Frames.Frame',
@@ -43,15 +41,15 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 		),
 	);
 
-	/**
-	 * Called during validation operations, before validation. Please note that custom
-	 * validation rules can be defined in $validate.
-	 *
-	 * @param array $options Options passed from Model::save().
-	 * @return bool True if validate operation should continue, false to abort
-	 * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforevalidate
-	 * @see Model::save()
-	 */
+/**
+ * Called during validation operations, before validation. Please note that custom
+ * validation rules can be defined in $validate.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if validate operation should continue, false to abort
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforevalidate
+ * @see Model::save()
+ */
 	public function beforeValidate($options = array()) {
 		$this->validate = array_merge(
 			$this->validate,
@@ -68,11 +66,12 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 		return parent::beforeValidate($options);
 	}
 
-	/**
-	 * Get SchoolInformationFrameSetting data
-	 *
-	 * @return array SchoolInformationFrameSetting data
-	 */
+/**
+ * getSchoolInformationFrameSetting
+ *
+ * @param string $layoutPosition レイアウト位置
+ * @return array SchoolInformationFrameSetting data
+ */
 	public function getSchoolInformationFrameSetting($layoutPosition) {
 		$conditions = array(
 			'frame_key' => Current::read('Frame.key')
@@ -96,6 +95,12 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 		return $frameSetting;
 	}
 
+/**
+ * __defaultSettingByLayoutPosition
+ *
+ * @param string $layoutPosition レイアウト位置
+ * @return array
+ */
 	private function __defaultSettingByLayoutPosition($layoutPosition) {
 		// デフォルトで表示なのでここでは非表示にする項目をリストしてる
 		$hide = [];
@@ -184,13 +189,13 @@ class SchoolInformationFrameSetting extends SchoolInformationsAppModel {
 		return $default;
 	}
 
-	/**
-	 * Save SchoolInformationFrameSetting
-	 *
-	 * @param array $data received post data
-	 * @return mixed On success Model::$data if its not empty or true, false on failure
-	 * @throws InternalErrorException
-	 */
+/**
+ * Save SchoolInformationFrameSetting
+ *
+ * @param array $data received post data
+ * @return mixed On success Model::$data if its not empty or true, false on failure
+ * @throws InternalErrorException
+ */
 	public function saveSchoolInformationFrameSetting($data) {
 		$this->loadModels(
 			[

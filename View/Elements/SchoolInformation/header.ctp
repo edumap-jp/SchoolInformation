@@ -64,10 +64,10 @@ echo $this->NetCommonsHtml->css(
 					'establish_year_month',
 					'close_year_month',
 
-					'number_of_male_students'=> [
+					'number_of_male_students' => [
 						'format' => __d('school_informations', '%d persons')
 					],
-					'number_of_female_students'=> [
+					'number_of_female_students' => [
 						'format' => __d('school_informations', '%d persons')
 					],
 					'number_of_faculty_members' => [
