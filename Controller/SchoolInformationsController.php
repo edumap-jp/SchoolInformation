@@ -2,12 +2,11 @@
 /**
  * SchoolInformations Controller
  *
- *
-* @author Noriko Arai <arai@nii.ac.jp>
-* @author Your Name <yourname@domain.com>
-* @link http://www.netcommons.org NetCommons Project
-* @license http://www.netcommons.org/license.txt NetCommons License
-* @copyright Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Your Name <yourname@domain.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
@@ -68,9 +67,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		// ゲストアクセスOKのアクションを設定
 		$this->Auth->allow('view', 'school_badge', 'cover_picture');
 		//$this->Categories->initCategories();
-		$this->set('schoolTypeOptions', $this->SchoolInformation->schoolTypes());
-		$this->set('schoolKindOptions', $this->SchoolInformation->schoolKinds());
-		$this->set('studentCategoryOptions', $this->SchoolInformation->studentCategories());
+		$this->set('schoolTypeOptions', $this->SchoolInformation->getSchoolTypes());
+		$this->set('schoolKindOptions', $this->SchoolInformation->getSchoolKinds());
+		$this->set('studentCategoryOptions', $this->SchoolInformation->getStudentCategories());
 		parent::beforeFilter();
 	}
 
@@ -87,9 +86,10 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
 		if ($schoolInformation) {
 			$this->set('schoolInformation', $schoolInformation);
-			$frameSetting = $this->SchoolInformationFrameSetting->getSchoolInformationFrameSetting($this->_getLayoutPosition());
+			$frameSetting = $this->SchoolInformationFrameSetting
+								->getSchoolInformationFrameSetting($this->_getLayoutPosition());
 			$this->set('frameSetting', $frameSetting);
-			$this->set('prefectureOptions', $this->SchoolInformation->getPrefectureOptions());
+			$this->set('prefectureOptions', $this->SchoolInformation->getPrefecture());
 			return;
 		}
 
@@ -126,7 +126,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 	}
 
 /**
- * TODO edit
+ * edit
  *
  * @return CakeResponse|null
  */
@@ -157,20 +157,19 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$this->request->data['Frame'] = Current::read('Frame');
 		}
 
-		$this->set('prefectureOptions', $this->SchoolInformation->getPrefectureOptions());
+		$this->set('prefectureOptions', $this->SchoolInformation->getPrefecture());
 		//$comments = $this->SchoolInformation->getCommentsByContentKey(
 		//	$this->request->data['SchoolInformation']['key']
 		//);
 		//$this->set('comments', $comments);
-
 	}
 
-	/**
-	 * ファイルダウンロード
-	 *
-	 * @throws NotFoundException
-	 * @return mixed
-	 */
+/**
+ * ファイルダウンロード
+ *
+ * @throws NotFoundException
+ * @return mixed
+ */
 	public function school_badge() {
 		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
 
@@ -191,12 +190,12 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		);
 	}
 
-	/**
-	 * ファイルダウンロード
-	 *
-	 * @throws NotFoundException
-	 * @return mixed
-	 */
+/**
+ * ファイルダウンロード
+ *
+ * @throws NotFoundException
+ * @return mixed
+ */
 	public function cover_picture() {
 		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
 

@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php
 /**
  * SchoolInformation Model
  *
@@ -12,6 +12,9 @@
  */
 
 App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
+App::uses('SchoolInformationConst', 'SchoolInformations.Model');
+App::uses('SchoolInformationCustomValidationTrait', 'SchoolInformations.Model/Validation');
+App::uses('SchoolInformationValidationRepositoryTrait', 'SchoolInformations.Model/Validation');
 
 /**
  * Summary for SchoolInformation Model
@@ -21,35 +24,8 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
  */
 class SchoolInformation extends SchoolInformationsAppModel {
 
-/**
- * 所在地のカラムリスト
- *
- * @var array
- */
-	const LOCATION_FIELDS = [
-		'postal_code',
-		'prefecture_code',
-		'city_code',
-		'city',
-		'address'
-	];
-
-/**
- * 空値の場合、nullに変換するカラムリスト
- *
- * @var array
- */
-	const CONV_NULL_IF_EMPTY_FIELDS = [
-		'seismic_work',
-		'designation_of_shelter',
-	];
-
-/**
- * 地図URL
- *
- * @var string
- */
-	const MAP_URL = 'https://www.google.com/maps/embed';
+	use SchoolInformationCustomValidationTrait;
+	use SchoolInformationValidationRepositoryTrait;
 
 /**
  * use behaviors
@@ -90,7 +66,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * @return array
  */
 	public static function locationFields() {
-		return self::LOCATION_FIELDS;
+		return SchoolInformationConst::LOCATION_FIELDS;
 	}
 
 /**
@@ -102,64 +78,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	public function beforeValidate($options = array()) {
 		$this->validate = array_merge(
 			$this->validate,
-			$this->__getValidateSpecification()
+			$this->getValidationRules()
 		);
 		return parent::beforeValidate($options);
-	}
-
-/**
- * バリデーションルールを返す
- *
- * @return array
- */
-	private function __getValidateSpecification() {
-		$validate = array(
-			'school_name' => array(
-				'notBlank' => [
-					'rule' => array('notBlank'),
-					'message' => sprintf(
-						__d('net_commons', 'Please input %s.'),
-						__d('school_informations', 'School Name')
-					),
-					//'allowEmpty' => false,
-					'required' => true,
-				],
-			),
-
-			'status' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			'is_auto_translated' => array(
-				'boolean' => array(
-					'rule' => array('boolean'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			'map_url' => array(
-				'google_map' => array(
-					'rule' => array('validateMapUrl'),
-					'message' => __d(
-						'net_commons',
-						'Unauthorized pattern for %s.',
-						__d('school_informations', 'Map Url')
-					),
-					'allowEmpty' => true,
-					'required' => false,
-				),
-			),
-		);
-		return $validate;
 	}
 
 /**
@@ -168,7 +89,6 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * @return array SchoolInformation data
  */
 	public function getSchoolInformation() {
-		// TODO 条件必用であれば追加
 		$options = [];
 		//$conditions = $this->getWorkflowConditions();
 		//$options['conditions'] = $conditions;
@@ -200,7 +120,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 			$this->set($schoolInfo);
 		}
 
-		$data = $this->cleansingSaveSchoolInformation($data);
+		$data = $this->cleansingSchoolInformation($data);
 		$this->set($data);
 		if (!$this->validates()) {
 			return false;
@@ -284,7 +204,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$this->loadModels([
 			'SiteSetting' => 'SiteManager.SiteSetting',
 		]);
-		$prefectures = $this->getPrefectureOptions();
+		$prefectures = $this->getPrefecture();
 
 		//Meta.description情報の更新
 		$this->__updateMetaDescription($schoolInformation, $prefectures);
@@ -400,132 +320,4 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$this->SiteSetting->updateAll($update, $conditions);
 	}
 
-/**
- * 都道府県データ取得
- *
- * @return array
- */
-	public function getPrefectureOptions() {
-		$this->DataTypeChoice = ClassRegistry::init('DataTypes.DataTypeChoice');
-
-		$options = [
-			'conditions' => [
-				'data_type_key' => 'prefecture',
-				'language_id' => Current::read('Language.id', '2'),
-			],
-			'order' => 'DataTypeChoice.weight ASC',
-			'fields' => ['DataTypeChoice.code', 'DataTypeChoice.name']
-		];
-		$prefectures = $this->DataTypeChoice->find('all', $options);
-
-		$options = [];
-		foreach ($prefectures as $prefecture) {
-			$code = $prefecture['DataTypeChoice']['code'];
-			$name = $prefecture['DataTypeChoice']['name'];
-			$options[$code] = $name;
-		}
-		return $options;
-	}
-
-/**
- * 登録データをクレンジング
- *
- * @param array $data 登録データ
- * @return array
- */
-	public function cleansingSaveSchoolInformation($data) {
-		foreach (self::CONV_NULL_IF_EMPTY_FIELDS as $key) {
-			if (array_key_exists($key, $data[$this->alias]) &&
-					$data[$this->alias][$key] === '') {
-				$data[$this->alias][$key] = null;
-			}
-		}
-		if (!empty($data[$this->alias]['map_url'])) {
-			$data[$this->alias]['map_url'] =
-					$this->cleansingMapUrl($data[$this->alias]['map_url']);
-		}
-
-		if (!empty($data[$this->alias]['school_name_kana'])) {
-			$data[$this->alias]['school_name_kana'] =
-					mb_convert_kana($data[$this->alias]['school_name_kana'], 'KVAs');
-		}
-
-		return $data;
-	}
-
-/**
- * 地図URLをクレンジング(iframeタグ等を取り除く)
- *
- * @param string $mapUrl 地図URL
- * @return string
- */
-	public function cleansingMapUrl($mapUrl) {
-		$match = [];
-		if (is_string($mapUrl) &&
-				preg_match('/src="(.+)?"/', $mapUrl, $match)) {
-			$mapUrl = $match[1];
-		}
-		return $mapUrl;
-	}
-
-/**
- * 地図URLのバリデーション
- *
- * @param array $check チェック値
- * @return bool
- */
-	public function validateMapUrl($check) {
-		$value = array_shift($check);
-		if (is_string($value)) {
-			return (bool)preg_match('/^' . preg_quote(self::MAP_URL, '/') . '/', $value);
-		} else {
-			return false;
-		}
-	}
-
-/**
- * 国公立種別のリストを返す
- *
- * @return array
- */
-	public function schoolTypes() {
-		return [
-			'公立' => __d('school_informations', '公立'),
-			'国立' => __d('school_informations', '国立'),
-			'私立' => __d('school_informations', '私立'),
-		];
-	}
-
-/**
- * 校種のリストを返す
- *
- * @return array
- */
-	public function schoolKinds() {
-		return [
-			'小学校' => __d('school_informations', '小学校'),
-			'中学校' => __d('school_informations', '中学校'),
-			'小中一貫校・義務教育学校' => __d('school_informations', '小中一貫校・義務教育学校'),
-			'高等学校' => __d('school_informations', '高等学校'),
-			'中等教育学校' => __d('school_informations', '中等教育学校'),
-			'特別支援学校' => __d('school_informations', '特別支援学校'),
-			'各種学校（インターナショナルスクール等）' => __d('school_informations', '各種学校（インターナショナルスクール等）'),
-			'幼稚園' => __d('school_informations', '幼稚園'),
-			'保育園' => __d('school_informations', '保育園'),
-			'認定こども園' => __d('school_informations', '認定こども園'),
-		];
-	}
-
-/**
- * 学生種別のリストを返す
- *
- * @return array
- */
-	public function studentCategories() {
-		return [
-			'共学' => __d('school_informations', '共学'),
-			'男子校' => __d('school_informations', '男子校'),
-			'女子校' => __d('school_informations', '女子校'),
-		];
-	}
 }
