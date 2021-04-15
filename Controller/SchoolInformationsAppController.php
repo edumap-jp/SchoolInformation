@@ -1,13 +1,29 @@
 <?php
+/**
+ * SchoolInformationFrameSettings Controller
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
 
 App::uses('AppController', 'Controller');
 
+/**
+ * SchoolInformationsAppController Controller
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @package NetCommons\SchoolInformations\Controller
+ */
 class SchoolInformationsAppController extends AppController {
-	/**
-	 * use components
-	 *
-	 * @var array
-	 */
+
+/**
+ * use components
+ *
+ * @var array
+ */
 	public $components = array(
 		//'NetCommons.NetCommonsBlock',
 		//'NetCommons.NetCommonsFrame',
@@ -15,6 +31,11 @@ class SchoolInformationsAppController extends AppController {
 		'Security',
 	);
 
+/**
+ * レイアウト位置キー
+ *
+ * @return string
+ */
 	protected function _getLayoutPosition() {
 		$containerType = (int)Current::read('Box.container_type');
 		$layoutPositions = [

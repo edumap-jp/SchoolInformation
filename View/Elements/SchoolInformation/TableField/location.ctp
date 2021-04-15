@@ -5,4 +5,4 @@
 			<?php echo $this->SchoolInformation->displayLocation(); ?>
 		</td>
 	</tr>
-<?php endif; ?>
+<?php endif;
