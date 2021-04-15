@@ -101,6 +101,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
  *
  * @param array $data 登録データ
  * @return array SchoolInformation data
+ * @throws InternalErrorException
  */
 	public function saveSchoolInformation(array $data) {
 		$this->loadModels([
@@ -157,8 +158,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
  *
  * @param array $schoolInformation 学校情報
  * @return void
+ * @throws InternalErrorException
  */
-	public function __updateSiteName($schoolInformation) {
+	private function __updateSiteName($schoolInformation) {
 		//サイト名も更新する
 		$languages = $this->Language->find('all', [
 			'recursive' => -1,
@@ -220,6 +222,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * Meta.description情報の更新
  *
  * @param array $schoolInformation 学校情報
+ * @param array $prefectures 都道府県データ
  * @return void
  */
 	private function __updateMetaDescription($schoolInformation, $prefectures) {
@@ -260,6 +263,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * Meta.keywords情報の更新
  *
  * @param array $schoolInformation 学校情報
+ * @param array $prefectures 都道府県データ
  * @return void
  */
 	private function __updateMetaKeywords($schoolInformation, $prefectures) {
