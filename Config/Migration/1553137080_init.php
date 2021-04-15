@@ -1,5 +1,21 @@
 <?php
-class Init extends CakeMigration {
+/**
+ * 1553137080_init.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * Init
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class Init extends NetCommonsMigration {
 
 /**
  * Migration description

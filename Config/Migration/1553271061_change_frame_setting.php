@@ -1,5 +1,21 @@
 <?php
-class ChangeFrameSetting extends CakeMigration {
+/**
+ * 1553271061_change_frame_setting.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * ChangeFrameSetting
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class ChangeFrameSetting extends NetCommonsMigration {
 
 /**
  * Migration description

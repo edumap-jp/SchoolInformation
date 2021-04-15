@@ -1,5 +1,21 @@
 <?php
-class ModifedLengthEdumapKey2 extends CakeMigration {
+/**
+ * 1571427528_modifed_length_edumap_key_2.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * ModifedLengthEdumapKey2
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class ModifedLengthEdumapKey2 extends NetCommonsMigration {
 
 /**
  * Migration description
