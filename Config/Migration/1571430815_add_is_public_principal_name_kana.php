@@ -1,5 +1,21 @@
 <?php
-class AddIsPublicPrincipalNameKana extends CakeMigration {
+/**
+ * 1571430815_add_is_public_principal_name_kana.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * AddIsPublicPrincipalNameKana
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class AddIsPublicPrincipalNameKana extends NetCommonsMigration {
 
 /**
  * Migration description

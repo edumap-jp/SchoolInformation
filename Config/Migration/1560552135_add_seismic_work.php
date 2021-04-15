@@ -1,5 +1,21 @@
 <?php
-class AddSeismicWork extends CakeMigration {
+/**
+ * 1560552135_add_seismic_work.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * AddSeismicWork
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class AddSeismicWork extends NetCommonsMigration {
 
 /**
  * Migration description

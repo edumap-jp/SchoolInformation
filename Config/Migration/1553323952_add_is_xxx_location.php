@@ -1,5 +1,21 @@
 <?php
-class AddIsXxxLocation extends CakeMigration {
+/**
+ * 1553323952_add_is_xxx_location.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * AddIsXxxLocation
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class AddIsXxxLocation extends NetCommonsMigration {
 
 /**
  * Migration description

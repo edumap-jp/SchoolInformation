@@ -1,5 +1,22 @@
 <?php
-class ModifyDefaultFalseInIsPublicSeismicWorkAndIsPublicDesignationOfShelter extends CakeMigration {
+/**
+ * 1571440443_modify_default_false_in_is_public_seismic_work_and_is_public_designation_of_shelter.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * ModifyDefaultFalseInIsPublicSeismicWorkAndIsPublicDesignationOfShelter
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class ModifyDefaultFalseInIsPublicSeismicWorkAndIsPublicDesignationOfShelter
+	extends NetCommonsMigration {
 
 /**
  * Migration description

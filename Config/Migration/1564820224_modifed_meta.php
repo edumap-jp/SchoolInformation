@@ -1,5 +1,21 @@
 <?php
-class ModifedMeta extends CakeMigration {
+/**
+ * 1564820224_modifed_meta.php
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
+
+/**
+ * ModifedMeta
+ *
+ * @package NetCommons\SchoolInformations\Config\Migration
+ */
+class ModifedMeta extends NetCommonsMigration {
 
 /**
  * Migration description
