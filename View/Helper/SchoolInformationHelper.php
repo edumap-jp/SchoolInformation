@@ -6,12 +6,18 @@
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  */
+
 App::uses('AppHelper', 'View');
+App::uses('SchoolInformationFormatterTrait', 'SchoolInformations.View/Helper/Trait');
+App::uses('SchoolInformationLabelTrait', 'SchoolInformations.View/Helper/Trait');
 
 /**
  * Class SchoolInformationHelper
  */
 class SchoolInformationHelper extends AppHelper {
+
+	use SchoolInformationFormatterTrait;
+	use SchoolInformationLabelTrait;
 
 /**
  * 使用するヘルパー
@@ -27,7 +33,7 @@ class SchoolInformationHelper extends AppHelper {
  *
  * @var array
  */
-	private $__schoolInformation;
+	protected $_schoolInformation;
 
 /**
  * 学校情報データをヘルパーにセットする
@@ -36,7 +42,7 @@ class SchoolInformationHelper extends AppHelper {
  * @return void
  */
 	public function set(array $schoolInformation) {
-		$this->__schoolInformation = $schoolInformation;
+		$this->_schoolInformation = $schoolInformation;
 	}
 
 /**
@@ -61,7 +67,7 @@ class SchoolInformationHelper extends AppHelper {
  * @return string
  */
 	private function __getImagePath($uploadFile, $size) {
-		return $filepath = UPLOADS_ROOT . $uploadFile['path'] . DS .
+		return UPLOADS_ROOT . $uploadFile['path'] . DS .
 				$uploadFile['id'] . DS . $size . $uploadFile['real_file_name'];
 	}
 
@@ -72,13 +78,13 @@ class SchoolInformationHelper extends AppHelper {
  * @return string
  */
 	public function schoolBadge($size) {
-		if (isset($this->__schoolInformation['UploadFile']['school_badge']['id'])) {
+		if (isset($this->_schoolInformation['UploadFile']['school_badge']['id'])) {
 			//return $this->NetCommonsHtml->image(
 			//	'/school_informations/school_informations/school_badge?size=' . $size,
 			//	['class' => 'img-responsive']
 			//);
 			$imgSrc = $this->__getInlineImage(
-				$this->__schoolInformation['UploadFile']['school_badge'], $size . '_'
+				$this->_schoolInformation['UploadFile']['school_badge'], $size . '_'
 			);
 			return '<img src="' . $imgSrc . '" class="img-responsive" alt="" />';
 		}
@@ -108,15 +114,15 @@ class SchoolInformationHelper extends AppHelper {
  * @return string
  */
 	public function coverPicture() {
-		if (isset($this->__schoolInformation['UploadFile']['cover_picture']['id'])) {
+		if (isset($this->_schoolInformation['UploadFile']['cover_picture']['id'])) {
 			//return $this->NetCommonsHtml->image(
 			//	'/school_informations/school_informations/cover_picture'
 			//);
 			$imgSrc = $this->__getInlineImage(
-				$this->__schoolInformation['UploadFile']['cover_picture'], 'large_'
+				$this->_schoolInformation['UploadFile']['cover_picture'], 'large_'
 			);
 			$imagePath = $this->__getImagePath(
-				$this->__schoolInformation['UploadFile']['cover_picture'], 'large_'
+				$this->_schoolInformation['UploadFile']['cover_picture'], 'large_'
 			);
 
 			//@codingStandardsIgnoreStart
@@ -151,14 +157,14 @@ class SchoolInformationHelper extends AppHelper {
 		}
 
 		if ($this->isDisplay('principal_name')) {
-			$principalName = $this->__schoolInformation['SchoolInformation']['principal_name'] ?? '';
+			$principalName = $this->_schoolInformation['SchoolInformation']['principal_name'] ?? '';
 		} else {
 			$principalName = '';
 		}
 
 		if ($this->isDisplay('principal_name_kana')) {
 			$principalNameKana =
-					$this->__schoolInformation['SchoolInformation']['principal_name_kana'] ?? '';
+					$this->_schoolInformation['SchoolInformation']['principal_name_kana'] ?? '';
 		} else {
 			$principalNameKana = '';
 		}
@@ -223,7 +229,7 @@ class SchoolInformationHelper extends AppHelper {
 		if (in_array($field, SchoolInformation::locationFields(), true)) {
 			$field = 'location';
 		}
-		return (bool)$this->__schoolInformation['SchoolInformation']['is_public_' . $field];
+		return (bool)$this->_schoolInformation['SchoolInformation']['is_public_' . $field];
 	}
 
 /**
@@ -233,7 +239,7 @@ class SchoolInformationHelper extends AppHelper {
  * @return bool
  */
 	private function __isExists($field) {
-		return (bool)$this->__schoolInformation['SchoolInformation'][$field];
+		return (bool)$this->_schoolInformation['SchoolInformation'][$field];
 	}
 
 /**
@@ -258,7 +264,7 @@ class SchoolInformationHelper extends AppHelper {
  * @return bool
  */
 	public function display($field, array $options = []) {
-		assert($this->__schoolInformation);
+		assert($this->_schoolInformation);
 
 		if ($this->isDisplay($field) === false) {
 			return '';
@@ -272,7 +278,7 @@ class SchoolInformationHelper extends AppHelper {
 			'class' => 'school-information-record-item school-information-' . $this->__toKebab($field),
 		];
 
-		$formattedText = $this->__formatValue($field, $format);
+		$formattedText = $this->_formatValue($field, $format);
 
 		$label = '';
 		if (isset($options['displayLabel']) && $options['displayLabel']) {
@@ -289,157 +295,6 @@ class SchoolInformationHelper extends AppHelper {
 			$label . $formattedText,
 			$tagOptions
 		);
-	}
-
-/**
- * _を-に変換
- *
- * @param string $field snake_case
- * @return string kebab-style
- */
-	private function __toKebab($field) {
-		return str_replace('_', '-', $field);
-	}
-
-/**
- * 各項目の整形処理
- *
- * @param string $field 項目名
- * @param string $format フォーマット
- * @return string
- */
-	private function __formatValue($field, $format) {
-		if (strpos($field, 'year_month') !== false) {
-			$formattedText = $this->__formatYearMont($field);
-			return $formattedText;
-		}
-		if (strpos($field, 'url') !== false) {
-			return $this->__formatUrl($field);
-		}
-
-		$formatMethod = '__format' . ucfirst(Inflector::camelize($field));
-		if (method_exists($this, $formatMethod)) {
-			return call_user_func([$this, $formatMethod]);
-		}
-
-		$formattedText = $this->__formatDefault($field, $format);
-		return $formattedText;
-	}
-
-/**
- * 国公立種別の整形処理
- *
- * @return string
- */
-	private function __formatSchoolType() {
-		$value = $this->__schoolInformation['SchoolInformation']['school_type'];
-		return $this->_View->viewVars['schoolTypeOptions'][$value];
-	}
-
-/**
- * 校種の整形処理
- *
- * @return string
- */
-	private function __formatSchoolKind() {
-		$value = $this->__schoolInformation['SchoolInformation']['school_kind'];
-		return $this->_View->viewVars['schoolKindOptions'][$value];
-	}
-
-/**
- * 学生種別の整形処理
- *
- * @return string
- */
-	private function __formatStudentCategory() {
-		$value = $this->__schoolInformation['SchoolInformation']['student_category'];
-		return $this->_View->viewVars['studentCategoryOptions'][$value];
-	}
-
-/**
- * 年月の整形処理
- *
- * @param string $field 項目名
- * @return string
- */
-	private function __formatYearMont($field) {
-		list($year, $month) = explode(
-			'-',
-			$this->__schoolInformation['SchoolInformation'][$field]
-		);
-		$formattedText = __d('school_informations', '%2$d/%1$d', $year, $month);
-		return h($formattedText);
-	}
-
-/**
- * URLの整形処理
- *
- * @param string $field 項目名
- * @return string
- */
-	private function __formatUrl($field) {
-		return $this->NetCommonsHtml->link(
-			$this->__schoolInformation['SchoolInformation'][$field],
-			$this->__schoolInformation['SchoolInformation'][$field],
-			[
-				'target' => '_blank'
-			]
-		);
-	}
-
-/**
- * Emailの整形処理
- *
- * @return string
- */
-	private function __formatEmail() {
-		$value = $this->__schoolInformation['SchoolInformation']['email'];
-		list($local, $domain) = explode('@', $value);
-		return
-			h($local) . $this->NetCommonsHtml->image('/school_informations/img/mailmark.gif') . h($domain);
-	}
-
-/**
- * 学生種別の整形処理
- *
- * @return string
- */
-	private function __formatPostalCode() {
-		$value = $this->__schoolInformation['SchoolInformation']['postal_code'];
-		if (preg_match('/^[0-9]+$/', $value)) {
-			$value = substr($value, 0, 3) . '-' . substr($value, -4);
-		}
-		return h(__d('school_informations', 'PostalCode:%s', $value));
-	}
-
-/**
- * デフォルトの整形処理
- *
- * @param string $field 項目名
- * @param string $format フォーマット
- * @return string
- */
-	private function __formatDefault($field, $format) {
-		$formattedText = sprintf(
-			$format,
-			$this->__schoolInformation['SchoolInformation'][$field]
-		);
-		return h($formattedText);
-	}
-
-/**
- * ラベルの表示
- *
- * @param string $field 項目名
- * @param string $labelText ラベルテキスト
- * @return string
- */
-	public function label($field, $labelText) {
-		$labelClassName = 'school-information-label school-information-' . $this->__toKebab(
-				$field
-			) . '-label';
-		$label = $this->NetCommonsHtml->tag('span', $labelText, ['class' => $labelClassName]);
-		return $label;
 	}
 
 /**
@@ -494,134 +349,10 @@ class SchoolInformationHelper extends AppHelper {
  */
 	private function __prefecture() {
 		if ($this->isDisplay('prefecture_code')) {
-			$code = $this->__schoolInformation['SchoolInformation']['prefecture_code'];
+			$code = $this->_schoolInformation['SchoolInformation']['prefecture_code'];
 			return $this->_View->viewVars['prefectureOptions'][$code];
 		}
 		return '';
-	}
-
-/**
- * 生徒数ラベル
- *
- * @return string
- */
-	public function labelNumberOfStudents() {
-		return __d('school_informations', 'Number Of ' . $this->__getLabelDefineNumberOfStudents());
-	}
-
-/**
- * 全生徒数ラベル
- *
- * @return string
- */
-	public function labelTotalNumberOfStudents() {
-		return __d('school_informations', 'Number Of Total ' . $this->__getLabelDefineNumberOfStudents());
-	}
-
-/**
- * 生徒数ラベル
- *
- * @return string
- */
-	private function __getLabelDefineNumberOfStudents() {
-		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
-		if ($this->__isUnderElementarySchool()) {
-			$label = 'Kindergarten pupil';
-		} elseif ($schoolKind === '小学校') {
-			$label = 'Children';
-		} else {
-			$label = 'Students';
-		}
-		return $label;
-	}
-
-/**
- * 校長名ラベル
- *
- * @return string
- */
-	public function labelPrincipal() {
-		$prefx = $this->__getKindergartenLabelOfPrefix();
-		return __d('school_informations', $prefx . 'Principal Name');
-	}
-
-/**
- * 校種ラベル
- *
- * @return string
- */
-	public function labelSchoolKind() {
-		$prefx = $this->__getKindergartenLabelOfPrefix();
-		return __d('school_informations', $prefx . 'School Kind');
-	}
-
-/**
- * 学生種別ラベル
- *
- * @return string
- */
-	public function labelStudentCategory() {
-		$prefx = $this->__getKindergartenLabelOfPrefix();
-		return __d('school_informations', $prefx . 'Student Category');
-	}
-
-/**
- * 開校ラベル
- *
- * @return string
- */
-	public function labelEstablishYearMonth() {
-		$prefx = $this->__getKindergartenLabelOfPrefix();
-		return __d('school_informations', $prefx . 'Establish Year Month');
-	}
-
-/**
- * 閉校ラベル
- *
- * @return string
- */
-	public function labelCloseYearMonth() {
-		$prefx = $this->__getKindergartenLabelOfPrefix();
-		return __d('school_informations', $prefx . 'Close Year Month');
-	}
-
-/**
- * 教員数ラベル
- *
- * @return string
- */
-	public function labelNumberOfFacultyMembers() {
-		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
-		if (in_array($schoolKind, ['保育園'], true)) {
-			return __d('school_informations', 'Number Of Childcare Workers');
-		} else {
-			return __d('school_informations', 'Number Of Teachers');
-		}
-	}
-
-/**
- * 小学生未満のラベルプレフィックス
- *
- * @return string
- */
-	private function __getKindergartenLabelOfPrefix() {
-		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
-		if ($this->__isUnderElementarySchool()) {
-			$labelPrefix = 'Kindergarten ';
-		} else {
-			$labelPrefix = 'School ';
-		}
-		return $labelPrefix;
-	}
-
-/**
- * 小学生未満かどうか
- *
- * @return string
- */
-	private function __isUnderElementarySchool() {
-		$schoolKind = $this->__schoolInformation['SchoolInformation']['school_kind'];
-		return in_array($schoolKind, ['幼稚園', '保育園', '認定こども園'], true);
 	}
 
 }
