@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendors/autoload.php">
+    <php>
+        <ini name="memory_limit" value="-1"/>
+    </php>
+    <php>
+        <ini name="error_reporting" value="0"/>
+    </php>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".ctp">app/Plugin/SchoolInformations</directory>
+            <directory suffix=".php">app/Plugin/SchoolInformations</directory>
+            <exclude>
+                <directory suffix=".php">app/Plugin/SchoolInformations/Config/Migration</directory>
+                <directory suffix=".php">app/Plugin/SchoolInformations/Config/Schema</directory>
+                <directory suffix=".php">app/Plugin/SchoolInformations/Test/Case</directory>
+                <directory suffix=".php">app/Plugin/SchoolInformations/Test/Fixture</directory>
+                <directory suffix=".php">app/Plugin/SchoolInformations/Test/test_app</directory>
+                <directory suffix=".ctp">app/Plugin/SchoolInformations/Test/test_app</directory>
+                <directory suffix=".php">app/Plugin/SchoolInformations/TestSuite</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+</phpunit>
