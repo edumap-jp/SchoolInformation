@@ -107,6 +107,7 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
 /**
  * editアクションのGET検証
  *
+ * @param array $expects テストの期待値
  * @return void
  */
 	private function __assertView($expects) {
@@ -131,6 +132,7 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
  *  - return: testActionの実行後の結果
  *
  * @return array
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
  */
 	public function dataProviderView() {
 		$results = [];
@@ -153,18 +155,18 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
 			],
 			'expects' => [
 				'<div class="school-information-side-school-name">栗矢市立第一小学校</div>',
-				'<div class="school-information-location">'
-					 . '<span class="school-information-record-item school-information-postal-code">〒366-0000</span>'
-					 . '<span class="school-information-prefecture">埼玉県</span>'
-					 . '<span class="school-information-record-item school-information-city">栗矢市</span>'
-					 . '<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>'
-			 	. '</div>',
-				'<div class="school-information-record-item school-information-tel">'
-					 . '<span class="school-information-label school-information-tel-label">Tel</span>03-4212-2722'
-				 . '</div>',
-				'<div class="school-information-record-item school-information-fax">'
-					 . '<span class="school-information-label school-information-fax-label">Fax</span>03-4212-2722'
-				 . '</div>',
+				'<div class="school-information-location">' .
+					'<span class="school-information-record-item school-information-postal-code">〒366-0000</span>' .
+					'<span class="school-information-prefecture">埼玉県</span>' .
+					'<span class="school-information-record-item school-information-city">栗矢市</span>' .
+					'<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>' .
+				'</div>',
+				'<div class="school-information-record-item school-information-tel">' .
+					'<span class="school-information-label school-information-tel-label">Tel</span>03-4212-2722' .
+				'</div>',
+				'<div class="school-information-record-item school-information-fax">' .
+					'<span class="school-information-label school-information-fax-label">Fax</span>03-4212-2722' .
+				'</div>',
 				'<div class="school-information-record-item school-information-email">kuriya-dai-ich',
 					'/img/school_informations/mailmark.gif',
 				'example.com</div>'
@@ -177,18 +179,18 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
 			],
 			'expects' => [
 				'<div class="school-information-side-school-name">栗矢市立第一小学校</div>',
-				'<div class="school-information-location">'
-					 . '<span class="school-information-record-item school-information-postal-code">〒366-0000</span>'
-					 . '<span class="school-information-prefecture">埼玉県</span>'
-					 . '<span class="school-information-record-item school-information-city">栗矢市</span>'
-					 . '<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>'
-				 . '</div>',
-				'<div class="school-information-record-item school-information-tel">'
-						. '<span class="school-information-label school-information-tel-label">Tel</span>03-4212-2722'
-					 . '</div>',
-				'<div class="school-information-record-item school-information-fax">'
-					. '<span class="school-information-label school-information-fax-label">Fax</span>03-4212-2722'
-				 . '</div>',
+				'<div class="school-information-location">' .
+					'<span class="school-information-record-item school-information-postal-code">〒366-0000</span>' .
+					'<span class="school-information-prefecture">埼玉県</span>' .
+					'<span class="school-information-record-item school-information-city">栗矢市</span>' .
+					'<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>' .
+				'</div>',
+				'<div class="school-information-record-item school-information-tel">' .
+					'<span class="school-information-label school-information-tel-label">Tel</span>03-4212-2722' .
+				'</div>',
+				'<div class="school-information-record-item school-information-fax">' .
+					'<span class="school-information-label school-information-fax-label">Fax</span>03-4212-2722' .
+				'</div>',
 				'<div class="school-information-record-item school-information-email">kuriya-dai-ich',
 					'/img/school_informations/mailmark.gif',
 				'example.com</div>'
@@ -201,12 +203,12 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
 			],
 			'expects' => [
 				'<div class="school-information-footer-school-name">栗矢市立第一小学校</div>',
-				'<div class="school-information-location">'
-					 . '<span class="school-information-record-item school-information-postal-code">〒366-0000</span>'
-					 . '<span class="school-information-prefecture">埼玉県</span>'
-					 . '<span class="school-information-record-item school-information-city">栗矢市</span>'
-					 . '<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>'
-				 . '</div>',
+				'<div class="school-information-location">' .
+					'<span class="school-information-record-item school-information-postal-code">〒366-0000</span>' .
+					'<span class="school-information-prefecture">埼玉県</span>' .
+					'<span class="school-information-record-item school-information-city">栗矢市</span>' .
+					'<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>' .
+				'</div>',
 				'<span class="school-information-record-item school-information-tel"><span class="school-information-label school-information-tel-label">Tel</span>03-4212-2722</span>',
 				'<span class="school-information-record-item school-information-fax"><span class="school-information-label school-information-fax-label">Fax</span>03-4212-2722</span>',
 				'<span class="school-information-record-item school-information-email">kuriya-dai-ich',
@@ -223,14 +225,14 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
 				'<div class="school-information-record-item school-information-school-name-kana">クリヤシリツダイイチショウガッコウ</div>',
 				'<div>栗矢市立第一小学校</div>',
 				'<div class="school-information-record-item school-information-school-name-roma">Kuriya Dai-ichi elementary school</div>',
-				'<tr><th>所在地</th><td>'
-					 . '<div class="school-information-location">'
-						 . '<span class="school-information-record-item school-information-postal-code">〒366-0000</span>'
-						 . '<span class="school-information-prefecture">埼玉県</span>'
-						 . '<span class="school-information-record-item school-information-city">栗矢市</span>'
-						 . '<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>'
-					 . '</div>'
-				 . '</td></tr>',
+				'<tr><th>所在地</th><td>' .
+					'<div class="school-information-location">' .
+						'<span class="school-information-record-item school-information-postal-code">〒366-0000</span>' .
+						'<span class="school-information-prefecture">埼玉県</span>' .
+						'<span class="school-information-record-item school-information-city">栗矢市</span>' .
+						'<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>' .
+					'</div>' .
+				'</td></tr>',
 				'<tr><th>電話番号</th><td><div class="school-information-record-item school-information-tel">03-4212-2722</div></td></tr>',
 				'<tr><th>Fax番号</th><td><div class="school-information-record-item school-information-fax">03-4212-2722</div></td></tr>',
 				'<tr><th>問い合わせ先</th><td><div class="school-information-record-item school-information-contact">03-4212-2722</div></td></tr>',

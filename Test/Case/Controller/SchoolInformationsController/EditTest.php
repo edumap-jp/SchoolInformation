@@ -174,6 +174,7 @@ class SchoolInformationsControllerditTest extends NetCommonsControllerTestCase {
 /**
  * editアクションのGET検証
  *
+ * @param array $expects テストの期待値
  * @return void
  */
 	private function __assertEditGet($expects) {

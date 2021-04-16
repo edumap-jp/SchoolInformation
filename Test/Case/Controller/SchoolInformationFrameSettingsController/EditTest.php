@@ -55,6 +55,9 @@ class SchoolInformationFrameSettingsControllerEditTest extends NetCommonsControl
 /**
  * テストDataの取得
  *
+ * @param string $frameId フレームID
+ * @param string $frameKey フレームキー
+ * @param string $schoolFrameId 学校情報フレーム設定ID
  * @return array
  */
 	private function __getData($frameId, $frameKey, $schoolFrameId = '') {
@@ -136,6 +139,7 @@ class SchoolInformationFrameSettingsControllerEditTest extends NetCommonsControl
 /**
  * editアクションのGET検証
  *
+ * @param array $expects テストの期待値
  * @return void
  */
 	private function __assertEditGet($expects) {

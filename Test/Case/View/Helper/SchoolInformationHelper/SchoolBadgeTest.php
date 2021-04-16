@@ -59,6 +59,7 @@ class SchoolInformationHelperSchoolBadgeTest extends NetCommonsHelperTestCase {
  * coverPicture()のテスト
  *
  * @param array $uploadFile
+ * @param string $size
  * @param string $expect
  * @dataProvider dataProvider
  * @return void
