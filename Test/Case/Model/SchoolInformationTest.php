@@ -23,11 +23,6 @@ class SchoolInformationTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.school_informations.school_information',
-		'plugin.school_informations.language',
-		'plugin.school_informations.user',
-		'plugin.school_informations.role',
-		'plugin.school_informations.user_role_setting',
-		'plugin.school_informations.users_language'
 	);
 
 /**
@@ -38,6 +33,14 @@ class SchoolInformationTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->SchoolInformation = ClassRegistry::init('SchoolInformations.SchoolInformation');
+	}
+
+/**
+ * Dummyテスト
+ *
+ * @return void
+ */
+	public function testDummy() {
 	}
 
 /**
