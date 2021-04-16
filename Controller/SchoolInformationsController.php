@@ -139,7 +139,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 
 			if ($this->SchoolInformation->saveSchoolInformation($data)) {
 				//Rundeckの学校情報更新JOBを実行
-				SiteBuildMngCommandExec::updateSchoolInfo();
+				//SiteBuildMngCommandExec::updateSchoolInfo();
 
 				$this->NetCommons->setFlashNotification(
 					__d('net_commons', 'Successfully saved.'), array('class' => 'success')
