@@ -19,6 +19,7 @@ App::uses('SiteBuildMngCommandExec', 'SiteBuildManager.Lib');
  * @property SchoolInformation $SchoolInformation
  * @property SchoolInformationFrameSetting $SchoolInformationFrameSetting
  * @property DataTypeChoice $DataTypeChoice
+ * @property SchoolInformationJsonComponent $SchoolInformationJson
  */
 class SchoolInformationsController extends SchoolInformationsAppController {
 
@@ -45,7 +46,8 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 				'edit' => 'content_editable',
 			),
 		),
-		'Files.Download'
+		'Files.Download',
+		'SchoolInformations.SchoolInformationJson'
 	);
 
 /**
@@ -81,8 +83,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 	public function view() {
 		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
 		if ($this->request->is('json')) {
-			$this->set('schoolInformation', $schoolInformation);
-			$this->set('_serialize', ['schoolInformation']);
+			$convSchoolInfo = $this->SchoolInformationJson->convert($schoolInformation);
+			$this->set($convSchoolInfo);
+			$this->set('_serialize', array_keys($convSchoolInfo));
 		} else {
 			$layoutPosition = $this->_getLayoutPosition();
 			$this->set('layoutPosition', $layoutPosition);

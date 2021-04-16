@@ -82,12 +82,12 @@ class SchoolInformationHelperCoverPictureTest extends NetCommonsHelperTestCase {
 
 		$fileName = '179x1139.png';
 		$base64Img = base64_encode(
-			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '1' . DS . 'large_' . $fileName)
+			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '2' . DS . 'large_' . $fileName)
 		);
 		$results[0] = [
 			'uploadFile' => [
 				'cover_picture' => [
-					'id' => '1',
+					'id' => '2',
 					'path' => 'cover_picture',
 					'real_file_name' => $fileName,
 					'mimetype' => 'image/png',
@@ -98,12 +98,12 @@ class SchoolInformationHelperCoverPictureTest extends NetCommonsHelperTestCase {
 
 		$fileName = '179x1141.png';
 		$base64Img = base64_encode(
-			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '1' . DS . 'large_' . $fileName)
+			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '2' . DS . 'large_' . $fileName)
 		);
 		$results[1] = [
 			'uploadFile' => [
 				'cover_picture' => [
-					'id' => '1',
+					'id' => '2',
 					'path' => 'cover_picture',
 					'real_file_name' => $fileName,
 					'mimetype' => 'image/png',
@@ -114,12 +114,12 @@ class SchoolInformationHelperCoverPictureTest extends NetCommonsHelperTestCase {
 
 		$fileName = '181x1141.png';
 		$base64Img = base64_encode(
-			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '1' . DS . 'large_' . $fileName)
+			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '2' . DS . 'large_' . $fileName)
 		);
 		$results[2] = [
 			'uploadFile' => [
 				'cover_picture' => [
-					'id' => '1',
+					'id' => '2',
 					'path' => 'cover_picture',
 					'real_file_name' => $fileName,
 					'mimetype' => 'image/png',
@@ -130,12 +130,12 @@ class SchoolInformationHelperCoverPictureTest extends NetCommonsHelperTestCase {
 
 		$fileName = '181x1139.png';
 		$base64Img = base64_encode(
-			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '1' . DS . 'large_' . $fileName)
+			file_get_contents(UPLOADS_ROOT . 'cover_picture' . DS . '2' . DS . 'large_' . $fileName)
 		);
 		$results[3] = [
 			'uploadFile' => [
 				'cover_picture' => [
-					'id' => '1',
+					'id' => '2',
 					'path' => 'cover_picture',
 					'real_file_name' => $fileName,
 					'mimetype' => 'image/png',
