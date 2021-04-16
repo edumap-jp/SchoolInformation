@@ -72,7 +72,7 @@ class SchoolInformationsControllerSchoolBadgeTest extends NetCommonsControllerTe
 
 		$this->controller->Download->expects($this->once())
 			->method('doDownload')
-			->with('1', ['field' => 'school_badge', 'size' => 'main']);
+			->with('1', ['field' => 'school_badge', 'size' => 'middle']);
 
 		$this->_testGetAction($url, null, null, 'result');
 	}
