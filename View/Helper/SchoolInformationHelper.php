@@ -315,6 +315,7 @@ class SchoolInformationHelper extends AppHelper {
 				return true;
 			}
 		}
+		return false;
 	}
 
 /**
