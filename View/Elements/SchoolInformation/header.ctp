@@ -7,7 +7,6 @@ echo $this->NetCommonsHtml->css(
 <div class="school-information-header-outer <?php echo h($this->theme); ?> navbar-inverse">
 	<div class="school-cover-picture">
 		<?php echo $this->SchoolInformation->coverPicture(); ?>
-		<!--<div class="school-cover-picture-back"></div>-->
 	</div>
 	<div class="school-information-header">
 		<div class="school-information-header-school-badge">
