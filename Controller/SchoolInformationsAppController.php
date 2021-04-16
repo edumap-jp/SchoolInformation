@@ -39,6 +39,7 @@ class SchoolInformationsAppController extends AppController {
 	protected function _getLayoutPosition() {
 		$containerType = (int)Current::read('Box.container_type');
 		$layoutPositions = [
+			0 => 'main', // default
 			1 => 'header',
 			2 => 'major',
 			3 => 'main',
