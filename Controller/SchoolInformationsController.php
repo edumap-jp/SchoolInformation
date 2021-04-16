@@ -79,25 +79,29 @@ class SchoolInformationsController extends SchoolInformationsAppController {
  * @return void
  */
 	public function view() {
-		//
-		$layoutPosition = $this->_getLayoutPosition();
-		$this->set('layoutPosition', $layoutPosition);
-
 		$schoolInformation = $this->SchoolInformation->getSchoolInformation();
-		if ($schoolInformation) {
+		if ($this->request->is('json')) {
 			$this->set('schoolInformation', $schoolInformation);
-			$frameSetting = $this->SchoolInformationFrameSetting
-								->getSchoolInformationFrameSetting($this->_getLayoutPosition());
-			$this->set('frameSetting', $frameSetting);
-			$this->set('prefectureOptions', $this->SchoolInformation->getPrefecture());
-			return;
-		}
-
-		if (Current::permission('content_editable')) {
-			// データない&編集権限ありなら編集ボタン表示
-			$this->view = 'SchoolInformations/empty_for_editable';
+			$this->set('_serialize', ['schoolInformation']);
 		} else {
-			$this->emptyRender();
+			$layoutPosition = $this->_getLayoutPosition();
+			$this->set('layoutPosition', $layoutPosition);
+
+			if ($schoolInformation) {
+				$this->set('schoolInformation', $schoolInformation);
+				$frameSetting = $this->SchoolInformationFrameSetting
+									->getSchoolInformationFrameSetting($this->_getLayoutPosition());
+				$this->set('frameSetting', $frameSetting);
+				$this->set('prefectureOptions', $this->SchoolInformation->getPrefecture());
+				return;
+			}
+
+			if (Current::permission('content_editable')) {
+				// データない&編集権限ありなら編集ボタン表示
+				$this->view = 'SchoolInformations/empty_for_editable';
+			} else {
+				$this->emptyRender();
+			}
 		}
 	}
 
@@ -178,7 +182,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		}
 		$size = $this->request->query('size');
 		if (!$size) {
-			$size = 'main';
+			$size = 'middle';
 		}
 		// ダウンロード実行
 		return $this->Download->doDownload(
