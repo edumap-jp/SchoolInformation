@@ -48,4 +48,17 @@ class SchoolInformationConst {
  */
 	const MAP_URL = 'https://www.google.com/maps/embed';
 
+/**
+ * 海外の県コード
+ *
+ * @var array
+ */
+	const FOREIGN_COUNTRY = [
+		'PREFECTURE_CODE' => '99',
+		'CITY_CODE' => '999999',
+		'POSTAL_CODE' => '9999999',
+		'NAME' => '(海外)',
+		'NAME_EN' => 'Foreign country'
+	];
+
 }

@@ -97,6 +97,17 @@ trait SchoolInformationValidationRepositoryTrait {
 					mb_convert_kana($data[$this->alias]['school_name_kana'], 'KVAs');
 		}
 
+		//海外の場合、郵便番号区市町村コード・区市町村を上書きする
+		if (!empty($data[$this->alias]['prefecture_code']) &&
+				$data[$this->alias]['prefecture_code'] ===
+					SchoolInformationConst::FOREIGN_COUNTRY['PREFECTURE_CODE']) {
+			$data[$this->alias]['postal_code'] =
+					SchoolInformationConst::FOREIGN_COUNTRY['POSTAL_CODE'];
+			$data[$this->alias]['city_code'] =
+					SchoolInformationConst::FOREIGN_COUNTRY['CITY_CODE'];
+			$data[$this->alias]['city'] = '';
+		}
+
 		return $data;
 	}
 
@@ -188,6 +199,11 @@ trait SchoolInformationValidationRepositoryTrait {
 			$name = $prefecture['DataTypeChoice']['name'];
 			$options[$code] = $name;
 		}
+
+		//海外を追加
+		$options[SchoolInformationConst::FOREIGN_COUNTRY['PREFECTURE_CODE']] =
+								SchoolInformationConst::FOREIGN_COUNTRY['NAME'];
+
 		return $options;
 	}
 }

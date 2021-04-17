@@ -9,6 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
+App::uses('SchoolInformationConst', 'SchoolInformations.Model');
 
 /**
  * SchoolInformationFormatterTrait
@@ -122,6 +123,10 @@ trait SchoolInformationFormatterTrait {
  * @return string
  */
 	protected function _formatPostalCode() {
+		$prefectureCode = $this->_schoolInformation['SchoolInformation']['prefecture_code'];
+		if ($prefectureCode === SchoolInformationConst::FOREIGN_COUNTRY['PREFECTURE_CODE']) {
+			return '';
+		}
 		$value = $this->_schoolInformation['SchoolInformation']['postal_code'];
 		if (preg_match('/^[0-9]+$/', $value)) {
 			$value = substr($value, 0, 3) . '-' . substr($value, -4);
