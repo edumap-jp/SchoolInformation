@@ -153,11 +153,13 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 				);
 				return $this->redirect(NetCommonsUrl::backToPageUrl());
 			}
+			$this->request->data = $this->SchoolInformation->data;
 			$this->NetCommons->handleValidationError($this->SchoolInformation->validationErrors);
 
 		} else {
 			//初期データセット
-			if (! $this->request->data = $this->SchoolInformation->getSchoolInformation()) {
+			$this->request->data = $this->SchoolInformation->getSchoolInformation();
+			if (! $this->request->data) {
 				$this->request->data = $this->SchoolInformation->createAll();
 			}
 			//$this->request->data['SchoolInformation']['establish_year_month'] = '2000-01';
