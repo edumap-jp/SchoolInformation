@@ -71,7 +71,7 @@ class UpdateSchoolInformationShell extends AppShell {
 			$saveData = $jsonContent['school_information'];
 			$saveData['id'] = $schoolInfo[$schoolInfoAlias]['id'];
 
-			if (! $this->SchoolInformation->saveSchoolInformation([$schoolInfoAlias => $saveData])) {
+			if (! $this->SchoolInformation->saveSchoolInformation([$schoolInfoAlias => $saveData], false)) {
 				$validationErrors = $this->SchoolInformation->validationErrors;
 				$this->err(json_encode($validationErrors, self::JSON_FORMAT));
 				return false;

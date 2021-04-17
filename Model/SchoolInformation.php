@@ -110,10 +110,12 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * 学校情報登録
  *
  * @param array $data 登録データ
+ * @param bool $doValidate バリデートするか否か
  * @return array SchoolInformation data
  * @throws InternalErrorException
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-	public function saveSchoolInformation(array $data) {
+	public function saveSchoolInformation(array $data, $doValidate = true) {
 		$this->loadModels([
 			'SiteSetting' => 'SiteManager.SiteSetting',
 			'Language' => 'M17n.Language',
@@ -121,7 +123,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		//トランザクションBegin
 		$this->begin();
-		$this->create(false);
+		$this->create();
 
 		//バリデーション
 		$schoolInfo = $this->getSchoolInformation();
@@ -132,15 +134,20 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$data = $this->cleansingSchoolInformation($data);
 		$this->set($data);
 
-		\CakeLog::debug(__METHOD__ . '(' . __LINE__ . ') ' . var_export($this->data, true));
-
-		if (!$this->validates()) {
-			return false;
+		if ($doValidate) {
+			if (!$this->validates()) {
+				$this->rollback();
+				return false;
+			}
 		}
 
 		try {
 			//学校情報の登録
-			$fieldList = $this->getUpdatableFieldList(CurrentLib::read('User.role_key', ''));
+			if ($doValidate) {
+				$fieldList = $this->getUpdatableFieldList(CurrentLib::read('User.role_key', ''));
+			} else {
+				$fieldList = [];
+			}
 			$schoolInformation = $this->save(null, false, $fieldList);
 			if (!$schoolInformation) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
