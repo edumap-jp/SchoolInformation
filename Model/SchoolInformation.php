@@ -133,10 +133,8 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		$data = $this->cleansingSchoolInformation($data);
 		$this->set($data);
-
 		if ($doValidate) {
 			if (!$this->validates()) {
-				$this->rollback();
 				return false;
 			}
 		}

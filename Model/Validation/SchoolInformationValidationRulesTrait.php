@@ -125,6 +125,17 @@ trait SchoolInformationValidationRulesTrait {
 			'contact' => $this->__getRuleContact(),
 			'map_url' => $this->__getRuleMapUrl(),
 		];
+
+		$fieldList = $this->getUpdatableFieldList(CurrentLib::read('User.role_key', ''));
+		if (! empty($fieldList)) {
+			foreach ($validate as $field => $rule) {
+				if (!empty($rule) && in_array($field, $fieldList, true)) {
+					continue;
+				}
+				unset($validate[$field]);
+			}
+		}
+
 		return $validate;
 	}
 
