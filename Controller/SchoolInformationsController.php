@@ -165,6 +165,9 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		}
 
 		$this->set('prefectureOptions', $this->SchoolInformation->getPrefecture());
+
+		$roleKey = CurrentLib::read('User.role_key', '');
+		$this->set('updatableFieldList', $this->SchoolInformation->getUpdatableFieldList($roleKey));
 		//$comments = $this->SchoolInformation->getCommentsByContentKey(
 		//	$this->request->data['SchoolInformation']['key']
 		//);

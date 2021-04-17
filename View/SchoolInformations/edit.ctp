@@ -22,6 +22,11 @@ $jsonSchoolInformation = json_encode(
 		'/school_informations/js/school_information_edit.js',
 	]
 ); ?>
+<?php echo $this->NetCommonsHtml->css(
+	[
+		'/school_informations/css/edit',
+	]
+); ?>
 
 <article class="block-setting-body" ng-controller="SchoolInformationEdit"
 		ng-init="init(<?php echo h($jsonSchoolInformation); ?>)">

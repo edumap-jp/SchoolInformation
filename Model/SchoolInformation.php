@@ -15,6 +15,7 @@ App::uses('SchoolInformationsAppModel', 'SchoolInformations.Model');
 App::uses('SchoolInformationConst', 'SchoolInformations.Model');
 App::uses('SchoolInformationCustomValidationTrait', 'SchoolInformations.Model/Validation');
 App::uses('SchoolInformationValidationRepositoryTrait', 'SchoolInformations.Model/Validation');
+App::uses('SchoolInformationValidationRulesTrait', 'SchoolInformations.Model/Validation');
 
 /**
  * Summary for SchoolInformation Model
@@ -26,6 +27,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 	use SchoolInformationCustomValidationTrait;
 	use SchoolInformationValidationRepositoryTrait;
+	use SchoolInformationValidationRulesTrait;
 
 /**
  * use behaviors
@@ -76,9 +78,17 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * @return bool
  */
 	public function beforeValidate($options = array()) {
+		if (isset($this->data[$this->alias]['prefecture_code']) &&
+				$this->data[$this->alias]['prefecture_code'] ===
+					SchoolInformationConst::FOREIGN_COUNTRY['PREFECTURE_CODE']) {
+			$isForeignContry = true;
+		} else {
+			$isForeignContry = false;
+		}
+
 		$this->validate = array_merge(
 			$this->validate,
-			$this->getValidationRules()
+			$this->getValidationRules($isForeignContry)
 		);
 		return parent::beforeValidate($options);
 	}
@@ -111,25 +121,27 @@ class SchoolInformation extends SchoolInformationsAppModel {
 
 		//トランザクションBegin
 		$this->begin();
-		$this->create();
+		$this->create(false);
 
 		//バリデーション
 		$schoolInfo = $this->getSchoolInformation();
 		if ($schoolInfo) {
-			unset($schoolInfo[$this->alias]['modified_user']);
-			unset($schoolInfo[$this->alias]['modified']);
 			$this->set($schoolInfo);
 		}
 
 		$data = $this->cleansingSchoolInformation($data);
 		$this->set($data);
+
+		\CakeLog::debug(__METHOD__ . '(' . __LINE__ . ') ' . var_export($this->data, true));
+
 		if (!$this->validates()) {
 			return false;
 		}
 
 		try {
 			//学校情報の登録
-			$schoolInformation = $this->save(null, false);
+			$fieldList = $this->getUpdatableFieldList(CurrentLib::read('User.role_key', ''));
+			$schoolInformation = $this->save(null, false, $fieldList);
 			if (!$schoolInformation) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}

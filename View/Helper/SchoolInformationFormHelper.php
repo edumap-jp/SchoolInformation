@@ -6,7 +6,9 @@
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  */
+
 App::uses('AppHelper', 'View');
+App::uses('SchoolInformationFormHelpTrait', 'SchoolInformations.View/Helper/Trait');
 
 /**
  * Class SchoolInformationFormHelper
@@ -14,6 +16,8 @@ App::uses('AppHelper', 'View');
  * @property NetCommonsFormHelpr $NetCommonsForm
  */
 class SchoolInformationFormHelper extends AppHelper {
+
+	use SchoolInformationFormHelpTrait;
 
 /**
  * 使用するヘルパー
@@ -27,30 +31,85 @@ class SchoolInformationFormHelper extends AppHelper {
 /**
  * 入力部品の出力
  *
- * @param string $key キー項目
- * @param string|array $field カラム名
+ * @param string $field カラム名
+ * @param array $extraOptions オプション
+ * @param bool $isUpdatable 更新可能なカラムか否か
  * @return string
  */
-	public function input($key, $field) {
+	public function input($field, $extraOptions, $isUpdatable) {
+		$html = '';
+		$html .= '<div class="school-information-form-group">';
+		$html .= $this->__inputCommon($field, $extraOptions, $isUpdatable);
+		$html .= '<hr>';
+		$html .= '</div>';
+		return $html;
+	}
+
+/**
+ * 入力部品の出力
+ *
+ * @param string $field カラム名
+ * @param array $extraOptions オプション
+ * @param bool $isUpdatable 更新可能なカラムか否か
+ * @return string
+ */
+	public function inputLocation($field, $extraOptions, $isUpdatable) {
+		$html = '';
+		$html .= '<div class="school-information-form-location-input">';
+		$html .= $this->__inputCommon($field, $extraOptions, $isUpdatable);
+		$html .= '</div>';
+		return $html;
+	}
+
+/**
+ * 入力部品の出力
+ *
+ * @param string $field カラム名
+ * @param array $extraOptions オプション
+ * @param bool $isUpdatable 更新可能なカラムか否か
+ * @return string
+ */
+	public function inputNumberOfStudents($field, $extraOptions, $isUpdatable) {
+		$html = '';
+		$html .= '<div class="school-information-form-group">';
+		$html .= $this->__inputCommon($field, $extraOptions, $isUpdatable);
+		$html .= '</div>';
+		return $html;
+	}
+
+
+/**
+ * 入力部品の出力
+ *
+ * @param string $field カラム名
+ * @param array $extraOptions オプション
+ * @param bool $isUpdatable 更新可能なカラムか否か
+ * @return string
+ */
+	private function __inputCommon($field, $extraOptions, $isUpdatable) {
 		$html = '';
 
-		$extraOptions = [];
-		if (is_array($field)) {
-			// keyがフィールド名で $fieldがオプション
-			$extraOptions = $field;
-			$field = $key;
-		}
 		$defaultOptions = [
 			'label' => __d('school_informations', Inflector::humanize($field)),
+			'disabled' => !$isUpdatable,
+			'div' => 'school-information-form-input',
 		];
 		$options = array_merge($defaultOptions, $extraOptions);
+
 		$html .= $this->NetCommonsForm->input(
 			'SchoolInformation.' . $field,
 			$options
 		);
 
-		if (in_array($field, SchoolInformation::locationFields(), true) === false) {
-			$html .= '<div class="col-xs-offset-1 form-group form-inline">';
+		$helpMethod = '_help' . ucfirst(Inflector::camelize($field));
+
+		if (method_exists($this, $helpMethod)) {
+			$html .= $this->NetCommonsForm->help($this->$helpMethod($options['label'], $isUpdatable));
+		}
+
+		if (in_array($field, SchoolInformation::locationFields(), true) === false &&
+				!in_array($field, ['school_name', 'map_url'], true)) {
+			$html .= '<div class="col-xs-offset-1 form-inline">';
 			$html .= $this->NetCommonsForm->input(
 				'SchoolInformation.is_public_' . $field,
 				[
@@ -65,6 +124,28 @@ class SchoolInformationFormHelper extends AppHelper {
 			);
 			$html .= '</div>';
 		}
+
+		return $html;
+	}
+
+/**
+ * 入力部品の出力
+ *
+ * @param string $field カラム名
+ * @param array $options オプション
+ * @return string
+ */
+	public function uploadFile($field, $options) {
+		$html = '';
+
+		$html .= '<div class="school-information-form-group">';
+
+		$html .= $this->NetCommonsForm->uploadFile(
+			'SchoolInformation.' . $field,
+			$options
+		);
+
+		$html .= '</div>';
 		return $html;
 	}
 

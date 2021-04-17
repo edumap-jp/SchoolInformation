@@ -20,61 +20,6 @@ App::uses('SchoolInformationConst', 'SchoolInformations.Model');
 trait SchoolInformationValidationRepositoryTrait {
 
 /**
- * バリデーションルールを返す
- *
- * @return array
- */
-	public function getValidationRules() {
-		$validate = array(
-			'school_name' => array(
-				'notBlank' => [
-					'rule' => array('notBlank'),
-					'message' => sprintf(
-						__d('net_commons', 'Please input %s.'),
-						__d('school_informations', 'School Name')
-					),
-					//'allowEmpty' => false,
-					'required' => true,
-				],
-			),
-
-			'status' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			'is_auto_translated' => array(
-				'boolean' => array(
-					'rule' => array('boolean'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			'map_url' => array(
-				'google_map' => array(
-					'rule' => array('matchMapUrl'),
-					'message' => __d(
-						'net_commons',
-						'Unauthorized pattern for %s.',
-						__d('school_informations', 'Map Url')
-					),
-					'allowEmpty' => true,
-					'required' => false,
-				),
-			),
-		);
-		return $validate;
-	}
-
-/**
  * 登録データをクレンジング
  *
  * @param array $data 登録データ

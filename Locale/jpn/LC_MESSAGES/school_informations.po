@@ -19,16 +19,16 @@ msgid "School Name"
 msgstr "学校名"
 
 msgid "School Name Kana"
-msgstr "学校名（カナ）"
+msgstr "学校名（フリガナ）"
 
 msgid "School Name Roma"
-msgstr "学校名（ローマ字）"
+msgstr "学校名（英語表記）"
 
 msgid "Principal Name"
 msgstr "校長(園長)名"
 
 msgid "Principal Name Kana"
-msgstr "校長(園長)名（カナ）"
+msgstr "校長(園長)名（フリガナ）"
 
 msgid "Principal Name Roma"
 msgstr "校長(園長)名（ローマ字）"
@@ -133,7 +133,7 @@ msgstr "学校メールアドレス"
 
 #: View/Elements/SchoolInformation/main.ctp:13
 msgid "Address"
-msgstr "番地"
+msgstr "番地(それ以降の所在地)"
 
 msgid "Number Of Kindergarten pupil"
 msgstr "園児数"
