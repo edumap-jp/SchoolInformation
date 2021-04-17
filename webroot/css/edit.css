@@ -1,6 +1,12 @@
 .school-information-form-group {
 	margin-bottom: 16px;
 }
+.school-information-form-location-group {
+	margin-bottom: 16px;
+}
+.school-information-form-location-group .form-radio-outer .radio:first-child {
+	padding-left: 0;
+}
 .school-information-form-group .help-block {
 	margin-bottom: 4px;
 }

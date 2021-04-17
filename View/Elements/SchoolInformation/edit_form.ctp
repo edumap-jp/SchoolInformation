@@ -167,7 +167,7 @@
 	echo '<hr>';
 
 	//所在地
-	echo '<div class="school-information-form-group">';
+	echo '<div class="school-information-form-location-group">';
 	echo $this->NetCommonsForm->label(
 		'location',
 		__d('school_informations', 'Location'),
@@ -178,7 +178,7 @@
 		'SchoolInformation.is_public_location',
 		[
 			'type' => 'radio',
-			'div' => ['class' => 'form-group form-inline'],
+			'div' => ['class' => 'form-group form-radio-outer form-inline'],
 			'options' => [
 				1 => __d('school_informations', 'Public'),
 				0 => __d('school_informations', 'Private'),
