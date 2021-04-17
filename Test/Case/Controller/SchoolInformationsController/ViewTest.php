@@ -250,6 +250,40 @@ class SchoolInformationsControllerViewTest extends NetCommonsControllerTestCase 
 			]
 		];
 
+		//フレームIDなし
+		$results[5] = [
+			'urlOptions' => [
+				'frame_id' => null
+			],
+			'expects' => [
+				'<div class="school-information-record-item school-information-school-name-kana">クリヤシリツダイイチショウガッコウ</div>',
+				'<div>栗矢市立第一小学校</div>',
+				'<div class="school-information-record-item school-information-school-name-roma">Kuriya Dai-ichi elementary school</div>',
+				'<tr><th>所在地</th><td>' .
+					'<div class="school-information-location">' .
+						'<span class="school-information-record-item school-information-postal-code">〒366-0000</span>' .
+						'<span class="school-information-prefecture">埼玉県</span>' .
+						'<span class="school-information-record-item school-information-city">栗矢市</span>' .
+						'<span class="school-information-record-item school-information-address">栗矢9丁目18番地</span>' .
+					'</div>' .
+				'</td></tr>',
+				'<tr><th>電話番号</th><td><div class="school-information-record-item school-information-tel">03-4212-2722</div></td></tr>',
+				'<tr><th>Fax番号</th><td><div class="school-information-record-item school-information-fax">03-4212-2722</div></td></tr>',
+				'<tr><th>問い合わせ先</th><td><div class="school-information-record-item school-information-contact">03-4212-2722</div></td></tr>',
+				'<tr><th>学校メールアドレス</th><td><div class="school-information-record-item school-information-email">kuriya-dai-ich',
+				'/img/school_informations/mailmark.gif',
+				'example.com</div></td></tr>',
+				'<tr><th>URL</th><td><div class="school-information-record-item school-information-url"><a href="https://kuriya-dai-ichi-elementary-schoo.edumap.jp" target="_blank">https://kuriya-dai-ichi-elementary-schoo.edumap.jp</a></div></td></tr>',
+				'<tr><th>校長名</th><td><ruby>押切基次郎<rt>オシキリモトジロウ</rt></ruby>　</td></tr>',
+				'<tr><th>国公立種別</th><td><div class="school-information-record-item school-information-school-type">公立</div></td></tr>',
+				'<tr><th>校種</th><td><div class="school-information-record-item school-information-school-kind">小学校</div></td></tr>',
+				'<tr><th>学生種別</th><td><div class="school-information-record-item school-information-student-category">共学</div></td></tr>',
+				'<tr><th>開校年月</th><td><div class="school-information-record-item school-information-establish-year-month">2005年4月</div></td></tr>',
+				'<tr><th>児童数</th><td><div><span class="school-information-record-item school-information-number-of-total-students">534 人</span></div><div><span>男子 :</span><span class="school-information-record-item school-information-number-of-male-students">276 人</span></div><div><span>女子 :</span><span class="school-information-record-item school-information-number-of-female-students">258 人</span></div></td></tr>',
+				'<tr><th>教員数</th><td><div class="school-information-record-item school-information-number-of-faculty-members">27 人</div></td></tr>',
+			]
+		];
+
 		return $results;
 	}
 
