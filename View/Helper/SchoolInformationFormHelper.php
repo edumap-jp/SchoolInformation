@@ -77,7 +77,6 @@ class SchoolInformationFormHelper extends AppHelper {
 		return $html;
 	}
 
-
 /**
  * 入力部品の出力
  *

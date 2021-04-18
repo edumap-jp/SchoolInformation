@@ -96,7 +96,7 @@ trait SchoolInformationValidationRulesTrait {
  */
 	public function getValidationRules(bool $isForeignContry) {
 		$validate = [
-			'school_kind' => $this->__getRuleSchoolKind() ,
+			'school_kind' => $this->__getRuleSchoolKind(),
 			'school_type' => $this->__getRuleSchoolType(),
 			'student_category' => $this->__getRuleStudentCategory(),
 			'school_name' => $this->__getRuleSchoolName(),
@@ -208,7 +208,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'学校名（フリガナ）は先頭または末尾にスペースを入れることはできません'
+					'学校名（フリガナ）は先頭または末尾に' .
+						'スペースを入れることはできません'
 				),
 				'required' => false
 			],
@@ -242,7 +243,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['custom', SchoolInformationConst::REGEXP_ALPHANUMERIC_SYMBOLS()],
 				'message' => __d(
 					'school_informations',
-					'学校名（英語表記）は半角英数記号(' . SchoolInformationConst::ALLOW_SYMBOLS . ')、' .
+					'学校名（英語表記）は' .
+						'半角英数記号(' . SchoolInformationConst::ALLOW_SYMBOLS . ')、' .
 						'半角スペースのみ入力してください'
 					),
 				'required' => false
@@ -251,7 +253,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'学校名（英語表記）は先頭または末尾にスペースを入れることはできません'
+					'学校名（英語表記）は先頭または末尾に' .
+						'スペースを入れることはできません'
 				),
 				'required' => false
 			],
@@ -319,7 +322,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['custom', SchoolInformationConst::REGEXP_KATAKANA],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名（フリガナ）は全角カタカナ、スペースのみ入力してください'
+					'校長(園長)名（フリガナ）は' .
+						'全角カタカナ、スペースのみ入力してください'
 				),
 				'required' => false
 			],
@@ -327,7 +331,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名（フリガナ）は先頭または末尾にスペースを入れることはできません'
+					'校長(園長)名（フリガナ）は先頭または末尾に' .
+						'スペースを入れることはできません'
 				),
 				'required' => false
 			],
@@ -410,12 +415,18 @@ trait SchoolInformationValidationRulesTrait {
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
-				'message' => __d('school_informations', '学生(園児)種別を選択してください'),
+				'message' => __d(
+					'school_informations',
+					'学生(園児)種別を選択してください'
+				),
 				'required' => false
 			],
 			'invalidCheck' => [
 				'rule' => ['inList', array_keys($studentCategories)],
-				'message' => __d('school_informations', '正しい学生(園児)種別を選択してください'),
+				'message' => __d(
+					'school_informations',
+					'正しい学生(園児)種別を選択してください'
+				),
 				'required' => false
 			],
 		];
@@ -568,7 +579,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'番地(それ以降の所在地)は先頭または末尾にスペースを入れることはできません'
+					'番地(それ以降の所在地)は先頭または末尾に' .
+						'スペースを入れることはできません'
 				),
 				'required' => false
 			],
@@ -813,7 +825,8 @@ trait SchoolInformationValidationRulesTrait {
 					'rule' => ['phone', SchoolInformationConst::REGEXP_JP_PHONE_NUMBER],
 					'message' => __d(
 						'school_informations',
-						'電話番号は半角数字でハイフン「-」を含めて市外局番から入力してください'
+						'電話番号は半角数字でハイフン「-」を含めて' .
+							'市外局番から入力してください'
 					),
 					'required' => false
 				]
@@ -845,7 +858,8 @@ trait SchoolInformationValidationRulesTrait {
 					'rule' => ['phone', SchoolInformationConst::REGEXP_JP_PHONE_NUMBER],
 					'message' => __d(
 						'school_informations',
-						'FAX番号は半角数字でハイフン「-」を含めて市外局番からで入力してください'
+						'FAX番号は半角数字でハイフン「-」を' .
+							'含めて市外局番からで入力してください'
 					),
 					'allowEmpty' => true
 				]

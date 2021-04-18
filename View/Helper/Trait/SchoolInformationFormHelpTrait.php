@@ -21,7 +21,7 @@ trait SchoolInformationFormHelpTrait {
 /**
  * ヘルプ表示
  *
- * @param string $help ヘルプメッセージ
+ * @param string $helpMessage ヘルプメッセージ
  * @return string
  */
 	private function __displayHelp($helpMessage) {
@@ -39,7 +39,7 @@ trait SchoolInformationFormHelpTrait {
 			'school_informations',
 			'%sは学校ウェブサイトからは変更できません<br>' .
 				'　edumap公式サイト' .
-				'(<a href="https://edumap.jp/" target="_blank">https://edumap.jp/</a>)'.
+				'(<a href="https://edumap.jp/" target="_blank">https://edumap.jp/</a>)' .
 				'で変更してください',
 			$labelText
 		);
@@ -96,7 +96,6 @@ trait SchoolInformationFormHelpTrait {
 /**
  * 半角数字のヘルプ表示
  *
- * @param int $length 文字数
  * @return string
  */
 	private function __helpNumeric() {
@@ -110,7 +109,6 @@ trait SchoolInformationFormHelpTrait {
 /**
  * 年月のヘルプ表示
  *
- * @param int $length 文字数
  * @return string
  */
 	private function __helpMonth() {
@@ -124,7 +122,6 @@ trait SchoolInformationFormHelpTrait {
 /**
  * 電話番号のヘルプ表示
  *
- * @param int $length 文字数
  * @return string
  */
 	private function __helpPhoneNumber() {
@@ -138,7 +135,6 @@ trait SchoolInformationFormHelpTrait {
 /**
  * 問い合わせ先のヘルプ表示
  *
- * @param int $length 文字数
  * @return string
  */
 	private function __helpContact() {
@@ -197,6 +193,7 @@ trait SchoolInformationFormHelpTrait {
 /**
  * 学校長名inputヘルプを返す
  *
+ * @param string $labelText ラベルテキスト
  * @param bool $isUpdatable 更新可能なカラムか否か
  * @return string
  */
@@ -564,7 +561,8 @@ trait SchoolInformationFormHelpTrait {
 		} else {
 			$helpMessage = __d(
 				'school_informations',
-				'255文字以内の「https://」もしくは「http://」から始まるURL形式で入力してください'
+				'255文字以内の「https://」もしくは「http://」から始まる' .
+					'URL形式で入力してください'
 			);
 			return $this->__displayHelp($helpMessage);
 		}

@@ -38,7 +38,6 @@ trait SchoolInformationCustomValidationTrait {
  * カスタムバリデーション
  * 先頭 or 末尾にスペースが入っているかどうか
  *
- * @param Model $model ビヘイビア呼び出し元モデル
  * @param array $check [ カラム名 => 入力値 ]が自動的に入る
  * @return bool バリデート結果
  */

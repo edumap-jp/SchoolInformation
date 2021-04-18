@@ -93,9 +93,10 @@ class SchoolInformationConst {
  * RFCに準拠していない(..や..@などdocomoやau系)メールアドレス
  *
  * @var string
- * @codingStandardsIgnore
  */
+//@codingStandardsIgnoreStart
 	const REGEXP_EMAIL = '/^[a-z0-9\.!#$%&\'*+\/=?^_`{|}~-]+(?:[a-z0-9\.!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[_\p{L}0-9][-_\p{L}0-9]*\.)*(?:[\p{L}0-9][-\p{L}0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,})$/i';
+//@codingStandardsIgnoreEnd
 
 /**
  * 日本の電話番号かどうかの正規表現
@@ -103,10 +104,11 @@ class SchoolInformationConst {
  *
  * [5789]に数字を追加すれば、0X0に対応可能
  * 正規表現を改行してもいいか不明なため、無視
- * @codingStandardsIgnore
  * @var string
  */
+//@codingStandardsIgnoreStart
 	const REGEXP_JP_PHONE_NUMBER = '/^(?=(?:(?:\d+\-)?\d+\-\d+|(?:\d+)?\(\d+\)\d+))(?=(?=^(?:(?:0[346]\D)?\D?[2-9][0-9]{3}\D\d{4}|(?:0[1-9][1-9]\D)?\D?[2-9][0-9]{2}\D\d{4}|(?:0[1-9][1-9][0-9]\D)?\D?[2-9][0-9]\D\d{4}|(?:0[1-9][1-9][0-9]{2}\D)?\D?[2-9]\D\d{4})$|^0120\-(?:\d{3}\-\d{3}|\d{2}\-\d{4})$|^0[5789]0\-(?:[0-9]{3}\-\d{5}|\d{4}\-\d{4})$))(?:(\d+)\D)?\D?(\d+)\D(\d+)$/';
+//@codingStandardsIgnoreEnd
 
 /**
  * 年月

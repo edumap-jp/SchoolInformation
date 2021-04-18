@@ -113,7 +113,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
  * @param bool $doValidate バリデートするか否か
  * @return array SchoolInformation data
  * @throws InternalErrorException
- * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
 	public function saveSchoolInformation(array $data, $doValidate = true) {
 		$this->loadModels([
