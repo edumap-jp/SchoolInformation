@@ -60,7 +60,7 @@ trait SchoolInformationValidationRulesTrait {
 				'emergency_contact',
 				'contact',
 				'url',
-				//'map_url' => $this->__getRuleMapUrl(),
+				'map_url',
 				'is_public_school_name_kana',
 				'is_public_school_name_roma',
 				'is_public_principal_name',
