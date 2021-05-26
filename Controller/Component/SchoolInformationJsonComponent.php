@@ -10,6 +10,7 @@
  */
 
 App::uses('Component', 'Controller');
+App::uses('NetCommonsSecurity', 'NetCommons.Utility');
 
 /**
  * SchoolInformationJsonComponent
@@ -34,6 +35,13 @@ class SchoolInformationJsonComponent extends Component {
 	private $__baseUrl;
 
 /**
+ * 許可しているIPアドレスか
+ *
+ * @var bool
+ */
+	private $__allowIp = false;
+
+/**
  * Called before the Controller::beforeFilter().
  *
  * @param Controller $controller Instantiating controller
@@ -42,6 +50,10 @@ class SchoolInformationJsonComponent extends Component {
 	public function initialize(Controller $controller) {
 		$this->__controller = $controller;
 		$this->__baseUrl = Configure::read('App.fullBaseUrl');
+
+		Configure::load('SchoolInformations.edumap_api');
+		$allowIps = Configure::read('edumap_api.SchoolInformations.allow_ips');
+		$this->__allowIp = (new \NetCommonsSecurity())->hasCurrentIp($allowIps);
 	}
 
 /**
@@ -92,7 +104,7 @@ class SchoolInformationJsonComponent extends Component {
 			array &$result, array $schoolInformation, string $field, $value) {
 		$isPubicField = 'is_public_' . $field;
 		if (array_key_exists($isPubicField, $schoolInformation)) {
-			if ($schoolInformation[$isPubicField]) {
+			if ($schoolInformation[$isPubicField] || $this->__allowIp) {
 				$result[$field] = $value;
 			}
 		} else {
