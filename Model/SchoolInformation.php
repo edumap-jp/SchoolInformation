@@ -60,6 +60,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 				]
 			]
 		],
+		'NetCommons.NetCommonsCache',
 	);
 
 /**
@@ -102,7 +103,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$options = [];
 		//$conditions = $this->getWorkflowConditions();
 		//$options['conditions'] = $conditions;
-		$data = $this->find('first', $options);
+		$data = $this->cacheFindQuery('first', $options);
 		return $data;
 	}
 
