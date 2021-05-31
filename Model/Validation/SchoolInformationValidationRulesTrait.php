@@ -122,6 +122,7 @@ trait SchoolInformationValidationRulesTrait {
 			'fax' => $this->__getRuleFax($isForeignContry),
 			'email' => $this->__getRuleEmail(),
 			'emergency_contact' => $this->__getRuleEmergencyContact(),
+			'url' => $this->__getRuleUrl(),
 			'contact' => $this->__getRuleContact(),
 			'map_url' => $this->__getRuleMapUrl(),
 		];
@@ -936,6 +937,32 @@ trait SchoolInformationValidationRulesTrait {
 				'message' => __d(
 					'school_informations',
 					'問い合わせ先は255文字以内で入力してください'
+				),
+				'required' => false
+			],
+		];
+	}
+
+/**
+ * URLのバリデーションルールを返す
+ *
+ * @return array
+ */
+	private function __getRuleUrl() {
+		return [
+			'lengthCheck' => [
+				'rule' => ['maxLength', 255],
+				'message' => __d(
+					'school_informations',
+					'URLは255文字以内で入力してください'
+				),
+				'required' => false
+			],
+			'urlCheck' => [
+				'rule' => ['url', true, SchoolInformationConst::REGEXP_EMAIL],
+				'message' => __d(
+					'school_informations',
+					'正しいURLを入力してください'
 				),
 				'required' => false
 			],
