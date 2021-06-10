@@ -107,6 +107,19 @@ trait SchoolInformationFormHelpTrait {
 	}
 
 /**
+ * 半角数字のヘルプ表示
+ *
+ * @return string
+ */
+	private function __helpNaturalNumberNumeric() {
+		$helpMessage = __d(
+			'school_informations',
+			'半角数字で、0より大きい数値を入力してください'
+		);
+		return $this->__displayHelp($helpMessage);
+	}
+
+/**
  * 年月のヘルプ表示
  *
  * @return string
@@ -484,7 +497,7 @@ trait SchoolInformationFormHelpTrait {
 		if (! $isUpdatable) {
 			return $this->__helpDisabled($labelText);
 		} else {
-			return $this->__helpNumeric();
+			return $this->__helpNaturalNumberNumeric();
 		}
 	}
 
