@@ -727,7 +727,7 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['naturalNumber', false],
 				'message' => __d(
 					'school_informations',
-					'全児童(園児)・生徒数は半角数字で、0より大きい数値を入力してください'
+					'全児童(園児)・生徒数は0より大きい数値を半角数字で入力してください'
 				),
 				'required' => false
 			],

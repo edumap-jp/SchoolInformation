@@ -114,7 +114,7 @@ trait SchoolInformationFormHelpTrait {
 	private function __helpNaturalNumberNumeric() {
 		$helpMessage = __d(
 			'school_informations',
-			'半角数字で、0より大きい数値を入力してください'
+			'0より大きい数値を半角数字で入力してください'
 		);
 		return $this->__displayHelp($helpMessage);
 	}
