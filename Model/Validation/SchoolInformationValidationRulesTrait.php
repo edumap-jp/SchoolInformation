@@ -959,7 +959,7 @@ trait SchoolInformationValidationRulesTrait {
 				'required' => false
 			],
 			'urlCheck' => [
-				'rule' => ['url', true, SchoolInformationConst::REGEXP_EMAIL],
+				'rule' => ['url', true],
 				'message' => __d(
 					'school_informations',
 					'正しいURLを入力してください'
