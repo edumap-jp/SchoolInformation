@@ -115,7 +115,7 @@ class SchoolInformationConst {
  *
  * @var string
  */
-	const REGEXP_MONTH = '/(^19[0-9]{2}|20[0-3][0-9])\-(0[0-9]|1[0-2])$/';
+	const REGEXP_MONTH = '/(^17[0-9]{2}|18[0-9]{2}|19[0-9]{2}|20[0-3][0-9])\-(0[0-9]|1[0-2])$/';
 
 /**
  * PHPマジックメソッド
