@@ -193,13 +193,24 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			$size = 'middle';
 		}
 		// ダウンロード実行
-		return $this->Download->doDownload(
-			$schoolInformation['SchoolInformation']['id'],
-			[
-				'field' => 'school_badge',
-				'size' => $size
-			]
-		);
+		try {
+			$response = $this->Download->doDownload(
+				$schoolInformation['SchoolInformation']['id'],
+				[
+					'field' => 'school_badge',
+					'size' => $size
+				]
+			);
+		} catch (ForbiddenException $ex) {
+			$this->autoRender = false;
+			$this->layout = false;
+			$noimagePath = App::pluginPath('SchoolInformations') .
+								'webroot' . DS . 'img' . DS . 'no_badge.png';
+			$response = $this->response->file($noimagePath, ['name' => 'No Image']);
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+		return $response;
 	}
 
 /**
