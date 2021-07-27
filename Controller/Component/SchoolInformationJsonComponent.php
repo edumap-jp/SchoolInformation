@@ -86,6 +86,11 @@ class SchoolInformationJsonComponent extends Component {
 			if ($field === 'prefecture_code') {
 				$this->__setPrefectureName($convSchoolInfo, $value);
 			}
+
+			//県コードの場合、県名をセットする
+			if ($field === 'city') {
+				$this->__setCityName($convSchoolInfo, $value);
+			}
 		}
 
 		return $convSchoolInfo;
@@ -153,6 +158,19 @@ class SchoolInformationJsonComponent extends Component {
 		$prefectures = $this->__controller->SchoolInformation->getPrefecture();
 		if (isset($prefectures[$prefectureCode])) {
 			$result['prefecture'] = $prefectures[$prefectureCode];
+		}
+	}
+
+/**
+ * 市区町村名を戻り値にセットする
+ *
+ * @param array &$result セットする戻り値配列
+ * @param string $city 市区町村名
+ * @return void
+ */
+	private function __setCityName(array &$result, string $city) {
+		if (mb_strpos($city, '郡') !== false) {
+			$result['city'] = mb_substr($city, mb_strpos($city, '郡') + 1);
 		}
 	}
 
