@@ -169,9 +169,9 @@ class SchoolInformationJsonComponent extends Component {
  * @return void
  */
 	private function __setCityName(array &$result, string $city) {
-		if (mb_strpos($city, '郡') !== false) {
-			$result['city'] = mb_substr($city, mb_strpos($city, '郡') + 1);
-		}
+		//if (mb_strpos($city, '郡') !== false) {
+		//	$result['city'] = mb_substr($city, mb_strpos($city, '郡') + 1);
+		//}
 	}
 
 }
