@@ -12,6 +12,7 @@
 App::uses('SchoolInformationsAppController', 'SchoolInformations.Controller');
 App::uses('NetCommonsTime', 'NetCommons.Utility');
 App::uses('SiteBuildMngCommandExec', 'SiteBuildManager.Lib');
+App::uses('NetCommonsSecurity', 'NetCommons.Utility');
 
 /**
  * Class SchoolInformationsController
@@ -194,6 +195,11 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 		}
 		// ダウンロード実行
 		try {
+			$netCommonsSecurity = new NetCommonsSecurity();
+			if ($netCommonsSecurity->isCloseSite($this)) {
+				throw new ForbiddenException('Not found file');
+			}
+
 			$response = $this->Download->doDownload(
 				$schoolInformation['SchoolInformation']['id'],
 				[
