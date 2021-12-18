@@ -57,7 +57,7 @@ class SchoolInformationsController extends SchoolInformationsAppController {
  * @var array
  */
 	public $helpers = [
-		'SchoolInformations.SchoolInformation',
+		'SchoolInformations.SchoolInformationHtml',
 		'SchoolInformations.SchoolInformationForm',
 	];
 
@@ -165,16 +165,14 @@ class SchoolInformationsController extends SchoolInformationsAppController {
 			}
 			//$this->request->data['SchoolInformation']['establish_year_month'] = '2000-01';
 			$this->request->data['Frame'] = Current::read('Frame');
+			$this->SchoolInformation->set($this->request->data);
 		}
 
 		$this->set('prefectureOptions', $this->SchoolInformation->getPrefecture());
 
 		$roleKey = CurrentLib::read('User.role_key', '');
-		$this->set('updatableFieldList', $this->SchoolInformation->getUpdatableFieldList($roleKey));
-		//$comments = $this->SchoolInformation->getCommentsByContentKey(
-		//	$this->request->data['SchoolInformation']['key']
-		//);
-		//$this->set('comments', $comments);
+		$this->set('editableFieldList', $this->SchoolInformation->getEditableFieldList($roleKey));
+		$this->set('hiddenFieldList', $this->SchoolInformation->getHiddenFieldList());
 	}
 
 /**

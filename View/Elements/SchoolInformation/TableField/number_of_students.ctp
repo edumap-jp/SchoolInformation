@@ -1,13 +1,13 @@
-<?php if ($this->SchoolInformation->isDisplay('number_of_male_students'	) ||
-		$this->SchoolInformation->isDisplay('number_of_female_students') ||
-		$this->SchoolInformation->isDisplay('number_of_total_students')): ?>
+<?php if ($this->SchoolInformationHtml->isDisplay('number_of_male_students'	) ||
+		$this->SchoolInformationHtml->isDisplay('number_of_female_students') ||
+		$this->SchoolInformationHtml->isDisplay('number_of_total_students')): ?>
 	<tr>
 		<th>
-			<?php echo $this->SchoolInformation->labelNumberOfStudents(); ?>
+			<?php echo $this->SchoolInformationHtml->labelNumberOfStudents(); ?>
 		</th>
 		<td>
 			<?php
-				$totalNum = $this->SchoolInformation->display(
+				$totalNum = $this->SchoolInformationHtml->display(
 					'number_of_total_students',
 					[
 						'tag' => 'span',
@@ -25,7 +25,7 @@
 			<?php endif; ?>
 
 			<?php
-				$maleNum = $this->SchoolInformation->display(
+				$maleNum = $this->SchoolInformationHtml->display(
 					'number_of_male_students',
 					[
 						'tag' => 'span',
@@ -44,7 +44,7 @@
 			<?php endif; ?>
 
 			<?php
-				$femaleNum = $this->SchoolInformation->display(
+				$femaleNum = $this->SchoolInformationHtml->display(
 					'number_of_female_students',
 					[
 						'tag' => 'span',

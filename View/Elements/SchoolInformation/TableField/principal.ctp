@@ -1,8 +1,8 @@
-<?php if ($this->SchoolInformation->isDisplayPrincipal()): ?>
+<?php if ($this->SchoolInformationHtml->isDisplayPrincipal()): ?>
 	<tr>
-		<th><?php echo $this->SchoolInformation->labelPrincipal(); ?></th>
+		<th><?php echo $this->SchoolInformationHtml->labelPrincipal(); ?></th>
 		<td>
-			<?php echo $this->SchoolInformation->displayPrincipal(); ?>
+			<?php echo $this->SchoolInformationHtml->displayPrincipal(); ?>
 		</td>
 	</tr>
 <?php endif;

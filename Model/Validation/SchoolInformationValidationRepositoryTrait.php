@@ -91,6 +91,7 @@ trait SchoolInformationValidationRepositoryTrait {
  */
 	public function getSchoolKinds() {
 		return [
+			'教育委員会・学校法人等' => __d('school_informations', '教育委員会・学校法人等'),
 			'小学校' => __d('school_informations', '小学校'),
 			'中学校' => __d('school_informations', '中学校'),
 			'小中一貫校・義務教育学校等' =>

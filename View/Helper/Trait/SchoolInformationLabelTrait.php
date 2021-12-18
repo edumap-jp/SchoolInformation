@@ -79,13 +79,108 @@ trait SchoolInformationLabelTrait {
 	}
 
 /**
- * 校長名ラベル
+ * 学校名ラベル
+ *
+ * @return string
+ */
+	public function labelSchoolName() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Organization Name');
+		} else {
+			return __d('school_informations', 'School Name');
+		}
+	}
+
+/**
+ * 学校名（カナ）ラベル
+ *
+ * @return string
+ */
+	public function labelSchoolNameKana() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Organization Name Kana');
+		} else {
+			return __d('school_informations', 'School Name Kana');
+		}
+	}
+
+/**
+ * 学校名（カナ）ラベル
+ *
+ * @return string
+ */
+	public function labelSchoolNameRoma() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Organization Name Roma');
+		} else {
+			return __d('school_informations', 'School Name Roma');
+		}
+	}
+
+/**
+ * 校長名 or 園長名ラベル
  *
  * @return string
  */
 	public function labelPrincipal() {
-		$prefx = $this->__getKindergartenLabelOfPrefix();
-		return __d('school_informations', $prefx . 'Principal Name');
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Representative Name');
+		} else {
+			$prefx = $this->__getKindergartenLabelOfPrefix();
+			return __d('school_informations', $prefx . 'Principal Name');
+		}
+	}
+
+/**
+ * 校長(園長)ラベル
+ *
+ * @return string
+ */
+	public function labelPrincipalName() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Representative Name');
+		} else {
+			return __d('school_informations', 'Principal Name');
+		}
+	}
+
+/**
+ * 校長(園長)（カナ）ラベル
+ *
+ * @return string
+ */
+	public function labelPrincipalNameKana() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Representative Name Kana');
+		} else {
+			return __d('school_informations', 'Principal Name Kana');
+		}
+	}
+
+/**
+ * 校長(園長)（ローマ字）ラベル
+ *
+ * @return string
+ */
+	public function labelPrincipalNameRoma() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Representative Name Roma');
+		} else {
+			return __d('school_informations', 'Principal Name Roma');
+		}
+	}
+
+/**
+ * メールアドレスラベル
+ *
+ * @return string
+ */
+	public function labelEmail() {
+		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+			return __d('school_informations', 'Organization Email');
+		} else {
+			return __d('school_informations', 'Email');
+		}
 	}
 
 /**

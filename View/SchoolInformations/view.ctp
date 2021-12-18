@@ -41,5 +41,5 @@ switch ($layoutPosition) {
 ?>
 <?php
 //$displayType = $frameSetting['SchoolInformationFrameSetting']['display_type'];
-$this->SchoolInformation->set($schoolInformation);
+$this->SchoolInformationHtml->set($schoolInformation);
 echo $this->element('SchoolInformations.SchoolInformation/' . $displayType);

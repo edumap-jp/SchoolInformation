@@ -5,36 +5,36 @@
 <div class="school-information-footer-wrap">
 	<article class="school-information-footer">
 		<div class="school-information-footer-school-badge">
-			<?php echo $this->SchoolInformation->schoolBadge('small');?>
+			<?php echo $this->SchoolInformationHtml->schoolBadge('small');?>
 		</div>
 		<div class="school-information-footer-text">
 			<div class="school-information-footer-school-name">
 				<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 			</div>
 			<div class="school-information-footer-sub-items">
-				<?php echo $this->SchoolInformation->displayLocation(); ?>
+				<?php echo $this->SchoolInformationHtml->displayLocation(); ?>
 				<div>
-					<?php echo $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformationHtml->display(
 						'tel',
 						['tag' => 'span', 'displayLabel' => true]
 					); ?>
-					<?php echo $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformationHtml->display(
 						'fax',
 						['tag' => 'span', 'displayLabel' => true]
 					); ?>
-					<?php echo $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformationHtml->display(
 						'contact',
 						['tag' => 'span']
 					); ?>
-					<?php echo $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformationHtml->display(
 						'email',
 						['tag' => 'span']
 					); ?>
-					<?php echo $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformationHtml->display(
 						'emergency_contact',
 						['tag' => 'span']
 					); ?>
-					<?php echo $this->SchoolInformation->display(
+					<?php echo $this->SchoolInformationHtml->display(
 						'url',
 						['tag' => 'span']
 					); ?>
@@ -71,23 +71,23 @@
 
 					switch ($field) {
 						case 'principal':
-							if ($this->SchoolInformation->isDisplayPrincipal()) {
+							if ($this->SchoolInformationHtml->isDisplayPrincipal()) {
 								echo '<span class="school-information-record-item">';
-								echo $this->SchoolInformation->label('principal_name',
-										$this->SchoolInformation->labelPrincipal());
-								echo $this->SchoolInformation->displayPrincipal();
+								echo $this->SchoolInformationHtml->label('principal_name',
+										$this->SchoolInformationHtml->labelPrincipal());
+								echo $this->SchoolInformationHtml->displayPrincipal();
 								echo '</span>';
 							}
 							break;
 						default:
 							$methodName = 'label' . ucfirst(Inflector::camelize($field));
 							if (! isset($extraOptions['label']) &&
-									method_exists($this->SchoolInformation, $methodName)) {
-								$extraOptions['label'] = $this->SchoolInformation->$methodName();
+									method_exists($this->SchoolInformationHtml, $methodName)) {
+								$extraOptions['label'] = $this->SchoolInformationHtml->$methodName();
 							}
 							$extraOptions['displayLabel'] = true;
 							$extraOptions['tag'] = 'span';
-							echo $this->SchoolInformation->display($field, $extraOptions);
+							echo $this->SchoolInformationHtml->display($field, $extraOptions);
 					}
 				}
 				?>

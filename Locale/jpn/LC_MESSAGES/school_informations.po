@@ -24,6 +24,15 @@ msgstr "学校名（フリガナ）"
 msgid "School Name Roma"
 msgstr "学校名（英語表記）"
 
+msgid "Organization Name"
+msgstr "組織名"
+
+msgid "Organization Name Kana"
+msgstr "組織名（フリガナ）"
+
+msgid "Organization Name Roma"
+msgstr "組織名（英語表記）"
+
 msgid "Principal Name"
 msgstr "校長(園長)名"
 
@@ -38,6 +47,15 @@ msgstr "校長名"
 
 msgid "Kindergarten Principal Name"
 msgstr "園長名"
+
+msgid "Representative Name"
+msgstr "代表者名"
+
+msgid "Representative Name Kana"
+msgstr "代表者名（フリガナ）"
+
+msgid "Representative Name Roma"
+msgstr "代表者名（ローマ字）"
 
 msgid "School Type"
 msgstr "国公立種別"
@@ -130,6 +148,9 @@ msgstr "Fax"
 #: View/Elements/SchoolInformation/side.ctp:23
 msgid "Email"
 msgstr "学校メールアドレス"
+
+msgid "Organization Email"
+msgstr "メールアドレス"
 
 #: View/Elements/SchoolInformation/main.ctp:13
 msgid "Address"

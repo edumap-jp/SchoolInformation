@@ -14,7 +14,7 @@ App::uses('SchoolInformationLabelTrait', 'SchoolInformations.View/Helper/Trait')
 /**
  * Class SchoolInformationHelper
  */
-class SchoolInformationHelper extends AppHelper {
+class SchoolInformationHtmlHelper extends AppHelper {
 
 	use SchoolInformationFormatterTrait;
 	use SchoolInformationLabelTrait;
@@ -214,6 +214,10 @@ class SchoolInformationHelper extends AppHelper {
 			return false;
 		}
 		if ($this->__isDisplayByFrameSetting($field) === false) {
+			return false;
+		}
+		if ($field === 'school_kind' &&
+				$this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
 			return false;
 		}
 		return true;
