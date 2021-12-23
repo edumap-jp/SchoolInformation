@@ -20,10 +20,10 @@
 	<?php echo $this->SchoolInformationForm->input(
 		'school_name',
 		[
-			'label' => __d('school_informations', 'School Name'),
+			//'label' => __d('school_informations', 'School Name'),
 			'required' => true,
 		],
-		(empty($updatableFieldList) || in_array('school_name', $updatableFieldList, true))
+		(empty($editableFieldList) || in_array('school_name', $editableFieldList, true))
 	); ?>
 
 	<?php
@@ -137,10 +137,13 @@
 	];
 
 	foreach ($firstFields as $field => $options) {
+		if (in_array($field, $hiddenFieldList, true)) {
+			continue;
+		}
 		echo $this->SchoolInformationForm->input(
 			$field,
 			$options,
-			(empty($updatableFieldList) || in_array($field, $updatableFieldList, true))
+			(empty($editableFieldList) || in_array($field, $editableFieldList, true))
 		);
 	}
 
@@ -186,10 +189,13 @@
 		]
 	);
 	foreach ($locationFields as $field => $options) {
+		if (in_array($field, $hiddenFieldList, true)) {
+			continue;
+		}
 		echo $this->SchoolInformationForm->inputLocation(
 			$field,
 			$options,
-			(empty($updatableFieldList) || in_array($field, $updatableFieldList, true))
+			(empty($editableFieldList) || in_array($field, $editableFieldList, true))
 		);
 	}
 	echo '</div>';
@@ -197,43 +203,53 @@
 	echo '</div>';
 
 	foreach ($mainFields as $field => $options) {
+		if (in_array($field, $hiddenFieldList, true)) {
+			continue;
+		}
 		echo $this->SchoolInformationForm->input(
 			$field,
 			$options,
-			(empty($updatableFieldList) || in_array($field, $updatableFieldList, true))
+			(empty($editableFieldList) || in_array($field, $editableFieldList, true))
 		);
 	}
 
 	foreach ($otherFields as $field => $options) {
+		if (in_array($field, $hiddenFieldList, true)) {
+			continue;
+		}
 		echo $this->SchoolInformationForm->input(
 			$field,
 			$options,
-			(empty($updatableFieldList) || in_array($field, $updatableFieldList, true))
+			(empty($editableFieldList) || in_array($field, $editableFieldList, true))
 		);
 	}
 
-	//教員数
-	echo $this->SchoolInformationForm->input(
-		'number_of_faculty_members',
-		[],
-		(empty($updatableFieldList) || in_array('number_of_faculty_members', $updatableFieldList, true))
-	);
-
-	//生徒数
-	echo $this->NetCommonsForm->label(
-		'SchoolInformation.number_of_total_students',
-		__d('school_informations', 'Number Of Children or Students'),
-		['required' => true]
-	);
-	echo '<div class="col-xs-offset-1">';
-	foreach ($studentsFields as $field => $options) {
-		echo $this->SchoolInformationForm->inputNumberOfStudents(
-			$field,
-			$options,
-			(empty($updatableFieldList) || in_array($field, $updatableFieldList, true))
+	if (! in_array('number_of_faculty_members', $hiddenFieldList, true)) {
+		//教員数
+		echo $this->SchoolInformationForm->input(
+			'number_of_faculty_members',
+			[],
+			(empty($editableFieldList) || in_array('number_of_faculty_members', $editableFieldList, true))
 		);
 	}
-	echo '</div>';
+
+	if (! in_array('number_of_total_students', $hiddenFieldList, true)) {
+		//生徒数
+		echo $this->NetCommonsForm->label(
+			'SchoolInformation.number_of_total_students',
+			__d('school_informations', 'Number Of Children or Students'),
+			['required' => true]
+		);
+		echo '<div class="col-xs-offset-1">';
+		foreach ($studentsFields as $field => $options) {
+			echo $this->SchoolInformationForm->inputNumberOfStudents(
+				$field,
+				$options,
+				(empty($editableFieldList) || in_array($field, $editableFieldList, true))
+			);
+		}
+		echo '</div>';
+	}
 
 	echo '<hr>';
 
@@ -244,7 +260,7 @@
 			'label' => __d('school_informations', 'Map Url'),
 			'div' => false,
 		],
-		(empty($updatableFieldList) || in_array('map_url', $updatableFieldList, true))
+		(empty($editableFieldList) || in_array('map_url', $editableFieldList, true))
 	);
 ?>
 </div>

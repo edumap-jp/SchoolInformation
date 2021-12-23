@@ -35,6 +35,7 @@ $jsonSchoolInformation = json_encode(
 		<?php echo $this->NetCommonsForm->create('SchoolInformation', ['type' => 'file']); ?>
 
 		<?php
+			$this->SchoolInformationForm->set($this->request->data);
 			echo $this->element('SchoolInformations.SchoolInformation/edit_form');
 		?>
 

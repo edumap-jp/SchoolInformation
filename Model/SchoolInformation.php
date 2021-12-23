@@ -95,6 +95,16 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	}
 
 /**
+ * 教育委員会サイトかどうか
+ *
+ * @return bool
+ */
+	public function isBoardOfEducation() {
+		$schoolKind = $this->data[$this->alias]['school_kind'] ?? null;
+		return $schoolKind === '教育委員会・学校法人等';
+	}
+
+/**
  * 学校情報取得
  *
  * @return array SchoolInformation data
@@ -103,8 +113,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		$options = [];
 		//$conditions = $this->getWorkflowConditions();
 		//$options['conditions'] = $conditions;
-		$data = $this->cacheFindQuery('first', $options);
-		return $data;
+		$this->data = $this->cacheFindQuery('first', $options);
+		$this->data[$this->alias]['is_board_of_education'] = $this->isBoardOfEducation();
+		return $this->data;
 	}
 
 /**
@@ -143,7 +154,7 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		try {
 			//学校情報の登録
 			if ($doValidate) {
-				$fieldList = $this->getUpdatableFieldList(CurrentLib::read('User.role_key', ''));
+				$fieldList = $this->getEditableFieldList(CurrentLib::read('User.role_key', ''));
 			} else {
 				$fieldList = [];
 			}

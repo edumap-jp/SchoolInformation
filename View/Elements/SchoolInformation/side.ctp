@@ -1,17 +1,17 @@
 <?php echo $this->NetCommonsHtml->css('/school_informations/css/side.css', ['inline' => false]); ?>
 <article class="school-information-side">
 	<div class="school-information-side-image">
-		<?php echo $this->SchoolInformation->schoolBadge('small');?>
+		<?php echo $this->SchoolInformationHtml->schoolBadge('small');?>
 	</div>
 
 	<div class="school-information-side-school-name">
 		<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 	</div>
 
-	<?php echo $this->SchoolInformation->displayLocation(); ?>
-	<?php echo $this->SchoolInformation->display('tel', ['displayLabel' => true]); ?>
-	<?php echo $this->SchoolInformation->display('fax', ['displayLabel' => true]); ?>
-	<?php echo $this->SchoolInformation->display('email'); ?>
+	<?php echo $this->SchoolInformationHtml->displayLocation(); ?>
+	<?php echo $this->SchoolInformationHtml->display('tel', ['displayLabel' => true]); ?>
+	<?php echo $this->SchoolInformationHtml->display('fax', ['displayLabel' => true]); ?>
+	<?php echo $this->SchoolInformationHtml->display('email'); ?>
 
 
 
@@ -49,22 +49,22 @@
 
 			switch ($field) {
 				case 'principal':
-					if ($this->SchoolInformation->isDisplayPrincipal()) {
-						echo $this->SchoolInformation->label(
+					if ($this->SchoolInformationHtml->isDisplayPrincipal()) {
+						echo $this->SchoolInformationHtml->label(
 							'principal_name',
-							$this->SchoolInformation->labelPrincipal()
+							$this->SchoolInformationHtml->labelPrincipal()
 						);
-						echo $this->SchoolInformation->displayPrincipal();
+						echo $this->SchoolInformationHtml->displayPrincipal();
 					}
 					break;
 				default:
 					$methodName = 'label' . ucfirst(Inflector::camelize($field));
 					if (! isset($extraOptions['label']) &&
 							method_exists($this->SchoolInformation, $methodName)) {
-						$extraOptions['label'] = $this->SchoolInformation->$methodName();
+						$extraOptions['label'] = $this->SchoolInformationHtml->$methodName();
 					}
 					$extraOptions['displayLabel'] = true;
-					echo $this->SchoolInformation->display($field, $extraOptions);
+					echo $this->SchoolInformationHtml->display($field, $extraOptions);
 			}
 		}
 		?>

@@ -6,15 +6,15 @@ echo $this->NetCommonsHtml->css(
 ?>
 <div class="school-information-header-outer <?php echo h($this->theme); ?> navbar-inverse">
 	<div class="school-cover-picture">
-		<?php echo $this->SchoolInformation->coverPicture(); ?>
+		<?php echo $this->SchoolInformationHtml->coverPicture(); ?>
 	</div>
 	<div class="school-information-header">
 		<div class="school-information-header-school-badge">
-			<?php echo $this->SchoolInformation->schoolBadge('middle'); ?>
+			<?php echo $this->SchoolInformationHtml->schoolBadge('middle'); ?>
 		</div>
 		<div class="school-information-header-text">
 			<h1 class="school-information-header-title">
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->display(
 					'school_name_kana',
 					['tag' => 'div']
 				); ?>
@@ -23,31 +23,31 @@ echo $this->NetCommonsHtml->css(
 					<?php echo h($schoolInformation['SchoolInformation']['school_name']); ?>
 
 				</div>
-				<?php echo $this->SchoolInformation->display('school_name_roma', ['tag' => 'div']); ?>
+				<?php echo $this->SchoolInformationHtml->display('school_name_roma', ['tag' => 'div']); ?>
 			</h1>
 			<div>
-				<?php echo $this->SchoolInformation->displayLocation(); ?>
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->displayLocation(); ?>
+				<?php echo $this->SchoolInformationHtml->display(
 					'tel',
 					['tag' => 'span', 'displayLabel' => true]
 				); ?>
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->display(
 					'fax',
 					['tag' => 'span', 'displayLabel' => true]
 				); ?>
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->display(
 					'contact',
 					['tag' => 'span']
 				); ?>
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->display(
 					'email',
 					['tag' => 'span']
 				); ?>
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->display(
 					'emergency_contact',
 					['tag' => 'span']
 				); ?>
-				<?php echo $this->SchoolInformation->display(
+				<?php echo $this->SchoolInformationHtml->display(
 					'url',
 					['tag' => 'span']
 				); ?>
@@ -84,23 +84,23 @@ echo $this->NetCommonsHtml->css(
 
 					switch ($field) {
 						case 'principal':
-							if ($this->SchoolInformation->isDisplayPrincipal()) {
+							if ($this->SchoolInformationHtml->isDisplayPrincipal()) {
 								echo '<span class="school-information-record-item">';
-								echo $this->SchoolInformation->label('principal_name',
-										$this->SchoolInformation->labelPrincipal());
-								echo $this->SchoolInformation->displayPrincipal();
+								echo $this->SchoolInformationHtml->label('principal_name',
+										$this->SchoolInformationHtml->labelPrincipal());
+								echo $this->SchoolInformationHtml->displayPrincipal();
 								echo '</span>';
 							}
 							break;
 						default:
 							$methodName = 'label' . ucfirst(Inflector::camelize($field));
 							if (! isset($extraOptions['label']) &&
-									method_exists($this->SchoolInformation, $methodName)) {
-								$extraOptions['label'] = $this->SchoolInformation->$methodName();
+									method_exists($this->SchoolInformationHtml, $methodName)) {
+								$extraOptions['label'] = $this->SchoolInformationHtml->$methodName();
 							}
 							$extraOptions['displayLabel'] = true;
 							$extraOptions['tag'] = 'span';
-							echo $this->SchoolInformation->display($field, $extraOptions);
+							echo $this->SchoolInformationHtml->display($field, $extraOptions);
 					}
 				}
 				?>

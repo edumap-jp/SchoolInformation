@@ -26,10 +26,65 @@ trait SchoolInformationValidationRulesTrait {
  * @param string $roleKey 会員権限
  * @return array
  */
-	public function getUpdatableFieldList(string $roleKey) {
+	public function getEditableFieldList(string $roleKey) {
 		if (in_array($roleKey, UserRole::$systemRoles, true)) {
 			//管理者であれば更新可とする
 			return [];
+		} elseif ($this->isBoardOfEducation()) {
+			return [
+				//'school_kind',
+				//'school_type',
+				//'student_category',
+				//'school_name',
+				//'school_name_kana',
+				//'school_name_roma',
+				//'principal_name',
+				//'principal_name_kana',
+				//'principal_name_roma',
+				//'postal_code',
+				//'prefecture_code',
+				//'city',
+				//'city_code',
+				//'address',
+				//'establish_year_month',
+				//'close_year_month',
+				//'seismic_work',
+				//'designation_of_shelter',
+				//'number_of_faculty_members',
+				//'number_of_total_students',
+				//'number_of_male_students',
+				//'number_of_female_students',
+				//'tel',
+				//'fax',
+				//'email',
+				//'emergency_contact',
+				//'contact',
+				'url',
+				'map_url',
+				'is_public_school_name_kana',
+				'is_public_school_name_roma',
+				'is_public_principal_name',
+				'is_public_principal_name_kana',
+				'is_public_principal_name_roma',
+				'is_public_school_type',
+				'is_public_school_kind',
+				'is_public_student_category',
+				'is_public_establish_year_month',
+				'is_public_close_year_month',
+				'is_public_location',
+				'is_public_tel',
+				'is_public_fax',
+				'is_public_email',
+				'is_public_emergency_contact',
+				'is_public_contact',
+				'is_public_url',
+				'is_public_number_of_male_students',
+				'is_public_number_of_female_students',
+				'is_public_number_of_total_students',
+				'is_public_number_of_faculty_members',
+				'is_public_seismic_work',
+				'is_public_designation_of_shelter',
+			];
 		} else {
 			return [
 				//'school_kind',
@@ -89,6 +144,72 @@ trait SchoolInformationValidationRulesTrait {
 	}
 
 /**
+ * 表示しないfieldListを返す
+ *
+ * @return array
+ */
+	public function getHiddenFieldList() {
+		if ($this->isBoardOfEducation()) {
+			return [
+				'school_kind',
+				'school_type',
+				'student_category',
+				//'school_name',
+				//'school_name_kana',
+				//'school_name_roma',
+				//'principal_name',
+				//'principal_name_kana',
+				//'principal_name_roma',
+				//'postal_code',
+				//'prefecture_code',
+				//'city',
+				//'city_code',
+				//'address',
+				'establish_year_month',
+				'close_year_month',
+				//'seismic_work',
+				//'designation_of_shelter',
+				'number_of_faculty_members',
+				'number_of_total_students',
+				'number_of_male_students',
+				'number_of_female_students',
+				//'tel',
+				//'fax',
+				//'email',
+				//'emergency_contact',
+				//'contact',
+				//'url',
+				//'map_url',
+				//'is_public_school_name_kana',
+				//'is_public_school_name_roma',
+				//'is_public_principal_name',
+				//'is_public_principal_name_kana',
+				//'is_public_principal_name_roma',
+				'is_public_school_type',
+				'is_public_school_kind',
+				'is_public_student_category',
+				'is_public_establish_year_month',
+				'is_public_close_year_month',
+				//'is_public_location',
+				//'is_public_tel',
+				//'is_public_fax',
+				//'is_public_email',
+				//'is_public_emergency_contact',
+				//'is_public_contact',
+				//'is_public_url',
+				'is_public_number_of_male_students',
+				'is_public_number_of_female_students',
+				'is_public_number_of_total_students',
+				'is_public_number_of_faculty_members',
+				//'is_public_seismic_work',
+				//'is_public_designation_of_shelter',
+			];
+		} else {
+			return [];
+		}
+	}
+
+/**
  * バリデーションルールを返す
  *
  * @param bool $isForeignContry 海外か否か
@@ -127,7 +248,7 @@ trait SchoolInformationValidationRulesTrait {
 			'map_url' => $this->__getRuleMapUrl(),
 		];
 
-		$fieldList = $this->getUpdatableFieldList(CurrentLib::read('User.role_key', ''));
+		$fieldList = $this->getEditableFieldList(CurrentLib::read('User.role_key', ''));
 		if (! empty($fieldList)) {
 			foreach ($validate as $field => $rule) {
 				if (!empty($rule) && in_array($field, $fieldList, true)) {
@@ -146,12 +267,18 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleSchoolName() {
+		if ($this->isBoardOfEducation()) {
+			$label = '組織名';
+		} else {
+			$label = '学校名';
+		}
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
 				'message' => __d(
 					'school_informations',
-					'学校名を入力してください'
+					'%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -159,7 +286,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['maxLength', 40],
 				'message' => __d(
 					'school_informations',
-					'学校名は40文字以内で入力してください'
+					'%sは40文字以内で入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -167,7 +295,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'学校名は先頭または末尾にスペースを入れることはできません'
+					'%sは先頭または末尾にスペースを入れることはできません',
+					$label
 				),
 				'required' => false
 			],
@@ -180,12 +309,18 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleSchoolNameKana() {
+		if ($this->isBoardOfEducation()) {
+			$label = '組織名（フリガナ）';
+		} else {
+			$label = '学校名（フリガナ）';
+		}
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
 				'message' => __d(
 					'school_informations',
-					'学校名（フリガナ）を入力してください'
+					'%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -193,7 +328,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['maxLength', 100],
 				'message' => __d(
 					'school_informations',
-					'学校名（フリガナ）は100文字以内で入力してください'
+					'%sは100文字以内で入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -201,7 +337,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['custom', SchoolInformationConst::REGEXP_KATAKANA],
 				'message' => __d(
 					'school_informations',
-					'学校名（フリガナ）は全角カタカナ、スペースのみ入力してください'
+					'%sは全角カタカナ、スペースのみ入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -209,8 +346,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'学校名（フリガナ）は先頭または末尾に' .
-						'スペースを入れることはできません'
+					'%sは先頭または末尾にスペースを入れることはできません',
+					$label
 				),
 				'required' => false
 			],
@@ -223,12 +360,18 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleSchoolNameRoma() {
+		if ($this->isBoardOfEducation()) {
+			$label = '組織名（英語表記）';
+		} else {
+			$label = '学校名（英語表記）';
+		}
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
 				'message' => __d(
 					'school_informations',
-					'学校名（英語表記）を入力してください'
+					'%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -236,7 +379,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['maxLength', 100],
 				'message' => __d(
 					'school_informations',
-					'学校名（英語表記）は100文字以内で入力してください'
+					'%sは100文字以内で入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -244,18 +388,18 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['custom', SchoolInformationConst::REGEXP_ALPHANUMERIC_SYMBOLS()],
 				'message' => __d(
 					'school_informations',
-					'学校名（英語表記）は' .
-						'半角英数記号(' . SchoolInformationConst::ALLOW_SYMBOLS . ')、' .
-						'半角スペースのみ入力してください'
-					),
+					'%sは半角英数記号(' . SchoolInformationConst::ALLOW_SYMBOLS . ')、' .
+						'半角スペースのみ入力してください',
+					$label
+				),
 				'required' => false
 			],
 			'spaceCheck' => [
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'学校名（英語表記）は先頭または末尾に' .
-						'スペースを入れることはできません'
+					'%sは先頭または末尾にスペースを入れることはできません',
+					$label
 				),
 				'required' => false
 			],
@@ -268,12 +412,18 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRulePrincipalName() {
+		if ($this->isBoardOfEducation()) {
+			$label = '代表者名';
+		} else {
+			$label = '校長(園長)名';
+		}
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名を入力してください'
+					'%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -281,7 +431,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['maxLength', 30],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名は30文字以内で入力してください'
+					'%sは30文字以内で入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -289,7 +440,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名は先頭または末尾にスペースを入れることはできません'
+					'%sは先頭または末尾にスペースを入れることはできません',
+					$label
 				),
 				'required' => false
 			],
@@ -302,12 +454,18 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRulePrincipalNameKana() {
+		if ($this->isBoardOfEducation()) {
+			$label = '代表者名（フリガナ）';
+		} else {
+			$label = '校長(園長)名（フリガナ）';
+		}
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名（フリガナ）を入力してください'
+					'%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -315,7 +473,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['maxLength', 100],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名（フリガナ）は100文字以内で入力してください'
+					'%sは100文字以内で入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -323,8 +482,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['custom', SchoolInformationConst::REGEXP_KATAKANA],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名（フリガナ）は' .
-						'全角カタカナ、スペースのみ入力してください'
+					'%sは全角カタカナ、スペースのみ入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -332,8 +491,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['customValidateContainStartEndSpace'],
 				'message' => __d(
 					'school_informations',
-					'校長(園長)名（フリガナ）は先頭または末尾に' .
-						'スペースを入れることはできません'
+					'%sは先頭または末尾にスペースを入れることはできません',
+					$label
 				),
 				'required' => false
 			],
@@ -874,12 +1033,18 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleEmail() {
+		if ($this->isBoardOfEducation()) {
+			$label = 'メールアドレス';
+		} else {
+			$label = '学校メールアドレス';
+		}
 		return [
 			'blankCheck' => [
 				'rule' => 'notBlank',
 				'message' => __d(
 					'school_informations',
-					'学校メールアドレスを入力してください'
+					'%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -887,7 +1052,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['maxLength', 255],
 				'message' => __d(
 					'school_informations',
-					'学校メールアドレスは255文字以内で入力してください'
+					'%sは255文字以内で入力してください',
+					$label
 				),
 				'required' => false
 			],
@@ -895,7 +1061,8 @@ trait SchoolInformationValidationRulesTrait {
 				'rule' => ['email', true, SchoolInformationConst::REGEXP_EMAIL],
 				'message' => __d(
 					'school_informations',
-					'正しい学校メールアドレスを入力してください'
+					'正しい%sを入力してください',
+					$label
 				),
 				'required' => false
 			],
