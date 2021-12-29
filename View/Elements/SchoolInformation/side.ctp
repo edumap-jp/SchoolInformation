@@ -60,7 +60,7 @@
 				default:
 					$methodName = 'label' . ucfirst(Inflector::camelize($field));
 					if (! isset($extraOptions['label']) &&
-							method_exists($this->SchoolInformation, $methodName)) {
+							method_exists($this->SchoolInformationHtml, $methodName)) {
 						$extraOptions['label'] = $this->SchoolInformationHtml->$methodName();
 					}
 					$extraOptions['displayLabel'] = true;
