@@ -95,13 +95,13 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	}
 
 /**
- * 教育委員会サイトかどうか
+ * 教育委員会・その他（校長会、教員研究会等）サイトかどうか
  *
  * @return bool
  */
 	public function isBoardOfEducation() {
 		$schoolKind = $this->data[$this->alias]['school_kind'] ?? null;
-		return $schoolKind === '教育委員会・学校法人等';
+		return in_array($schoolKind, ['教育委員会・学校法人等', 'その他（校長会、教員研究会等）']);
 	}
 
 /**
