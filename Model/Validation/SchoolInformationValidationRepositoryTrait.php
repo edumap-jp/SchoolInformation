@@ -104,7 +104,7 @@ trait SchoolInformationValidationRepositoryTrait {
 			'幼稚園' => __d('school_informations', '幼稚園'),
 			'保育園' => __d('school_informations', '保育園'),
 			'認定こども園' => __d('school_informations', '認定こども園'),
-			'その他（校長会、教員研究会等）' => __d('school_informations', 'その他（校長会、教員研究会等）'),
+			'その他（校長会、教育研究会等）' => __d('school_informations', 'その他（校長会、教育研究会等）'),
 		];
 	}
 
