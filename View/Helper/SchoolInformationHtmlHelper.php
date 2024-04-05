@@ -329,6 +329,11 @@ class SchoolInformationHtmlHelper extends AppHelper {
  */
 	public function displayLocation() {
 		$ret = '';
+		$prefecture = $this->__prefecture();
+		if (empty($prefecture)) {
+			return '';
+		}
+
 		$ret .= $this->display(
 			'postal_code',
 			['format' => __d('school_informations', 'PostalCode:%s'), 'tag' => 'span']
@@ -338,7 +343,7 @@ class SchoolInformationHtmlHelper extends AppHelper {
 			'Adress:%3$s City:%2$s Prefecture:%1$s',
 			$this->NetCommonsHtml->tag(
 				'span',
-				$this->__prefecture(),
+				$prefecture,
 				['class' => 'school-information-prefecture']
 			),
 			$this->display('city', ['tag' => 'span']),

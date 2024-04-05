@@ -52,6 +52,19 @@ class SchoolInformationConst {
 	const MAP_URL = 'https://www.google.com/maps/embed';
 
 /**
+ * 未設定の県コード
+ *
+ * @var array
+ */
+	const NON_SETTING_COUNTRY = [
+		'PREFECTURE_CODE' => '',
+		'CITY_CODE' => '',
+		'POSTAL_CODE' => '',
+		'NAME' => '',
+		'NAME_EN' => ''
+	];
+
+/**
  * 海外の県コード
  *
  * @var array
