@@ -57,8 +57,8 @@ class SchoolInformationConst {
  * @var array
  */
 	const NON_SETTING_COUNTRY = [
-		'PREFECTURE_CODE' => '',
-		'CITY_CODE' => '',
+		'PREFECTURE_CODE' => '00',
+		'CITY_CODE' => '000000',
 		'POSTAL_CODE' => '',
 		'NAME' => '',
 		'NAME_EN' => ''

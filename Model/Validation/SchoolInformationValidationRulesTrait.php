@@ -30,7 +30,7 @@ trait SchoolInformationValidationRulesTrait {
 		if (in_array($roleKey, UserRole::$systemRoles, true)) {
 			//管理者であれば更新可とする
 			return [];
-		} elseif ($this->isBoardOfEducation()) {
+		} elseif ($this->isOrganazation()) {
 			return [
 				//'school_kind',
 				//'school_type',
@@ -149,8 +149,8 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	public function getHiddenFieldList() {
-		if ($this->isBoardOfEducation()) {
-			return [
+		if ($this->isOrganazation()) {
+			$fields = [
 				'school_kind',
 				'school_type',
 				'student_category',
@@ -204,6 +204,18 @@ trait SchoolInformationValidationRulesTrait {
 				//'is_public_seismic_work',
 				//'is_public_designation_of_shelter',
 			];
+
+			//その他（校長会、研究会等）の場合、「耐震」「避難所」を追加
+			if ($this->isNonSchoolOrganazation()) {
+				$fields = array_merge($fields, [
+					'seismic_work',
+					'designation_of_shelter',
+					'is_public_seismic_work',
+					'is_public_designation_of_shelter',
+				]);
+			}
+
+			return $fields;
 		} else {
 			return [];
 		}
@@ -267,7 +279,7 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleSchoolName() {
-		if ($this->isBoardOfEducation()) {
+		if ($this->isOrganazation()) {
 			$label = '組織名';
 		} else {
 			$label = '学校名';
@@ -309,7 +321,7 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleSchoolNameKana() {
-		if ($this->isBoardOfEducation()) {
+		if ($this->isOrganazation()) {
 			$label = '組織名（フリガナ）';
 		} else {
 			$label = '学校名（フリガナ）';
@@ -360,7 +372,7 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleSchoolNameRoma() {
-		if ($this->isBoardOfEducation()) {
+		if ($this->isOrganazation()) {
 			$label = '組織名（英語表記）';
 		} else {
 			$label = '学校名（英語表記）';
@@ -412,7 +424,7 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRulePrincipalName() {
-		if ($this->isBoardOfEducation()) {
+		if ($this->isOrganazation()) {
 			$label = '代表者名';
 		} else {
 			$label = '校長(園長)名';
@@ -454,7 +466,7 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRulePrincipalNameKana() {
-		if ($this->isBoardOfEducation()) {
+		if ($this->isOrganazation()) {
 			$label = '代表者名（フリガナ）';
 		} else {
 			$label = '校長(園長)名（フリガナ）';
@@ -1033,7 +1045,7 @@ trait SchoolInformationValidationRulesTrait {
  * @return array
  */
 	private function __getRuleEmail() {
-		if ($this->isBoardOfEducation()) {
+		if ($this->isOrganazation()) {
 			$label = 'メールアドレス';
 		} else {
 			$label = '学校メールアドレス';
