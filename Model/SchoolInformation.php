@@ -95,13 +95,33 @@ class SchoolInformation extends SchoolInformationsAppModel {
 	}
 
 /**
- * 教育委員会サイトかどうか
+ * 教育委員会・その他（校長会、研究会等）サイトかどうか
+ *
+ * @return bool
+ */
+	public function isOrganazation() {
+		$schoolKind = $this->data[$this->alias]['school_kind'] ?? null;
+		return in_array($schoolKind, ['教育委員会・学校法人等', 'その他（校長会、研究会等）'], true);
+	}
+
+/**
+ * 教育委員会・その他（校長会、研究会等）サイトかどうか
  *
  * @return bool
  */
 	public function isBoardOfEducation() {
 		$schoolKind = $this->data[$this->alias]['school_kind'] ?? null;
-		return $schoolKind === '教育委員会・学校法人等';
+		return in_array($schoolKind, ['教育委員会・学校法人等'], true);
+	}
+
+/**
+ * その他（校長会、研究会等）サイトかどうか
+ *
+ * @return bool
+ */
+	public function isNonSchoolOrganazation() {
+		$schoolKind = $this->data[$this->alias]['school_kind'] ?? null;
+		return in_array($schoolKind, ['その他（校長会、研究会等）'], true);
 	}
 
 /**
@@ -114,7 +134,9 @@ class SchoolInformation extends SchoolInformationsAppModel {
 		//$conditions = $this->getWorkflowConditions();
 		//$options['conditions'] = $conditions;
 		$this->data = $this->cacheFindQuery('first', $options);
+		$this->data[$this->alias]['is_organazation'] = $this->isOrganazation();
 		$this->data[$this->alias]['is_board_of_education'] = $this->isBoardOfEducation();
+		$this->data[$this->alias]['is_non_school_organazation'] = $this->isNonSchoolOrganazation();
 		return $this->data;
 	}
 

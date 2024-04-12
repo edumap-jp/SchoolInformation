@@ -217,7 +217,7 @@ class SchoolInformationHtmlHelper extends AppHelper {
 			return false;
 		}
 		if ($field === 'school_kind' &&
-				$this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+				$this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return false;
 		}
 		return true;
@@ -243,6 +243,15 @@ class SchoolInformationHtmlHelper extends AppHelper {
  * @return bool
  */
 	private function __isExists($field) {
+		if ($field === 'prefecture_code' || $field === 'city_code') {
+			$constName = strtoupper($field);
+
+			if (empty($this->_schoolInformation['SchoolInformation'][$field]) ||
+					$this->_schoolInformation['SchoolInformation'][$field] ===
+						SchoolInformationConst::NON_SETTING_COUNTRY[$constName]) {
+				return false;
+			}
+		}
 		return (bool)$this->_schoolInformation['SchoolInformation'][$field];
 	}
 
@@ -329,6 +338,11 @@ class SchoolInformationHtmlHelper extends AppHelper {
  */
 	public function displayLocation() {
 		$ret = '';
+		$prefecture = $this->__prefecture();
+		if (empty($prefecture) || $prefecture === '00') {
+			return '';
+		}
+
 		$ret .= $this->display(
 			'postal_code',
 			['format' => __d('school_informations', 'PostalCode:%s'), 'tag' => 'span']
@@ -338,7 +352,7 @@ class SchoolInformationHtmlHelper extends AppHelper {
 			'Adress:%3$s City:%2$s Prefecture:%1$s',
 			$this->NetCommonsHtml->tag(
 				'span',
-				$this->__prefecture(),
+				$prefecture,
 				['class' => 'school-information-prefecture']
 			),
 			$this->display('city', ['tag' => 'span']),

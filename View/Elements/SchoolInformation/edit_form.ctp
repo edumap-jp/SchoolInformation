@@ -171,11 +171,7 @@
 
 	//所在地
 	echo '<div class="school-information-form-location-group">';
-	echo $this->NetCommonsForm->label(
-		'location',
-		__d('school_informations', 'Location'),
-		['required' => true]
-	);
+	echo $this->SchoolInformationForm->labelLocation();
 	echo '<div class="col-xs-offset-1">';
 	echo $this->NetCommonsForm->input(
 		'SchoolInformation.is_public_location',

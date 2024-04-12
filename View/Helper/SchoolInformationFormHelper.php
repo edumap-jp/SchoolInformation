@@ -73,6 +73,25 @@ class SchoolInformationFormHelper extends AppHelper {
  * @param bool $isEditable 更新可能なカラムか否か
  * @return string
  */
+	public function labelLocation() {
+		$html = '';
+		$html .= $this->NetCommonsForm->label(
+			'location',
+			__d('school_informations', 'Location'),
+			['required' => empty($this->_schoolInformation['SchoolInformation']['is_non_school_organazation'])]
+		);
+
+		return $html;
+	}
+
+/**
+ * 入力部品の出力
+ *
+ * @param string $field カラム名
+ * @param array $extraOptions オプション
+ * @param bool $isEditable 更新可能なカラムか否か
+ * @return string
+ */
 	public function inputLocation($field, $extraOptions, $isEditable) {
 		$html = '';
 		$html .= '<div class="school-information-form-location-input">';

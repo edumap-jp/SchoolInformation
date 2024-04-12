@@ -104,6 +104,7 @@ trait SchoolInformationValidationRepositoryTrait {
 			'幼稚園' => __d('school_informations', '幼稚園'),
 			'保育園' => __d('school_informations', '保育園'),
 			'認定こども園' => __d('school_informations', '認定こども園'),
+			'その他（校長会、研究会等）' => __d('school_informations', 'その他（校長会、研究会等）'),
 		];
 	}
 
@@ -140,6 +141,11 @@ trait SchoolInformationValidationRepositoryTrait {
 		$prefectures = $DataTypeChoice->cacheFindQuery('all', $options);
 
 		$options = [];
+
+		//未設定を追加
+		$options[SchoolInformationConst::NON_SETTING_COUNTRY['PREFECTURE_CODE']] =
+								SchoolInformationConst::NON_SETTING_COUNTRY['NAME'];
+
 		foreach ($prefectures as $prefecture) {
 			$code = $prefecture['DataTypeChoice']['code'];
 			$name = $prefecture['DataTypeChoice']['name'];

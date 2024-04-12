@@ -84,7 +84,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelSchoolName() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Organization Name');
 		} else {
 			return __d('school_informations', 'School Name');
@@ -97,7 +97,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelSchoolNameKana() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Organization Name Kana');
 		} else {
 			return __d('school_informations', 'School Name Kana');
@@ -110,7 +110,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelSchoolNameRoma() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Organization Name Roma');
 		} else {
 			return __d('school_informations', 'School Name Roma');
@@ -123,7 +123,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelPrincipal() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Representative Name');
 		} else {
 			$prefx = $this->__getKindergartenLabelOfPrefix();
@@ -137,7 +137,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelPrincipalName() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Representative Name');
 		} else {
 			return __d('school_informations', 'Principal Name');
@@ -150,7 +150,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelPrincipalNameKana() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Representative Name Kana');
 		} else {
 			return __d('school_informations', 'Principal Name Kana');
@@ -163,7 +163,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelPrincipalNameRoma() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Representative Name Roma');
 		} else {
 			return __d('school_informations', 'Principal Name Roma');
@@ -176,7 +176,7 @@ trait SchoolInformationLabelTrait {
  * @return string
  */
 	public function labelEmail() {
-		if ($this->_schoolInformation['SchoolInformation']['is_board_of_education']) {
+		if ($this->_schoolInformation['SchoolInformation']['is_organazation']) {
 			return __d('school_informations', 'Organization Email');
 		} else {
 			return __d('school_informations', 'Email');

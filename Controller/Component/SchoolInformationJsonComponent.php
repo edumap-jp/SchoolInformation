@@ -156,7 +156,14 @@ class SchoolInformationJsonComponent extends Component {
  */
 	private function __setPrefectureName(array &$result, string $prefectureCode) {
 		$prefectures = $this->__controller->SchoolInformation->getPrefecture();
-		if (isset($prefectures[$prefectureCode])) {
+
+		if ($prefectureCode === '00' || $prefectureCode === '') {
+			$result['prefecture'] = 'その他';
+			$result['prefecture_code'] = '00';
+			$result['postal_code'] = '0000000';
+			$result['city_code'] = '000000';
+			$result['address'] = '';
+		} elseif (isset($prefectures[$prefectureCode])) {
 			$result['prefecture'] = $prefectures[$prefectureCode];
 		}
 	}
