@@ -93,6 +93,14 @@ class SchoolInformationJsonComponent extends Component {
 			}
 		}
 
+		if ($schoolInformation['SchoolInformation']['school_kind'] === 'その他（校長会、研究会等）') {
+			$convSchoolInfo['prefecture'] = 'その他';
+			$convSchoolInfo['prefecture_code'] = '00';
+			$convSchoolInfo['postal_code'] = '0000000';
+			$convSchoolInfo['city_code'] = '000000';
+			$convSchoolInfo['address'] = '';
+		}
+
 		return $convSchoolInfo;
 	}
 
